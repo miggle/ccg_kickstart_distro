@@ -5,11 +5,12 @@ This is a Composer-based installer for the CCG Kickstart Drupal distribution. We
 You will need the following installed:
 
 * [Composer](https://getcomposer.org), obviously
-* [Node](https://nodejs.org), which includes the NPM package manager
 
-When you have those, run this command:
+You will need to clone down this repository first.
+
+Once you have done that change directory to the cloned repo and run this command:
 ```
-$ composer create-project miggle/ccg_kickstart_installer MY_PROJECT --no-interaction
+$ composer install
 ```
 Composer will create a new directory called MY_PROJECT containing a ```docroot``` directory with a full CCG Kickstart code base therein. You can then install it like you would any other Drupal site.
 
