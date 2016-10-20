@@ -5,36 +5,43 @@
  * Contains \Acquia\Lightning\ScriptHandler.
  */
 
-namespace Acquia\Lightning;
+namespace miggle\CCGKickstart;
 
 use Composer\Script\Event;
 use Composer\Util\ProcessExecutor;
 
 class ScriptHandler {
 
-  /**
-   * Moves front-end libraries to Lightning's installed directory.
-   *
-   * @param \Composer\Script\Event $event
-   *   The script event.
-   */
-  public static function deployLibraries(Event $event) {
+  public static function moveModules(Event $event) {
     $extra = $event->getComposer()->getPackage()->getExtra();
 
-    if (isset($extra['installer-paths'])) {
-      foreach ($extra['installer-paths'] as $path => $criteria) {
-        if (array_intersect(['drupal/lightning', 'type:drupal-profile'], $criteria)) {
-          $lightning = $path;
-        }
-      }
-      if (isset($lightning)) {
-        $lightning = str_replace('{$name}', 'lightning', $lightning);
+    $modules_source = $extra['lightning-modules-path'];
+    $modules_target = $extra['demo-modules-path'];
 
-        $executor = new ProcessExecutor($event->getIO());
-        $output = NULL;
-        $executor->execute('npm run install-libraries', $output, $lightning);
-      }
-    }
+    $script = new ScriptHandler();
+    $script->recurse_copy($modules_source, $modules_target);
   }
 
+  /**
+   * Copy a directory and all of it's contents.
+   * @see http://php.net/manual/en/function.copy.php#91010
+   *
+   * @param $src
+   * @param $dst
+   */
+  private function recurse_copy($src, $dst) {
+    $dir = opendir($src);
+    @mkdir($dst);
+    while(false !== ( $file = readdir($dir)) ) {
+      if (( $file != '.' ) && ( $file != '..' )) {
+        if ( is_dir($src . '/' . $file) ) {
+          $this->recurse_copy($src . '/' . $file,$dst . '/' . $file);
+        }
+        else {
+          copy($src . '/' . $file,$dst . '/' . $file);
+        }
+      }
+    }
+    closedir($dir);
+  }
 }

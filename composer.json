@@ -20,7 +20,6 @@
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "1.5.0",
-        "drupal/lightning": "^8.1.0",
         "miggle/ccg_kickstart": "dev-master"
     },
     "repositories": [
@@ -36,11 +35,11 @@
     "scripts": {
       "post-install-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "Acquia\\Lightning\\ScriptHandler::deployLibraries"
+        "miggle\\CCGKickstart\\ScriptHandler::moveModules"
       ],
       "post-update-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "Acquia\\Lightning\\ScriptHandler::deployLibraries"
+        "miggle\\CCGKickstart\\ScriptHandler::moveModules"
       ]
     },
     "config": {
@@ -69,6 +68,8 @@
                 "type:drupal-drush"
             ]
         },
+        "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
+        "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
         "enable-patching": true
     }
 }
