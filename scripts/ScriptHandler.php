@@ -22,6 +22,16 @@ class ScriptHandler {
     $script->recurse_copy($modules_source, $modules_target);
   }
 
+  public static function moveLibraries(Event $event) {
+    $extra = $event->getComposer()->getPackage()->getExtra();
+
+    $libraries_source = $extra['lib-source'];
+    $libraries_target = $extra['lib-target'];
+
+    $script = new ScriptHandler();
+    $script->recurse_copy($libraries_source, $libraries_target);
+  }
+
   /**
    * Copy a directory and all of it's contents.
    * @see http://php.net/manual/en/function.copy.php#91010

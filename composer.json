@@ -33,11 +33,13 @@
     "scripts": {
       "post-install-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "miggle\\CCGKickstart\\ScriptHandler::moveModules"
+        "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries"
       ],
       "post-update-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "miggle\\CCGKickstart\\ScriptHandler::moveModules"
+        "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries"
       ]
     },
     "config": {
@@ -68,6 +70,8 @@
         },
         "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
         "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
+        "lib-source": "docroot/profiles/contrib/ccg_kickstart/libraries",
+        "lib-target": "docroot/libraries",
         "enable-patching": true
     }
 }
