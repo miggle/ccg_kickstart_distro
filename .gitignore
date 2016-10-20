@@ -5,7 +5,7 @@
 /bin
 
 # Ensure we ignore composer.lock as this distribution base will always need to install with what's defined
-# in composoer.json.
+# in composer.json.
 composer.lock
 
 # Ignore docroot completely.
