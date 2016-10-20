@@ -12,7 +12,7 @@ Once you have done that change directory to the cloned repo and run this command
 ```
 $ composer install
 ```
-Composer will create a new directory called MY_PROJECT containing a ```docroot``` directory with a full CCG Kickstart code base therein. You can then install it like you would any other Drupal site.
+You can then install it like you would any other Drupal site.
 
 ## Maintenance
 ```drush make```, ```drush pm-download```, ```drush pm-update``` and their ilk are the old-school way of maintaining your code base. Forget them. You're in Composer land now!
