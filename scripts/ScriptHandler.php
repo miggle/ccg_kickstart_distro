@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Acquia\Lightning\ScriptHandler.
+ * Contains \miggle\CCGKickstart\ScriptHandler.
  */
 
 namespace miggle\CCGKickstart;
