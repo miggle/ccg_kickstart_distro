@@ -32,6 +32,19 @@ class ScriptHandler {
     $script->recurse_copy($libraries_source, $libraries_target);
   }
 
+  public static function replaceGitIgnore(Event $event) {
+    $extra = $event->getComposer()->getPackage()->getExtra();
+
+    $template = $extra['gitignore-template'];
+    // Now force copy the template file to .gitignore.
+    if (file_exists('.gitignore')) {
+      unlink('.gitignore');
+      copy($template, '.gitignore');
+    }
+    // Finally remove the template file.
+    unlink($template);
+  }
+
   /**
    * Copy a directory and all of it's contents.
    * @see http://php.net/manual/en/function.copy.php#91010

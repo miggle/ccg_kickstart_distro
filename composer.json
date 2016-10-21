@@ -40,6 +40,9 @@
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "miggle\\CCGKickstart\\ScriptHandler::moveModules",
         "miggle\\CCGKickstart\\ScriptHandler::moveLibraries"
+      ],
+      "post-create-project-cmd": [
+        "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
       ]
     },
     "config": {
@@ -78,6 +81,7 @@
         "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
         "lib-source": "docroot/profiles/contrib/ccg_kickstart/libraries",
         "lib-target": "docroot/libraries",
+        "gitignore-template": "gitignore.default",
         "enable-patching": true
     }
 }
