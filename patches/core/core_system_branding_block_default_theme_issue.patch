@@ -1,0 +1,15 @@
+diff --git a/modules/system/src/Plugin/Block/SystemBrandingBlock.php b/modules/system/src/Plugin/Block/SystemBrandingBlock.php
+index f6b0958..d1808b0 100644
+--- a/modules/system/src/Plugin/Block/SystemBrandingBlock.php
++++ b/modules/system/src/Plugin/Block/SystemBrandingBlock.php
+@@ -74,6 +74,10 @@ class SystemBrandingBlock extends BlockBase implements ContainerFactoryPluginInt
+   public function blockForm($form, FormStateInterface $form_state) {
+     // Get the theme.
+     $theme = $form_state->get('block_theme');
++    // In the case block_theme isn't set use the default theme.
++    if (!$theme) {
++      $theme = \Drupal::config('system.theme')->get('default');
++    }
+
+     // Get permissions.
+     $url_system_theme_settings = new Url('system.theme_settings');

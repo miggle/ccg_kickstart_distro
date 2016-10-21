@@ -68,6 +68,12 @@
                 "type:drupal-drush"
             ]
         },
+        "patches": {
+            "drupal/core": {
+                "Branding block theme issue with context patch":
+                "patches/core/core_system_branding_block_default_theme_issue.patch"
+            }
+        },
         "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
         "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
         "lib-source": "docroot/profiles/contrib/ccg_kickstart/libraries",
