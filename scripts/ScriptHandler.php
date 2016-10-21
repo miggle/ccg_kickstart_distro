@@ -36,13 +36,17 @@ class ScriptHandler {
     $extra = $event->getComposer()->getPackage()->getExtra();
 
     $template = $extra['gitignore-template'];
-    // Now force copy the template file to .gitignore.
-    if (file_exists('.gitignore')) {
-      unlink('.gitignore');
-      copy($template, '.gitignore');
+    // First ensure this hasn't been default with already by checking whether
+    // the template file exists.
+    if (file_exists($template)) {
+      // Now force the copying of the template file to .gitignore.
+      if (file_exists('.gitignore')) {
+        unlink('.gitignore');
+        copy($template, '.gitignore');
+      }
+      // Finally remove the template file.
+      unlink($template);
     }
-    // Finally remove the template file.
-    unlink($template);
   }
 
   /**

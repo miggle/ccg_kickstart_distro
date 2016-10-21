@@ -34,14 +34,13 @@
       "post-install-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries"
+        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
+        "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
       ],
       "post-update-cmd": [
         "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries"
-      ],
-      "post-create-project-cmd": [
+        "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
         "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
       ]
     },
