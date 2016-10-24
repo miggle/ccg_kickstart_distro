@@ -68,8 +68,9 @@
                 "type:drupal-drush"
             ],
             "docroot/libraries/{$name}": [
-                "type:component",
-                "name:enyo/dropzone"
+                "enyo/dropzone",
+                "desandro/masonry",
+                "desandro/imagesloaded"
             ]
         },
         "patches": {
