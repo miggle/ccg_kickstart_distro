@@ -22,6 +22,16 @@ class ScriptHandler {
     $script->recurse_copy($modules_source, $modules_target);
   }
 
+  public static function moveLibraries(Event $event) {
+    $extra = $event->getComposer()->getPackage()->getExtra();
+
+    $libraries_source = $extra['lib-source'];
+    $libraries_target = $extra['lib-target'];
+
+    $script = new ScriptHandler();
+    $script->recurse_copy($libraries_source, $libraries_target);
+  }
+
   public static function replaceGitIgnore(Event $event) {
     $extra = $event->getComposer()->getPackage()->getExtra();
 

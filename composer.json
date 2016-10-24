@@ -1,82 +1,84 @@
 {
-    "name": "miggle/ccg_kickstart_installer",
-    "description": "Project template for Drupal 8 sites built with the CCG Kickstart distribution.",
-    "type": "project",
-    "license": "GPL-2.0+",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "behat/behat": "^3.1",
-        "drupal/drupal-extension": "^3.1",
-        "behat/mink": "~1.6",
-        "behat/mink-goutte-driver": "~1.2",
-        "mikey179/vfsStream": "~1.2",
-        "phpunit/phpunit": "~4.8",
-        "symfony/css-selector": "2.7.*"
+  "name": "miggle/ccg_kickstart_installer",
+  "description": "Project template for Drupal 8 sites built with the CCG Kickstart distribution.",
+  "type": "project",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "behat/behat": "^3.1",
+    "drupal/drupal-extension": "^3.1",
+    "behat/mink": "~1.6",
+    "behat/mink-goutte-driver": "~1.2",
+    "mikey179/vfsStream": "~1.2",
+    "phpunit/phpunit": "~4.8",
+    "symfony/css-selector": "2.7.*"
+  },
+  "require": {
+    "composer/installers": "^1.0",
+    "drupal-composer/drupal-scaffold": "^2.0.0",
+    "cweagans/composer-patches": "1.5.0",
+    "miggle/ccg_kickstart": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.drupal-composer.org"
     },
-    "require": {
-        "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "cweagans/composer-patches": "1.5.0",
-        "miggle/ccg_kickstart": "dev-master"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packagist.drupal-composer.org"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:miggle/ccg_kickstart.git"
-        }
+    {
+      "type": "vcs",
+      "url": "git@github.com:miggle/ccg_kickstart.git"
+    }
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+      "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+      "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
+      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
     ],
-    "scripts": {
-      "post-install-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-        "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
+    "post-update-cmd": [
+      "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+      "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+      "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
+      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "autoload": {
+    "classmap": [
+      "scripts/ScriptHandler.php"
+    ]
+  },
+  "extra": {
+    "installer-paths": {
+      "docroot/core": [
+        "drupal/core"
       ],
-      "post-update-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-        "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
+      "docroot/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "docroot/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "docroot/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
       ]
     },
-    "config": {
-        "bin-dir": "bin/"
+    "patches": {
+      "drupal/core": {
+        "Branding block theme issue with context patch":
+        "patches/core/core_system_branding_block_default_theme_issue.patch"
+      }
     },
-    "autoload": {
-        "classmap": [
-          "scripts/ScriptHandler.php"
-        ]
-    },
-    "extra": {
-        "installer-paths": {
-            "docroot/core": [
-                "drupal/core"
-            ],
-            "docroot/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "docroot/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "docroot/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "drush/contrib/{$name}": [
-                "type:drupal-drush"
-            ]
-        },
-        "patches": {
-            "drupal/core": {
-                "Branding block theme issue with context patch":
-                "patches/core/core_system_branding_block_default_theme_issue.patch"
-            }
-        },
-        "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
-        "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
-        "gitignore-template": "gitignore.default",
-        "enable-patching": true
-    }
+    "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
+    "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
+    "gitignore-template": "gitignore.default",
+    "enable-patching": true
+  }
 }
