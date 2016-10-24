@@ -66,11 +66,6 @@
             ],
             "drush/contrib/{$name}": [
                 "type:drupal-drush"
-            ],
-            "docroot/libraries/{$name}": [
-                "enyo/dropzone",
-                "desandro/masonry",
-                "desandro/imagesloaded"
             ]
         },
         "patches": {
