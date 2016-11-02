@@ -8,12 +8,7 @@
 # in composer.json.
 composer.lock
 
-# Ignore non-custom parts of Drupal.
-/docroot/core
-/docroot/modules/contrib
-/docroot/profiles/contrib
-/docroot/themes/contrib
-/docroot/sites/default/files
+# Ignore file directories.
+/docroot/sites/*/files
+/docroot/files
 
-# Ignore Composer-managed dependencies.
-vendor/
