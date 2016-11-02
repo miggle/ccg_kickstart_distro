@@ -9,6 +9,7 @@ namespace miggle\CCGKickstart;
 
 use Composer\Script\Event;
 use Composer\Util\ProcessExecutor;
+use Symfony\Component\Yaml\Yaml;
 
 class ScriptHandler {
 
