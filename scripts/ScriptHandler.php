@@ -71,4 +71,19 @@ class ScriptHandler {
     }
     closedir($dir);
   }
+
+  /**
+   * Remove the distribution definition from the lightning install profile.
+   *
+   * @param Event $event
+   */
+  public static function removeDistros(Event $event) {
+    $lightning_info = 'docroot/profiles/contrib/lightning/lightning.info.yml';
+    $dataArray = Yaml::parse($lightning_info);
+
+    unset($dataArray['distribution']);
+    $dataString = Yaml::dump($dataArray);
+
+    file_put_contents($lightning_info, $dataString);
+  }
 }
