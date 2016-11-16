@@ -34,6 +34,7 @@
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
       "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+      "miggle\\CCGKickstart\\ScriptHandler::makeLightningConfigOptional",
       "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
       "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore",
       "miggle\\CCGKickstart\\ScriptHandler::removeDistros"
@@ -41,6 +42,7 @@
     "post-update-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
       "miggle\\CCGKickstart\\ScriptHandler::moveModules",
+      "miggle\\CCGKickstart\\ScriptHandler::makeLightningConfigOptional",
       "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
       "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore",
       "miggle\\CCGKickstart\\ScriptHandler::removeDistros"

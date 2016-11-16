@@ -23,6 +23,24 @@ class ScriptHandler {
     $script->recurse_copy($modules_source, $modules_target);
   }
 
+  public static function makeLightningConfigOptional(Event $event) {
+    $extras = $event->getComposer()->getPackage()->getExtra();
+
+    $modules_source = $extras['demo-modules-path'];
+    $lightning_features = $modules_source . '/lightning_features';
+    if (file_exists($lightning_features)) {
+      // Set all lightning module config to optional.
+      foreach (glob($lightning_features . '/*') as $filename) {
+        $file = realpath($filename);
+        if (is_dir($file)) {
+          if (file_exists($file . '/config/install')) {
+            rename($file . '/config/install', $file . '/config/optional');
+          }
+        }
+      }
+    }
+  }
+
   public static function moveLibraries(Event $event) {
     $extra = $event->getComposer()->getPackage()->getExtra();
 
