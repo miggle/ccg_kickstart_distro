@@ -5,7 +5,7 @@
  * Contains \miggle\CCGKickstart\ScriptHandler.
  */
 
-namespace miggle\CCGKickstart;
+namespace Miggle\CCGKickstart;
 
 use Composer\Script\Event;
 use Composer\Util\ProcessExecutor;
