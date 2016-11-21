@@ -9,7 +9,7 @@ namespace miggle\CCGKickstart;
 
 use Composer\Script\Event;
 use Composer\Util\ProcessExecutor;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ScriptHandler {
 
@@ -34,6 +34,9 @@ class ScriptHandler {
         $file = realpath($filename);
         if (is_dir($file)) {
           if (file_exists($file . '/config/install')) {
+            if (file_exists($file . '/config/optional')) {
+              (new Filesystem)->remove($file . '/config/optional');
+            }
             rename($file . '/config/install', $file . '/config/optional');
           }
         }
@@ -89,20 +92,5 @@ class ScriptHandler {
       }
     }
     closedir($dir);
-  }
-
-  /**
-   * Remove the distribution definition from the lightning install profile.
-   *
-   * @param Event $event
-   */
-  public static function removeDistros(Event $event) {
-    $lightning_info = 'docroot/profiles/contrib/lightning/lightning.info.yml';
-    $dataArray = Yaml::parse($lightning_info);
-
-    unset($dataArray['distribution']);
-    $dataString = Yaml::dump($dataArray);
-
-    file_put_contents($lightning_info, $dataString);
   }
 }
