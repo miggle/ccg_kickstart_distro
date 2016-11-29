@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: key_staff_members
+label: 'Key staff members'
+type: 'canonical_entities:node'
+pattern: '[node:menu-link:parent:url:path]/[node:title]'
+selection_criteria:
+  39d7384e-6bff-4491-8700-238bbde7f17b:
+    id: node_type
+    bundles:
+      key_staff_member: key_staff_member
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 39d7384e-6bff-4491-8700-238bbde7f17b
+selection_logic: and
+weight: -5
+relationships: {  }

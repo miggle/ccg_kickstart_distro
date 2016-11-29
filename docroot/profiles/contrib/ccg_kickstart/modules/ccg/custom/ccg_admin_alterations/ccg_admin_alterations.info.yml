@@ -1,0 +1,5 @@
+name: CCG Kickstart admin alterations
+description: Adds theming alterations for the admin experience.
+core: 8.x
+type: module
+package: CCG Kickstart

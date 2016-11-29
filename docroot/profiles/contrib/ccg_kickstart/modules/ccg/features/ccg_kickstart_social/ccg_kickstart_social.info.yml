@@ -1,0 +1,10 @@
+name: Social
+description: 'Social blocks and configuration for the CCG Kickstart distribution.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - social_media_links
+  - twitter_block
+version: 8.x-1.0
+package: 'CCG Kickstart'

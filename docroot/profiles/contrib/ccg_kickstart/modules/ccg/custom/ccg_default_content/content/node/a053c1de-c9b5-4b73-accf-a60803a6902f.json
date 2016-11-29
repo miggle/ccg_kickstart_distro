@@ -1,0 +1,189 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/get-involved?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/31?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "6"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "a053c1de-c9b5-4b73-accf-a60803a6902f"
+        }
+    ],
+    "vid": [
+        {
+            "value": "63"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "title": [
+        {
+            "value": "Get involved",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/31?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "33abc519-e328-47a5-93a3-a7c48cf19912"
+                    }
+                ],
+                "alt": "Get involved",
+                "title": "",
+                "width": "700",
+                "height": "430"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1476717407",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478870978",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478870978"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/get-involved",
+            "pid": "5",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>Patients have an opportunity to <a href=\"http:\/\/ccgdemohavg7qivyb.devcloud.acquia-sites.com\/contact-us\">be involved<\/a> in the&nbsp;CCG's planning. This section can describe various engagement services for members of the public, to actively shape their healthcare.<\/strong><\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat. Sed a vestibulum velit.<\/p>\r\n\r\n<ul>\r\n\t<li>Interdum et malesuada fames ac ante ipsum primis in faucibus.<\/li>\r\n\t<li>Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit.<\/li>\r\n\t<li>Etiam gravida in sapien non rhoncus.<\/li>\r\n\t<li>Nam suscipit ante a ipsum euismod convallis.<\/li>\r\n<\/ul>\r\n\r\n<p>Ut mollis <em>tincidunt<\/em> elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, <strong>dictum<\/strong> non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec<a href=\"\/node\/368\"> <\/a>eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n\r\n<p>Suspendisse sit amet quam vel enim luctus pulvinar sit amet quis nulla. Donec feugiat lacus egestas aliquet ultricies. Ut aliquam ultricies neque, vel varius sapien varius a. Praesent sit amet ornare lorem. Suspendisse commodo pellentesque ultrices.&nbsp;<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ],
+    "field_meta_tags": [
+        {
+            "value": "a:0:{}"
+        }
+    ]
+}

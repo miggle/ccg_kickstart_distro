@@ -1,0 +1,174 @@
+/* nhs widget styles */
+#fs-nhs-widget div, #fs-nhs-widget span, 
+#fs-nhs-widget h1, #fs-nhs-widget h2, #fs-nhs-widget h3, 
+#fs-nhs-widget h4, #fs-nhs-widget h5, #fs-nhs-widget h6, 
+#fs-nhs-widget p, #fs-nhs-widget blockquote, #fs-nhs-widget pre,
+#fs-nhs-widget abbr, #fs-nhs-widget address, #fs-nhs-widget cite, #fs-nhs-widget code,
+#fs-nhs-widget del, #fs-nhs-widget dfn, #fs-nhs-widget em, #fs-nhs-widget img, 
+#fs-nhs-widget ins, #fs-nhs-widget kbd, #fs-nhs-widget q, #fs-nhs-widget samp,
+#fs-nhs-widget small, #fs-nhs-widget strong, #fs-nhs-widget sub, #fs-nhs-widget sup, #fs-nhs-widget var,
+#fs-nhs-widget b, #fs-nhs-widget i, #fs-nhs-widget dl, #fs-nhs-widget dt, #fs-nhs-widget dd, 
+#fs-nhs-widget ol, #fs-nhs-widget ul, #fs-nhs-widget li, #fs-nhs-widget fieldset, #fs-nhs-widget form, 
+#fs-nhs-widget label, #fs-nhs-widget legend, #fs-nhs-widget table, #fs-nhs-widget caption, #fs-nhs-widget tbody, 
+#fs-nhs-widget tfoot, #fs-nhs-widget thead, #fs-nhs-widget tr, #fs-nhs-widget th, #fs-nhs-widget td {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+  list-style:none;
+}
+#fs-nhs-widget {
+	border:1px solid #ccc;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	border-radius:6px;
+	height:195px;
+	width:100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px; /*0.7em*/
+	color:#2F2F2F;
+	background:#fff;
+	font:11px/1.231 sans-serif; *font-size:small;
+	position:relative;
+}
+#fs-nhs-widget .nhs-widget-inner {
+	padding:8px 8px 16px;
+}
+/* nhs widget generic */
+#fs-nhs-widget .nhs-widget-title {
+	margin:7px 0;
+	float:left;
+}
+#fs-nhs-widget a {
+	text-decoration:none;
+	color:#286cad;
+}
+#fs-nhs-widget a:hover {
+	text-decoration:underline;	
+}
+#fs-nhs-widget img,
+#fs-nhs-widget .nhs-widget-addr {
+	display:block;	
+}
+#fs-nhs-widget .nhs-widget-btn-wrapper {
+	background:#fff;
+	border:1px solid #ccc;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+	border-radius:12px;
+	float:left;
+	margin:0 6px 0 0;
+}
+#fs-nhs-widget .nhs-widget-btn-wrapper button {
+	background:#286cad;	
+	border:2px solid #fff;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+	border-radius:12px;
+	color:#fff;
+	font-weight:bold;
+	padding:2px 8px;
+	cursor:pointer;
+}
+#fs-nhs-widget .nhs-widget-input {
+	float:left;
+	border:1px solid #ccc;
+	color:#2f2f2f;
+	padding:3px;
+	margin:2px 6px 5px 0;
+  width: 47%;
+}
+#fs-nhs-widget .nhs-widget-clear {
+	clear:both;	
+}
+#fs-nhs-widget .nhs-widget-overflow {
+	overflow:hidden;
+}
+#fs-nhs-widget .nhs-widget-error {
+	font-weight:bold;
+	color:#FF2D2D;
+}
+#fs-nhs-widget .nhs-widget-loader {
+	background: url(ajax-loader.gif) no-repeat center center;	
+}
+/* nhs widget nav */
+#fs-nhs-widget ul.nhs-widget-nav li {
+	float:left;
+	margin:0 2px;
+	position:relative;
+	top:1px;
+	border:1px solid #ccc;
+	background:#fff;
+	background:-webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0.44, rgb(245,245,245)),
+		color-stop(0.82, rgb(222,222,222))
+	);
+	background:-moz-linear-gradient(
+		center top,
+		rgb(245,245,245) 44%,
+		rgb(222,222,222) 82%
+	);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5F5F5, endColorstr=#DEDEDE);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5F5F5, endColorstr=#DEDEDE)";
+	height:22px;
+}
+#fs-nhs-widget ul.nhs-widget-nav .nhs-widget-first, 
+#fs-nhs-widget ul.nhs-widget-nav .nhs-widget-first a  {
+	margin-left:0;
+	border-top-left-radius:6px 6px;
+	-moz-border-radius-topleft:6px 6px;
+	-webkit-border-top-left-radius:6px 6px;
+}
+#fs-nhs-widget ul.nhs-widget-nav .nhs-widget-active {
+	border-bottom:1px solid #fff;
+	background:#fff;	
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#FFFFFF);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#FFFFFF)";
+}
+#fs-nhs-widget ul.nhs-widget-nav .nhs-widget-active a {
+	color:#286cad;
+}
+#fs-nhs-widget ul.nhs-widget-nav a {
+	color:#2f2f2f;
+	padding:4px 8px 4px 10px;
+	display:block;
+	top:1px;
+	left:-1px;
+	position:relative;
+	border-left:1px solid #ccc;
+	font-weight:bold;
+}
+#fs-nhs-widget ul.nhs-widget-nav a:hover {
+	text-decoration:none;	
+}
+/* nhs widget tabs */
+#fs-nhs-widget .nhs-widget-tabs {
+	border:1px solid #ccc;
+	background:#fff;
+	border-bottom-left-radius:6px 6px;
+	-moz-border-radius-bottomleft:6px 6px;
+	-webkit-border-bottom-left-radius:6px 6px;
+	border-bottom-right-radius:6px 6px;
+	-moz-border-radius-bottomright:6px 6px;
+	-webkit-border-bottom-right-radius:6px 6px;
+	padding:3px 0 0;
+}
+#fs-nhs-widget .nhs-widget-tab {
+	padding:5px 8px 8px;
+	overflow:auto;
+  height: 95px;
+}
+/* content */
+#fs-nhs-widget .nhs-widget-tab p,
+#fs-nhs-widget .nhs-widget-tab h2 {
+	margin:0 0 8px;
+}
+#fs-nhs-widget .nhs-widget-tab li {
+	margin:3px 0 6px;
+}

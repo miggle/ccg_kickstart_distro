@@ -1,0 +1,221 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/our-board-and-management-committee\/dr-joe-bloggs?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/key_staff_member"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/27?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "21"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "b697edd2-d052-4f10-9879-58f4b6fe2930"
+        }
+    ],
+    "vid": [
+        {
+            "value": "75"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "key_staff_member"
+        }
+    ],
+    "title": [
+        {
+            "value": "Dr Joe Bloggs",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/27?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "7fdb1d79-0f6d-4c5a-b9fa-76231ac93fa3"
+                    }
+                ],
+                "lang": "en",
+                "alt": "Joe Bloggs",
+                "title": "",
+                "width": "700",
+                "height": "700"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/taxonomy_term\/staff_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "70fb107c-6420-4637-8243-88fc12ac3364"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1478861702",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478875495",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478870380"
+        }
+    ],
+    "revision_log": [
+        {
+            "value": "Updated the <em class=\"placeholder\">Bio<\/em> field through in-place editing."
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/our-board-and-management-committee\/dr-joe-bloggs",
+            "pid": "21",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "field_bio": [
+        {
+            "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat vestibulum velit. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus.<\/p>\n\n<p>Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique. Nam quis mattis odio. Phasellus laoreet pulvinar tristique. Proin pretium aliquet laoreet. Aenean placerat velit vel justo malesuada egestas.<\/p>\n\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. <a href=\"\/node\/99\">Nam elit justo, dignissim id venenatis at, dictum non nunc<\/a>. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\n",
+            "format": "rich_text"
+        }
+    ],
+    "field_qualifications": [
+        {
+            "value": "BM BCh MA MRCS"
+        }
+    ],
+    "field_title": [
+        {
+            "value": "Local Member Group GP Lead"
+        }
+    ]
+}

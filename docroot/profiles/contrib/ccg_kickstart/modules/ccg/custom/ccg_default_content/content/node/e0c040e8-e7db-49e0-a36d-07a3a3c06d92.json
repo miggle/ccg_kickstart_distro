@@ -1,0 +1,221 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/our-board-and-management-committee\/dr-john-smith?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/key_staff_member"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/28?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "19"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "e0c040e8-e7db-49e0-a36d-07a3a3c06d92"
+        }
+    ],
+    "vid": [
+        {
+            "value": "59"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "key_staff_member"
+        }
+    ],
+    "title": [
+        {
+            "value": "Dr John Smith",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/28?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "9d5ae91c-4ae5-4596-bc46-239502a398cd"
+                    }
+                ],
+                "lang": "en",
+                "alt": "John Smith",
+                "title": "",
+                "width": "700",
+                "height": "700"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/taxonomy_term\/staff_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "0ced4e56-94c6-47a7-84ff-d12b599633d3"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1478798215",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478870457",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478870457"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/our-board-and-management-committee\/dr-john-smith",
+            "pid": "19",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "field_bio": [
+        {
+            "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<ol>\r\n\t<li>Cras a orci non dui volutpat consequat.<\/li>\r\n\t<li>Sed a <strong>vestibulum<\/strong> velit.<\/li>\r\n\t<li>Interdum et malesuada fames ac ante<em> ipsum primis in faucibus<\/em>.&nbsp;<\/li>\r\n<\/ol>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi.<\/p>\r\n",
+            "format": "rich_text"
+        }
+    ],
+    "field_qualifications": [
+        {
+            "value": "BM DCH DRCOG"
+        }
+    ],
+    "field_registered_interests": [
+        {
+            "value": "Chairman of Youth Health charity"
+        }
+    ],
+    "field_title": [
+        {
+            "value": "Officer"
+        }
+    ]
+}

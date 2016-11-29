@@ -1,0 +1,20 @@
+name: 'Landing Page'
+description: 'The landing page content type provides the ability to add pages to be used as hub pages with a have your say section in addition to the standard body text and image fields.'
+type: module
+core: 8.x
+dependencies:
+  - ccg_kickstart_core
+  - field
+  - field_group
+  - lightning_layout
+  - link
+  - menu_ui
+  - metatag
+  - node
+  - panelizer
+  - path
+  - text
+  - user
+  - workbench_moderation
+version: 8.x-1.0
+package: 'CCG Kickstart'

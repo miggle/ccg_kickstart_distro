@@ -1,0 +1,26 @@
+name: 'Key Staff Member'
+description: 'Provides Key Staff Member content type and related configuration. This is the content type for providing your key staff members to appear in the section of the site where you present the crucial members of your board and management committees.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - ccg_kickstart_core
+  - entity_browser
+  - field
+  - image
+  - inline_entity_form
+  - lightning_workflow
+  - menu_ui
+  - node
+  - panelizer
+  - path
+  - pathauto
+  - responsive_image
+  - system
+  - taxonomy
+  - text
+  - user
+  - views
+  - workbench_moderation
+version: 8.x-1.0
+package: 'CCG Kickstart'

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: article_list
+label: 'Article List (100x90)'
+effects:
+  54992d0a-7a51-4de0-9cca-ba84017045f4:
+    uuid: 54992d0a-7a51-4de0-9cca-ba84017045f4
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 100
+      height: 90

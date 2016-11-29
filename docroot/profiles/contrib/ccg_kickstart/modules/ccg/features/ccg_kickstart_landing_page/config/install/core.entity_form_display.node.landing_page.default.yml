@@ -1,0 +1,105 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing_page.body
+    - field.field.node.landing_page.field_landing_page_have_your_say
+    - field.field.node.landing_page.field_landing_page_hys_link
+    - field.field.node.landing_page.field_meta_tags
+    - node.type.landing_page
+  module:
+    - field_group
+    - link
+    - metatag
+    - path
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_have_your_say:
+      children:
+        - field_landing_page_have_your_say
+        - field_landing_page_hys_link
+      parent_name: ''
+      weight: 2
+      label: 'Have your say'
+      format_type: details
+      format_settings:
+        open: false
+        required_fields: true
+        classes: ''
+        id: ''
+    group_welcome_info:
+      children:
+        - field_landing_page_photo
+        - body
+      parent_name: ''
+      weight: 1
+      label: 'Welcome information'
+      format_type: details
+      format_settings:
+        label: 'Welcome information'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+id: node.landing_page.default
+targetEntityType: node
+bundle: landing_page
+mode: default
+content:
+  body:
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  created:
+    type: datetime_timestamp
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  field_landing_page_have_your_say:
+    weight: 26
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_landing_page_hys_link:
+    weight: 27
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_meta_tags:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+  path:
+    type: path
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.key_staff_member.field_bio
+    - field.field.node.key_staff_member.field_image
+    - field.field.node.key_staff_member.field_member_type
+    - field.field.node.key_staff_member.field_qualifications
+    - field.field.node.key_staff_member.field_registered_interests
+    - field.field.node.key_staff_member.field_title
+    - field.field.node.key_staff_member.scheduled_update
+    - node.type.key_staff_member
+    - responsive_image.styles.key_staff_list
+  module:
+    - panelizer
+    - responsive_image
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.key_staff_member.search_index
+targetEntityType: node
+bundle: key_staff_member
+mode: search_index
+content:
+  field_bio:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    type: text_trimmed
+  field_image:
+    type: responsive_image
+    weight: 3
+    label: hidden
+    settings:
+      responsive_image_style: key_staff_list
+      image_link: content
+    third_party_settings: {  }
+  field_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_member_type: true
+  field_qualifications: true
+  field_registered_interests: true
+  scheduled_update: true
+  sharethis: true
+  workbench_moderation_control: true

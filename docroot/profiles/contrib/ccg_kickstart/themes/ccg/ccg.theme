@@ -1,0 +1,34 @@
+<?php
+use Drupal\Core\Menu\MenuLinkTree;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ccg_form_search_api_page_block_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Ensure the label for the search form gets displayed.
+  $form['keys']['#title_display'] = 'before';
+  // Add out search icon class to the submit button.
+  $form['actions']['submit']['#attributes']['class'] = ['search-icon'];
+}
+
+/**
+ * Implements template_preprocess_breadcrumb().
+ */
+function ccg_preprocess_breadcrumb(&$vars) {
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  // Add the retrieved title to the breadcrumbs.
+  $vars['breadcrumb'][] = [
+    'text' => $page_title
+  ];
+  $vars['#cache']['contexts'][] = 'url';
+}
+
+/**
+ * Theme function override for ShareThis code based on settings.
+ */
+function ccg_sharethis_block($variables) {
+  return '<div class="sharethis-wrapper row"><div class="four columns"><h4>Share this page</h4></div><div class="eight columns">' .
+  $variables['content']['st_spans'] . '</div></div>';
+}

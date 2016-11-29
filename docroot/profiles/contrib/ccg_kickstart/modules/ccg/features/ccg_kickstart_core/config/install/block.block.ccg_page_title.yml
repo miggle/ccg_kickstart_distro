@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+  theme:
+    - ccg
+id: ccg_page_title
+theme: ccg
+region: content
+weight: -8
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      document: document
+      key_staff_member: key_staff_member
+      landing_page: landing_page
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

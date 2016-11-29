@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ccg_choice_widget_theme($existing, $type, $theme, $path) {
+  return [
+    'ccg_choice_widget' => [
+      'variables' => [],
+    ],
+  ];
+}

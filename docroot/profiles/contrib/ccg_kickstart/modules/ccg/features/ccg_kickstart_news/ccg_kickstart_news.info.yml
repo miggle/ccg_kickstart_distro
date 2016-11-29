@@ -1,0 +1,25 @@
+name: News
+description: 'Provides News content type and related configuration. '
+type: module
+core: 8.x
+dependencies:
+  - block
+  - ccg_kickstart_core
+  - entity_browser
+  - field
+  - image
+  - menu_ui
+  - node
+  - panelizer
+  - path
+  - pathauto
+  - responsive_image
+  - system
+  - taxonomy
+  - text
+  - user
+  - views
+  - views_infinite_scroll
+  - workbench_moderation
+version: 8.x-1.0
+package: 'CCG Kickstart'

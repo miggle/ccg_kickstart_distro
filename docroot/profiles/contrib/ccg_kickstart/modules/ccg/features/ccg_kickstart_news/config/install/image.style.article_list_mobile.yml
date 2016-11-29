@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: article_list_mobile
+label: 'Article list mobile'
+effects:
+  a93e1bb9-ecce-43fd-9a4c-7b0d98894609:
+    uuid: a93e1bb9-ecce-43fd-9a4c-7b0d98894609
+    id: image_scale
+    weight: 1
+    data:
+      width: 760
+      height: null
+      upscale: false

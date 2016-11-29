@@ -1,0 +1,24 @@
+name: Document
+description: 'Provides Document content type and related configuration. Add documents to your site that can be downloaded and related to any other piece of content on the site.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - ccg_kickstart_core
+  - entity_browser
+  - field
+  - file
+  - file_entity
+  - lightning_layout
+  - menu_ui
+  - node
+  - panelizer
+  - path
+  - pathauto
+  - system
+  - text
+  - user
+  - views
+  - workbench_moderation
+version: 8.x-1.0
+package: 'CCG Kickstart'
