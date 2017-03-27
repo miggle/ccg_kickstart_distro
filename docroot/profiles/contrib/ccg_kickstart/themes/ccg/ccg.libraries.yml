@@ -1,0 +1,29 @@
+skeleton:
+  css:
+    base:
+      skeleton/css/normalize.css: {}
+      skeleton/css/skeleton.css: {}
+global-styling:
+  css:
+    component:
+      css/styles.css: {}
+choices:
+  css:
+    component:
+      css/nhs.fs.widget.css: {}
+menu:
+  js:
+    js/menu.js: {}
+misc:
+  js:
+    js/misc.js: {}
+tabs:
+  js:
+    js/tabs.js: {}
+  dependencies:
+    - core/matchmedia
+    - core/jquery
+    - core/drupal
+accessibility:
+  js:
+    js/access.js: {}

@@ -1,0 +1,4 @@
+bundle: ccg_kickstart
+excluded:
+  - field.storage.node.field_news_tags
+required: true

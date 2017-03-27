@@ -1,0 +1,221 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/our-board-and-management-committee\/dr-jane-doe?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/key_staff_member"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/26?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "20"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "c84d61ba-c95e-492b-9c41-faf8d4dfce3e"
+        }
+    ],
+    "vid": [
+        {
+            "value": "74"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "key_staff_member"
+        }
+    ],
+    "title": [
+        {
+            "value": "Dr Jane Doe",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/26?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "78fe8ee4-9775-4de6-a525-1634fce545f1"
+                    }
+                ],
+                "lang": "en",
+                "alt": "Dr Jane Doe",
+                "title": "",
+                "width": "700",
+                "height": "700"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/taxonomy_term\/staff_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "0ced4e56-94c6-47a7-84ff-d12b599633d3"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1478861350",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478873641",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478870045"
+        }
+    ],
+    "revision_log": [
+        {
+            "value": "Updated the <em class=\"placeholder\">Name<\/em> field through in-place editing."
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/our-board-and-management-committee\/dr-jane-doe",
+            "pid": "20",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "field_bio": [
+        {
+            "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<p>Cras a orci non dui volutpat consequat. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit. Etiam gravida in sapien non rhoncus.<\/p>\r\n\r\n<ol>\r\n\t<li>Nam suscipit ante a ipsum euismod convallis.<\/li>\r\n\t<li>Vivamus tempus nec mi ac tristique.<\/li>\r\n\t<li>Nam quis mattis odio.<\/li>\r\n\t<li>Phasellus laoreet pulvinar tristique. Proin pretium aliquet laoreet. Aenean placerat velit vel justo malesuada egestas.<\/li>\r\n<\/ol>\r\n\r\n<p>Ut mollis tincidunt <a href=\"\/node\/13\">elementum<\/a>. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n",
+            "format": "rich_text"
+        }
+    ],
+    "field_registered_interests": [
+        {
+            "value": "Member of 2 other CCGs"
+        }
+    ],
+    "field_title": [
+        {
+            "value": "Executive Director"
+        }
+    ]
+}

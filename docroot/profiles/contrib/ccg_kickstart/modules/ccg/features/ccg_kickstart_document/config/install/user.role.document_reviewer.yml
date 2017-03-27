@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: document_reviewer
+label: 'Document Reviewer'
+weight: 12
+is_admin: null

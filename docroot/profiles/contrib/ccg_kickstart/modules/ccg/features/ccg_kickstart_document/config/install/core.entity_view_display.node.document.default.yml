@@ -1,0 +1,71 @@
+uuid: b3d74cd4-5c62-4ab3-8f37-261d561f58a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.document.field_description
+    - field.field.node.document.field_document
+    - field.field.node.document.field_related_content
+    - field.field.node.document.field_review_date
+    - node.type.document
+  module:
+    - datetime
+    - file_entity
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+_core:
+  default_config_hash: cuW3rAMUdJyNwQ5LLCfeU-lrvCfk-l3S9d2VYT5Gq0Q
+id: node.document.default
+targetEntityType: node
+bundle: document
+mode: default
+content:
+  field_description:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_document:
+    weight: 4
+    label: hidden
+    settings:
+      access_message: 'You don''t have access to download this file.'
+      text: 'Download [file:name]'
+    third_party_settings: {  }
+    type: file_download_link
+  field_related_content:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_review_date:
+    type: datetime_custom
+    weight: 6
+    label: inline
+    settings:
+      timezone_override: ''
+      date_format: 'jS F Y'
+    third_party_settings: {  }
+  links:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  sharethis:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

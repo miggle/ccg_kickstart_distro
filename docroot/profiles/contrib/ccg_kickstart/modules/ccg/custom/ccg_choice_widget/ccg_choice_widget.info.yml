@@ -1,0 +1,5 @@
+name: NHS choices widget
+description: Provides the block for the NHS choices widget.
+core: 8.x
+type: module
+package: CCG Kickstart

@@ -1,0 +1,224 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/our-board-and-management-committee\/jamie-leigh-jones?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/key_staff_member"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/29?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "22"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "d791f362-b85e-41a4-b3dc-c9f43298933c"
+        }
+    ],
+    "vid": [
+        {
+            "value": "60"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "key_staff_member"
+        }
+    ],
+    "title": [
+        {
+            "value": "Jamie-Leigh Jones",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/29?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "d5a23623-31b5-4df2-90e6-ae6bddea23a1"
+                    }
+                ],
+                "lang": "en",
+                "alt": "Jamie-Leigh Jones",
+                "title": "",
+                "width": "700",
+                "height": "700"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/key_staff_member\/field_member_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/taxonomy_term\/staff_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "70fb107c-6420-4637-8243-88fc12ac3364"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1478862134",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478870599",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478870599"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/our-board-and-management-committee\/jamie-leigh-jones",
+            "pid": "22",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "field_bio": [
+        {
+            "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat.<\/p>\r\n\r\n<p>Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique. Nam quis mattis odio. Phasellus laoreet pulvinar tristique. Proin pretium aliquet laoreet. Aenean placerat velit vel justo malesuada egestas.<\/p>\r\n\r\n<ul>\r\n\t<li>Ut mollis tincidunt elementum.<\/li>\r\n\t<li>Integer eget quam odio.&nbsp;<\/li>\r\n<\/ul>\r\n\r\n<p>Suspendisse sit amet quam vel enim luctus pulvinar sit amet quis nulla.&nbsp;<\/p>\r\n",
+            "format": "rich_text"
+        }
+    ],
+    "field_qualifications": [
+        {
+            "value": "MBBS"
+        }
+    ],
+    "field_registered_interests": [
+        {
+            "value": "Director of Health care company"
+        },
+        {
+            "value": "Government advisor on Asthma"
+        }
+    ],
+    "field_title": [
+        {
+            "value": "Local Member Group GP Lead"
+        }
+    ]
+}

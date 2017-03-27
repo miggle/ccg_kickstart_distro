@@ -1,0 +1,7 @@
+name: CCG default content
+description: Provides default content for CCG sites.
+core: 8.x
+type: module
+package: CCG Kickstart
+dependencies:
+ - default_content

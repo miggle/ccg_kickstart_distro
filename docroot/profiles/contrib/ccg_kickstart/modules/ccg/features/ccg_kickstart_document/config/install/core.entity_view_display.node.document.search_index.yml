@@ -1,0 +1,50 @@
+uuid: 568cb4e7-d5d4-42f1-86ce-ea55868e8f82
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.document.field_description
+    - field.field.node.document.field_document
+    - field.field.node.document.field_related_content
+    - field.field.node.document.field_review_date
+    - node.type.document
+  module:
+    - file_entity
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+_core:
+  default_config_hash: 6kHMbiOOEboSD2eoVj1Q4HZWKwfPHh8HSFTFuTopYJU
+id: node.document.search_index
+targetEntityType: node
+bundle: document
+mode: search_index
+content:
+  field_description:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    type: text_trimmed
+  field_document:
+    weight: 1
+    label: hidden
+    settings:
+      access_message: 'You don''t have access to download this file.'
+      text: 'Download [file:name]'
+    third_party_settings: {  }
+    type: file_download_link
+hidden:
+  field_related_content: true
+  field_review_date: true
+  links: true
+  sharethis: true
+  workbench_moderation_control: true

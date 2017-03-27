@@ -1,0 +1,27 @@
+uuid: 2c012ad9-2a48-4c3c-a035-d9ac0528498d
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_block
+    - system
+  theme:
+    - ccg
+id: contactblock
+theme: ccg
+region: content
+weight: 0
+provider: null
+plugin: contact_block
+settings:
+  id: contact_block
+  label: 'Contact block'
+  provider: contact_block
+  label_display: '0'
+  contact_form: leave_us_a_message
+visibility:
+  request_path:
+    id: request_path
+    pages: /contact-us
+    negate: false
+    context_mapping: {  }

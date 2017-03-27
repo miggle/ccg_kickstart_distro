@@ -1,0 +1,83 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function ccg_menu_extras_form_menu_link_content_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $menu_link = \Drupal::service('ccg_menu_extras.helper')->getMenuItemFromFormState($form_state);
+  $link_options = $menu_link->link->first()->options;
+  $link_attributes = !empty($link_options['attributes']) ? $link_options['attributes'] : [];
+
+  // Add attributes to the menu item form.
+  $form['options']['attributes'] = [
+    '#type' => 'details',
+    '#title' => t('Menu item attributes'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#tree' => TRUE,
+  ];
+
+  $form['options']['attributes']['accesskey'] = [
+    '#type' => 'textfield',
+    '#title' => t('Access key'),
+    '#description' => t('Enter the key to be used as a shortcut to triggering this link. ' .
+      'This will work in combination with modifier keys as defined by the accesskey html attribute documentation.'),
+    '#default_value' => !empty($link_attributes['accesskey']) ? $link_attributes['accesskey'] : '',
+  ];
+
+  $form['actions']['submit']['#submit'][] = 'ccg_menu_extras_menu_link_content_form_submit';
+}
+
+/**
+ * Submit handler for dealing with saving attributes for menu links.
+ */
+function ccg_menu_extras_menu_link_content_form_submit(array &$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $attributes = [];
+
+  foreach ($values['attributes'] as $attribute => $value) {
+    $value = trim($value);
+    // Ensure that we allow 0 as a value for attributes.
+    if (!empty($value) || $value === '0' || $value === 0) {
+      $attributes[$attribute] = $value;
+    }
+  }
+
+  $menu_link_entity = \Drupal::service('ccg_menu_extras.helper')->getMenuItemFromFormState($form_state);
+  $options = $menu_link_entity->link->first()->options;
+  $changed = FALSE;
+  if (empty($attributes)) {
+    if (!empty($options['attributes'])) {
+      unset($options['attributes']);
+      $changed = TRUE;
+    }
+  }
+  else {
+    $options['attributes'] = $attributes;
+    $changed = TRUE;
+  }
+
+  if ($changed) {
+    $menu_link_entity->link->first()->options = $options;
+    $menu_link_entity->save();
+  }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ *
+ * Workaround for lost menu item options which restores link attributes.
+ */
+function ccg_menu_extras_preprocess_menu(&$variables) {
+  foreach ($variables['items'] as &$item) {
+    $menu_link_entity = \Drupal::service('ccg_menu_extras.helper')->getMenuLinkEntityFromLink($item['original_link']);
+    if (!empty($menu_link_entity)) {
+      if (!empty($menu_link_entity->link->first()->options['attributes'])) {
+        foreach ($menu_link_entity->link->first()->options['attributes'] as $attribute => $value) {
+          $item['attributes']->setAttribute($attribute, $value);
+        }
+      }
+    }
+  }
+}

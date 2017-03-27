@@ -1,0 +1,16 @@
+.site-slogan{
+  color: $blue-text;
+  font:{
+    family: QuestrialRegular;
+    size: 2.5em;
+    weight: normal;
+  }
+}
+
+.site-logo {
+  float: right;
+  img {
+    width: 100%;
+    max-width: $max-logo-width;
+  }
+}

@@ -1,0 +1,189 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/your-health?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/23?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "2"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "b4344fa2-ad6f-49d1-9068-fbb73640714d"
+        }
+    ],
+    "vid": [
+        {
+            "value": "53"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "title": [
+        {
+            "value": "Your health",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/23?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "b203823c-250d-4390-b960-0a3bfc4f10f6"
+                    }
+                ],
+                "alt": "Health",
+                "title": "",
+                "width": "700",
+                "height": "400"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1476716743",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478869450",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478869450"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/your-health",
+            "pid": "2",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>This page can be used to describe how the patient's health is important and how the CCG provides support to their wellbeing.<\/strong><\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<p>Cras a orci non dui volutpat consequat. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique.<\/p>\r\n\r\n<ol>\r\n\t<li>Nam quis mattis odio.<\/li>\r\n\t<li>Phasellus laoreet pulvinar tristique.<\/li>\r\n\t<li>Proin pretium aliquet laoreet.<\/li>\r\n\t<li>Aenean placerat velit vel justo malesuada egestas.<\/li>\r\n\t<li>This is an extra bullet point!<\/li>\r\n<\/ol>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. <a href=\"\/node\/99\">Nam elit justo<\/a>, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ],
+    "field_meta_tags": [
+        {
+            "value": "a:0:{}"
+        }
+    ]
+}

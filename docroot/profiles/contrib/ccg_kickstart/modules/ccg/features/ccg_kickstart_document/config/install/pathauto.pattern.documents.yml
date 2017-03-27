@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: documents
+label: Documents
+type: 'canonical_entities:node'
+pattern: '/documents/[node:title]'
+selection_criteria:
+  a24792ec-72eb-4f28-bb89-2dac87a39c9a:
+    id: node_type
+    bundles:
+      document: document
+    negate: false
+    context_mapping:
+      node: node
+    uuid: a24792ec-72eb-4f28-bb89-2dac87a39c9a
+selection_logic: and
+weight: -5
+relationships: {  }

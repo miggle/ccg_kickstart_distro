@@ -1,0 +1,163 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/cookie-policy?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "16"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "b748cc25-6477-4395-98cd-182fc8fb496d"
+        }
+    ],
+    "vid": [
+        {
+            "value": "23"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "title": [
+        {
+            "value": "Cookie policy",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1477060242",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1477060259",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1477060259"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/cookie-policy",
+            "pid": "15",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>What are cookies?<\/strong><\/p>\r\n\r\n<p>\"Cookies\"&nbsp;are small text files that are placed on your computer or phone by your web browser at the request of the websites that you visit. Cookies are used to make websites work more efficiently or more conveniently, as well as provide information to the site's operators.<\/p>\r\n\r\n<p><strong>What cookies does this site set?<\/strong><\/p>\r\n\r\n<p>This site sets the following cookies:<\/p>\r\n\r\n<p>Google Analytics: Cookies named \"__utma\",\"__utmb\",\"__utmc\" and \"__utmz\" are used by Google Analytics. Google Analytics is software provided by Google to website operators to help them measure the visitor traffic to the site. The information they track is anonymous and is not used to identify individuals. You can find out more about Google's usage of information <a href=\"\/node\/75\">here<\/a>.&nbsp;<\/p>\r\n\r\n<p>has_js. &nbsp;The has_js cookie records whether your browser has JavaScript enabled. &nbsp;This website functions better with JavaScript enabled.<\/p>\r\n\r\n<p><strong>Other cookies<\/strong><\/p>\r\n\r\n<p>Occasionally, specific functionality may set a cookie to retain your settings between visits to this site. These will only be used to remember a choice you have made, for example a large type view of the page.<\/p>\r\n\r\n<p><strong>How do I remove cookies?<\/strong><\/p>\r\n\r\n<p>If you do not wish to have cookies on your computer or phone you can choose to remove them, and\/or to block them altogether. You can read more about cookies and how to manage them <a href=\"\/node\/76\">here<\/a>.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ],
+    "field_meta_tags": [
+        {
+            "value": "a:1:{s:5:\"title\";s:34:\"[current-page:title] | [site:name]\";}"
+        }
+    ]
+}

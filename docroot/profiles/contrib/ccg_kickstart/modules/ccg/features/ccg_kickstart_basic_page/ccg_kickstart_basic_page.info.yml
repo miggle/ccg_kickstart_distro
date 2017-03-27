@@ -1,0 +1,22 @@
+name: 'Basic Page'
+description: 'The basic page content type, field and display settings.'
+type: module
+core: 8.x
+dependencies:
+  - ccg_kickstart_core
+  - entity_browser
+  - field
+  - file_entity
+  - image
+  - inline_entity_form
+  - menu_ui
+  - metatag
+  - node
+  - panelizer
+  - path
+  - pathauto
+  - text
+  - user
+  - workbench_moderation
+version: 8.x-1.0
+package: 'CCG Kickstart'

@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.news
+  module:
+    - system
+    - views
+  theme:
+    - ccg
+id: views_block__news_homepage_hub_view_block
+theme: ccg
+region: sidebar_second
+weight: -9
+provider: null
+plugin: 'views_block:news-homepage_hub_view_block'
+settings:
+  id: 'views_block:news-homepage_hub_view_block'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

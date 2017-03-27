@@ -1,0 +1,189 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/contact-us?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/24?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "5"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "931396ee-a566-4a89-9d01-b3cbb6d32ee4"
+        }
+    ],
+    "vid": [
+        {
+            "value": "64"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "title": [
+        {
+            "value": "Contact us",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/24?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "ad24ec79-fbfa-4f3f-a19b-f4105d23a958"
+                    }
+                ],
+                "alt": "Contact us",
+                "title": "",
+                "width": "700",
+                "height": "400"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1476717317",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478871088",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478871088"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/contact-us",
+            "pid": "4",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>Here is h<strong>o<\/strong>w to contact us<\/strong><\/p>\r\n\r\n<p>Telephone: 01122 334 556<br \/>\r\nTwitter: @testtwitter<br \/>\r\nEmail: tester@nhs.test<\/p>\r\n\r\n<p><strong>Post: Your Town<\/strong><\/p>\r\n\r\n<p><strong>Fax: <\/strong>01122 334 558<\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat. <strong>Sed a vestibulum<\/strong> velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, <em>sollicitudin purus ut, tempus elit<\/em>. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique. Nam quis mattis odio. Phasellus laoreet pulvinar tristique. Proin pretium aliquet laoreet. Aenean placerat velit vel justo malesuada egestas.<\/p>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ],
+    "field_meta_tags": [
+        {
+            "value": "a:0:{}"
+        }
+    ]
+}

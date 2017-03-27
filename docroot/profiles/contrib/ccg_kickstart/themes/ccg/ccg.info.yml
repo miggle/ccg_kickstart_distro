@@ -1,0 +1,20 @@
+name: 'CCG theme'
+type: theme
+description: 'The theme for NHS CCGs'
+core: 8.x
+base theme: classy
+libraries:
+  - ccg/skeleton
+  - ccg/global-styling
+  - ccg/menu
+  - ccg/choices
+  - ccg/tabs
+  - ccg/misc
+  - ccg/accessibility
+regions:
+  branding: Header branding
+  navigation: Header navigation
+  featured: Featured
+  content: Content
+  sidebar_second: Second sidebar
+  footer: Footer

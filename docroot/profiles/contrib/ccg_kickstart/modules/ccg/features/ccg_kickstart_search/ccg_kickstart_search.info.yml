@@ -1,0 +1,14 @@
+name: Search
+description: 'All the search settings for the CCG Kickstart distribution.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - ccg_kickstart_core
+  - file
+  - node
+  - search_api
+  - search_api_db
+  - search_api_page
+version: 8.x-1.0
+package: 'CCG Kickstart'

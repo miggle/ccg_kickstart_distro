@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function ccg_admin_alterations_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Load entity from form instance.
+  $formObject = $form_state->getFormObject();
+  if ($formObject instanceof Drupal\node\NodeForm) {
+    $entity = $form_state->getFormObject()->getEntity();
+
+    $form_types = array(
+      'node_' . $entity->bundle() . '_form',
+      'node_' . $entity->bundle() . '_edit_form'
+    );
+  }
+  \Drupal\ccg_kickstart\CCGKickstart::enabledFeatures();
+  // In the case the form is node form then attach our alterations library.
+  if (isset($entity) && $entity instanceof Drupal\node\Entity\Node && in_array($form_id, $form_types)) {
+    $form['#attached']['library'][] = 'ccg_admin_alterations/admin';
+  }
+}

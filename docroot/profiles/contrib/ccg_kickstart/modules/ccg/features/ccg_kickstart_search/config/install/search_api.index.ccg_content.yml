@@ -1,0 +1,143 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_landing_page_have_your_say
+    - field.storage.node.field_bio
+    - field.storage.node.field_document
+    - field.storage.node.field_description
+    - search_api.server.ccg_search
+  module:
+    - file
+    - search_api
+    - node
+id: ccg_content
+name: 'CCG content'
+description: 'The index for all the CCG site content.'
+read_only: false
+field_settings:
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          landing_page: default
+          news: default
+          page: default
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  field_landing_page_have_your_say:
+    label: 'Have your say'
+    datasource_id: 'entity:node'
+    property_path: field_landing_page_have_your_say
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_landing_page_have_your_say
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+  field_bio:
+    label: Bio
+    datasource_id: 'entity:node'
+    property_path: field_bio
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_bio
+  filename:
+    label: 'Document file » File » Filename'
+    datasource_id: 'entity:node'
+    property_path: 'field_document:entity:filename'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_document
+      module:
+        - file
+  field_description:
+    label: Description
+    datasource_id: 'entity:node'
+    property_path: field_description
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_description
+processor_settings:
+  add_url:
+    plugin_id: add_url
+    settings: {  }
+  aggregated_field:
+    plugin_id: aggregated_field
+    settings: {  }
+  html_filter:
+    plugin_id: html_filter
+    settings:
+      fields:
+        - body
+        - field_landing_page_have_your_say
+        - title
+        - field_bio
+        - filename
+        - field_description
+      title: true
+      alt: true
+      tags:
+        h1: 5
+        h2: 3
+        h3: 2
+        strong: 2
+        b: 2
+      weights:
+        preprocess_index: -10
+        preprocess_query: -10
+  ignorecase:
+    plugin_id: ignorecase
+    settings:
+      fields:
+        - body
+        - field_landing_page_have_your_say
+        - title
+        - field_bio
+        - filename
+        - field_description
+      weights:
+        preprocess_index: -10
+        preprocess_query: -10
+  node_status:
+    plugin_id: node_status
+    settings: {  }
+  rendered_item:
+    plugin_id: rendered_item
+    settings: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+datasource_settings:
+  'entity:node':
+    plugin_id: 'entity:node'
+    settings:
+      bundles:
+        default: true
+        selected: {  }
+      languages:
+        default: true
+        selected: {  }
+tracker_settings:
+  default:
+    plugin_id: default
+    settings: {  }
+server: ccg_search

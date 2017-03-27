@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.related_documents
+  module:
+    - node
+    - system
+    - views
+  theme:
+    - ccg
+id: views_block__related_documents_block_1
+theme: ccg
+region: sidebar_second
+weight: -8
+provider: null
+plugin: 'views_block:related_documents-block_1'
+settings:
+  id: 'views_block:related_documents-block_1'
+  label: 'Related Documents'
+  provider: views
+  label_display: visible
+  views_label: 'Related Documents'
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      document: document
+      key_staff_member: key_staff_member
+      landing_page: landing_page
+      news: news
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/search/*\r\n/search/*/*\r\n/contact-us\r\n/news"
+    negate: true
+    context_mapping: {  }

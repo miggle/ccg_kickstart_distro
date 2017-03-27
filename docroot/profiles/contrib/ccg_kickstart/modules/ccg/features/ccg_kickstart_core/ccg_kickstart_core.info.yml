@@ -1,0 +1,29 @@
+name: Core
+description: 'Provides core components required by other features, base field storage config and general site settings.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - block_content
+  - ccg_choice_widget
+  - contact
+  - field
+  - file
+  - file_entity
+  - help
+  - image
+  - menu_block
+  - menu_link_content
+  - metatag
+  - node
+  - page_manager
+  - path
+  - shortcut
+  - system
+  - taxonomy
+  - text
+  - user
+  - editor
+  - entity_embed
+version: 8.x-1.0
+package: 'CCG Kickstart'

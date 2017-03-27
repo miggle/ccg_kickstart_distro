@@ -1,0 +1,61 @@
+.row-table {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+  .cell {
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.8em 1.2em;
+    overflow: hidden;
+    list-style: none;
+    > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
+  }
+  .file {
+    padding-left: 0;
+  }
+  .form-item {
+    margin-bottom: 10px;
+  }
+  @for $i from 1 through 12 {
+    &.#{'col-' + $i} {
+      .cell {
+        width: unquote( (100 / $i) + '%');
+      }
+    }
+  }
+}
+@media all and(max-width: $medium-max) {
+  .row-table.collapse {
+    display: block;
+    > .cell {
+      width: 100% !important;
+    }
+    > .cell.foot {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.no-flexbox .row-table {
+  display: block;
+  > .cell {
+    width: 100%;
+  }
+  > .cell-foot {
+    margin-bottom: 1em;
+  }
+}
+
+form.quickedit-field-form {
+  .details-description {
+    margin-bottom: 10px;
+  }
+  div.tabledrag-toggle-weight-wrapper {
+    display: none;
+  }
+  select[class*="-delta-order"] {
+    display: none;
+  }
+}

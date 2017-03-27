@@ -1,0 +1,12 @@
+uuid: acecbbee-1663-4c29-a0c4-41162f1dc8e1
+langcode: en
+status: true
+dependencies: {  }
+id: leave_us_a_message
+label: 'Leave us a message'
+recipients:
+  - tester@nhs.test
+reply: ''
+weight: 0
+message: 'Your message has been sent, we should get back to you shortly'
+redirect: ''
