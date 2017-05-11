@@ -1,6 +1,9 @@
 # Ignore project files for Jetbrains IDEs.
 .idea
 
+# Ignore OS X hidden files.
+.DS_Store
+
 # Ignore binaries.
 /bin
 
