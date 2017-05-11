@@ -1,41 +1,42 @@
-# ccg_kickstart_installer
-This is a Composer-based installer for the CCG Kickstart Drupal distribution. Welcome to the future!
+# NHS CCG Distribution
 
-## Get Started
-You will need the following installed:
+## Installing the site
+Download the distribution from the list of releases [here](https://github.com/miggle/ccg_kickstart_distro/releases)  
+You will now have a version of Drupal 8 that can be installed as you normally would.
 
-* [Composer](https://getcomposer.org), obviously
+_If you're new to this process you will need to follow these steps:_  
+1. [Create a database](https://www.drupal.org/docs/8/install/step-3-create-a-database)  
+2. [Configure the installation](https://www.drupal.org/docs/8/install/step-4-configure-your-installation)  
+3. [Run the installer](https://www.drupal.org/docs/8/install/step-5-run-the-installer)
 
-You will need to clone down this repository first.
+When running the installer there will be a step that allows you to configure the features that you want to use
+to build the your website.
 
-Once you have done that change directory to the cloned repo and run this command:
-```
-$ composer install
-```
-You can then install it like you would any other Drupal site.
+## Maintaining the site
+The distribution is managed via [Composer](https://getcomposer.org), you will need to have Composer installed in order
+to continue maintaining the site in this way.  
+If you would prefer to manage your site in another way that's perfectly fine, but we'll just be covering the process of
+using Composer here.
 
-## Maintenance
-```drush make```, ```drush pm-download```, ```drush pm-update``` and their ilk are the old-school way of maintaining your code base. Forget them. You're in Composer land now!
+### Updates
+To update site dependencies you will need to navigate to the project root in a terminal window.  
+From here you can run:  
+```composer update```  
+This will update all modules and libraries required by the CCG Kickstart profile to the latest release according to the
+version requirements specified.
 
-Let this handy table be your guide:
+### Adding new modules
+To add a new module to the project, again, navigate to the project root in a terminal window and run:  
+```composer require drupal/[module_name]:[version]```  
+With `[module_name]` being the name of the module and `[version]` being the version requirement.  
+See the [Composer documentation](https://getcomposer.org/doc/articles/versions.md) for more information on versions.
 
-| Task                                            | Drush                                         | Composer                                          |
-|-------------------------------------------------|-----------------------------------------------|---------------------------------------------------|
-| Installing a contrib project (latest version)   | ```drush pm-download PROJECT```               | ```composer require drupal/PROJECT:8.*```         |
-| Installing a contrib project (specific version) | ```drush pm-download PROJECT-8.x-1.0-beta3``` | ```composer require drupal/PROJECT:8.1.0-beta3``` |
-| Updating all contrib projects and Drupal core   | ```drush pm-update```                         | ```composer update```                             |
-| Updating a single contrib project               | ```drush pm-update PROJECT```                 | ```composer update drupal/PROJECT```              |
-| Updating Drupal core                            | ```drush pm-update drupal```                  | ```composer update drupal/core```                 |
+## Installing new features from updates
+If you already have a site installed using the distribution, when updating to the latest release that introduces new 
+features, these features won't be enabled automatically.  
+In order to enable new feature you will need to enable the module manually. Either through the administration pages
+or via drush.
 
-Not too tricky, eh?
-
-The magic is that Composer, unlike Drush, is a *dependency manager*. If module ```foo-8.x-1.0``` depends on ```baz-8.x-3.2```, Composer will not let you update baz to ```8.x-3.3``` (or downgrade it to ```8.x-3.1```, for that matter). Drush has no concept of dependency management. If you've ever accidentally hosed a site because of dependency issues like this, you've probably already realized how valuable Composer can be.
-
-But to be clear: **you still need Drush**. Tasks such as database updates (```drush updatedb```) are still firmly in Drush's province, and it's awesome at that stuff. This installer will install a copy of Drush (local to the project) in the ```bin``` directory.
-
-**Composer is only responsible for maintaining the code base**.
-
-## Source Control
-If you peek at the ```.gitignore``` we provide, you'll see that certain directories, including all directories containing contributed projects, are excluded from source control. This might be a bit disconcerting if you're newly arrived from Planet Drush, but in a Composer-based project like this one, **you SHOULD NOT commit your installed dependencies to source control**.
-
-When you set up the project, Composer will create a file called ```composer.lock```, which is a list of which dependencies were installed, and in which versions. **Commit ```composer.lock``` to source control!** Then, when your colleagues want to spin up their own copies of the project, all they'll have to do is run ```composer install```, which will install the correct versions of everything in ```composer.lock```.
+## Reporting bugs
+If you come across any issues while installing the distribution or using the features that it provides please create
+ an issue in the GitHub project issue queue.
