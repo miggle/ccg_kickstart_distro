@@ -17,7 +17,6 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        'aca594cec0c196659a3b7d4dc2665c0b' => __DIR__ . '/..' . '/j7mbo/twitter-api-php/TwitterAPIExchange.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -115,6 +114,10 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
         array (
             'Behat\\Mink\\Driver\\' => 18,
             'Behat\\Mink\\' => 11,
+        ),
+        'A' => 
+        array (
+            'Asm89\\Stack\\' => 12,
         ),
     );
 
@@ -335,6 +338,10 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
         array (
             0 => __DIR__ . '/..' . '/behat/mink/src',
         ),
+        'Asm89\\Stack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -371,13 +378,6 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
-            ),
-        ),
-        'I' => 
-        array (
-            'Instagram' => 
-            array (
-                0 => __DIR__ . '/..' . '/php-instagram-api/php-instagram-api',
             ),
         ),
         'E' => 
@@ -459,13 +459,6 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
             'Behat\\Behat' => 
             array (
                 0 => __DIR__ . '/..' . '/behat/behat/src',
-            ),
-        ),
-        'A' => 
-        array (
-            'Asm89\\Stack' => 
-            array (
-                0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
             ),
         ),
     );
@@ -923,6 +916,7 @@ class ComposerStaticInit47d39fa59bf8e467c5db8da1ae032e66
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'TwitterAPIExchange' => __DIR__ . '/..' . '/j7mbo/twitter-api-php/TwitterAPIExchange.php',
         'miggle\\CCGKickstart\\ScriptHandler' => __DIR__ . '/../..' . '/scripts/ScriptHandler.php',
     );
 

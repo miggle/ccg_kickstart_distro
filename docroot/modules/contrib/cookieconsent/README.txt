@@ -44,6 +44,11 @@ CONFIGURATION
      Users in roles with the "Administer cookieconsent settings" permission can alter the appearance of the cookie
      popup.
 
+   - Exclude role from CookieConsent
+
+     Users in roles with the "Exclude role from CookieConsent" will no see the cookie popup. This can be handy for
+     admins for instance.
+
  * Customize the cookie settings in Configuration » System » Cookie settings
 
  * A default template (templates/cookieconsent.html.twig) is provided. Overwrite this template file in your theme to

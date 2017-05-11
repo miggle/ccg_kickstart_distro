@@ -7,8 +7,8 @@ dependencies:
   - hal
   - rest
 
-# Information added by Drupal.org packaging script on 2017-02-17
-version: '8.x-1.0-alpha4'
+# Information added by Drupal.org packaging script on 2017-04-10
+version: '8.x-1.0-alpha5'
 core: '8.x'
 project: 'default_content'
-datestamp: 1487293087
+datestamp: 1491843269
