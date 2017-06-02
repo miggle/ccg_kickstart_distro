@@ -29,7 +29,7 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
    * {@inheritdoc}
    */
   public function getStyle() {
-    return array(
+    return [
       '2x' => 'fa-2x',
       '3x' => 'fa-3x',
       '4x' => 'fa-4x',
@@ -37,7 +37,7 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
       'in' => 'fa-in',
       'lg' => 'fa-lg',
       'fw' => 'fa-fw',
-    );
+    ];
   }
 
   /**
@@ -60,10 +60,10 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
         break;
     }
 
-    $icon = array(
+    $icon = [
       '#type' => 'markup',
       '#markup' => "<span class='fa fa-$icon_name fa-$style'></span>",
-    );
+    ];
 
     return $icon;
   }
@@ -72,9 +72,9 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
    * {@inheritdoc}
    */
   public function getLibrary() {
-    return array(
+    return [
       'social_media_links/fontawesome.component',
-    );
+    ];
   }
 
   /**

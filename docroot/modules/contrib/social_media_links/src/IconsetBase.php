@@ -111,10 +111,10 @@ abstract class IconsetBase extends PluginBase implements IconsetInterface, Conta
     $iconName = $platform->getIconName();
     $path = $this->getIconPath($iconName, $style);
 
-    $icon = array(
+    $icon = [
       '#theme' => 'image',
       '#uri' => $path,
-    );
+    ];
 
     return $icon;
   }
@@ -137,10 +137,10 @@ abstract class IconsetBase extends PluginBase implements IconsetInterface, Conta
       return $exploded[$key];
     }
 
-    return array(
+    return [
       'iconset' => isset($exploded[0]) ? $exploded[0] : '',
       'style' => isset($exploded[1]) ? $exploded[1] : '',
-    );
+    ];
   }
 
 }

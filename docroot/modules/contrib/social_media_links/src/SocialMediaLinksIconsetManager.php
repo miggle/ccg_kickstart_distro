@@ -46,7 +46,7 @@ class SocialMediaLinksIconsetManager extends DefaultPluginManager {
         $plugins[$plugin_id]['instance'] = $instance;
       }
       else {
-        $plugins[$plugin_id] = array();
+        $plugins[$plugin_id] = [];
       }
     }
 
@@ -60,7 +60,7 @@ class SocialMediaLinksIconsetManager extends DefaultPluginManager {
    *   The array with the styles.
    */
   public function getStyles() {
-    $options = array();
+    $options = [];
     foreach ($this->getIconsets() as $iconset_id => $iconset) {
       // Only display options for iconsets that are installed and available.
       if ($iconset['instance']->getPath()) {
@@ -71,7 +71,7 @@ class SocialMediaLinksIconsetManager extends DefaultPluginManager {
         }
       }
       else {
-        $options[$iconset_id] = array();
+        $options[$iconset_id] = [];
       }
     }
 
