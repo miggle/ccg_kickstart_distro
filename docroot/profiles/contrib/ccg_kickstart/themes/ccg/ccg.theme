@@ -1,0 +1,63 @@
+<?php
+use Drupal\Core\Menu\MenuLinkTree;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ccg_form_search_api_page_block_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Ensure the label for the search form gets displayed.
+  $form['keys']['#title_display'] = 'before';
+  // Set access key for giving search focus.
+  $form['keys']['#attributes']['accesskey'] = 4;
+  // Add out search icon class to the submit button.
+  $form['actions']['submit']['#attributes']['class'] = ['search-icon'];
+}
+
+/**
+ * Implements template_preprocess_breadcrumb().
+ */
+function ccg_preprocess_breadcrumb(&$vars) {
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  // Add the retrieved title to the breadcrumbs.
+  $vars['breadcrumb'][] = [
+    'text' => $page_title
+  ];
+  $vars['#cache']['contexts'][] = 'url';
+}
+
+/**
+ * Implements template_preprocess_field().
+ */
+function ccg_preprocess_field(&$vars) {
+  switch ($vars['field_name']) {
+    case 'field_landing_page_have_your_say': {
+      $vars['title_attributes']['id'] = 'landingpage-hys-label';
+      $vars['attributes']['aria-labelledby'] = 'landingpage-hys-label';
+      $vars['attributes']['role'] = 'section';
+      break;
+    }
+    case 'field_review_date': {
+      $vars['label'] = t('Next review date');
+      break;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_form().
+ */
+function ccg_preprocess_form(&$vars) {
+  if ($vars['element']['#form_id'] === 'search_api_page_block_form') {
+    $vars['attributes']['aria-label'] = 'search';
+  }
+}
+
+/**
+ * Theme function override for ShareThis code based on settings.
+ */
+function ccg_sharethis_block($variables) {
+  return '<div class="sharethis-wrapper row"><div class="four columns"><h4>Share this page</h4></div><div class="eight columns">' .
+  $variables['content']['st_spans'] . '</div></div>';
+}

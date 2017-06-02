@@ -1,0 +1,44 @@
+.hidden {
+  display: none;
+}
+
+.search-icon {
+  display: block;
+  background: url('../images/search-icon.png') 0 0 no-repeat;
+  width: 21px;
+  height: 19px;
+}
+
+.left {
+  float: left;
+  &.medium {
+    @media (max-width: $medium-max) {
+      float: none;
+    }
+  }
+}
+
+.transparent,
+.container.transparent {
+  background: transparent;
+}
+
+.light-grey-bg {
+  background: darken(white, 10%);
+}
+
+.pale-blue-bg {
+  background: lighten($pale-blue, 7%);
+}
+
+.blue-fg {
+  color: $blue-text;
+}
+
+.orange-fg {
+  color: $orange;
+}
+
+.inline {
+  display: inline-block;
+}

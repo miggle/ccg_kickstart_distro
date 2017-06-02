@@ -1,0 +1,24 @@
+uuid: 666f3633-5efa-469b-9181-74bcbc1948ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_review_date
+    - node.type.key_staff_member
+  module:
+    - datetime
+id: node.key_staff_member.field_review_date
+field_name: field_review_date
+entity_type: node
+bundle: key_staff_member
+label: 'Review date'
+description: 'The date on which this key staff member will need to be next reviewed.'
+required: false
+translatable: true
+default_value:
+  -
+    default_date_type: relative
+    default_date: '+90 days'
+default_value_callback: ''
+settings: {  }
+field_type: datetime

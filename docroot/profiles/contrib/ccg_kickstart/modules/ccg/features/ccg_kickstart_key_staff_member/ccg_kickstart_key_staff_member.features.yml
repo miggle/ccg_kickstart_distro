@@ -1,0 +1,8 @@
+bundle: ccg_kickstart
+excluded:
+  - field.storage.node.field_bio
+  - field.storage.node.field_member_type
+  - field.storage.node.field_qualifications
+  - field.storage.node.field_registered_interests
+  - field.storage.node.field_title
+required: true

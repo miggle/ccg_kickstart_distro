@@ -1,0 +1,163 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/privacy-policy?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "15"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "2d4294b9-13b2-436c-935a-f24f2f17d682"
+        }
+    ],
+    "vid": [
+        {
+            "value": "22"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "title": [
+        {
+            "value": "Privacy policy",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/page\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1477060191",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1477060220",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1477060220"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/privacy-policy",
+            "pid": "14",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>We collect the following personal data on this website<\/strong><\/p>\r\n\r\n<p><br \/>\r\n<strong>Navigation data<\/strong><\/p>\r\n\r\n<p>Your Internet connection's&nbsp;IP address<\/p>\r\n\r\n<p><strong>Analytics<\/strong><\/p>\r\n\r\n<p>We use Google Analytics to aggregate information anonymously on site visits.&nbsp;The site uses navigation data in services provided by NHS Choices and third parties. For more information see our cookies policy. &nbsp;<\/p>\r\n\r\n<p><strong>Advertising<\/strong><\/p>\r\n\r\n<p>Some health campaigns are supplied with advertising data.<\/p>\r\n\r\n<p><strong>Personalisation<\/strong><\/p>\r\n\r\n<p>Uses navigation data and personal information to enable us&nbsp;and third parties to tailor the services provided to you.<\/p>\r\n\r\n<p><strong>Data sharing<\/strong><\/p>\r\n\r\n<p>We will never share personal information with any third parties without your consent. Navigation data is shared with trusted third parties providing analytics or advertising.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ],
+    "field_meta_tags": [
+        {
+            "value": "a:1:{s:5:\"title\";s:34:\"[current-page:title] | [site:name]\";}"
+        }
+    ]
+}

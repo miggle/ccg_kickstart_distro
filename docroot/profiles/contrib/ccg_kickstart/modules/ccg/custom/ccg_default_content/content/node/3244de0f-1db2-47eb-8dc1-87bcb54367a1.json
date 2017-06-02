@@ -1,0 +1,186 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/news\/looking-after-elderly?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/news"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/38?_format=hal_json",
+                "lang": "en"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "7"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "3244de0f-1db2-47eb-8dc1-87bcb54367a1"
+        }
+    ],
+    "vid": [
+        {
+            "value": "72"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "news"
+        }
+    ],
+    "title": [
+        {
+            "value": "Looking after the elderly",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/38?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "e6a55648-746e-4282-a30e-220141cee2c1"
+                    }
+                ],
+                "lang": "en",
+                "alt": "Looking after the elderly",
+                "title": "",
+                "width": "700",
+                "height": "400"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1476717493",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478871678",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478871678"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/news\/looking-after-elderly",
+            "pid": "6",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p>Looking after the elderly is important to us, we have a great medical team and quality health care to offer.<\/p>\r\n\r\n<p>Ad usu partem labore, eam numquam aliquam aliquando te, cu eam magna percipit partiendo. Splendide intellegat quo at. Facete dolorem vis ei, dicta percipit nec et, ceteros vivendum perpetua usu ne. Mediocrem erroribus liberavisse id ius, vix purto simul ad. Purto cibo qui ad.<\/p>\r\n\r\n<p>Eos te tollit aliquam perpetua, ne quo paulo maiorum signiferumque. Sit ad lobortis accommodare. Cu eum sint facete utroque, minim philosophia vim no. No nec facete epicuri gubergren. Cum alienum appetere imperdiet ne, eu pri quot nemore vocent. Ut sea dolore virtute inermis.<\/p>\r\n\r\n<p>Mucius maiorum insolens ut mea, soluta gubergren mnesarchum vis ad. Et mea odio corpora neglegentur. Latine patrioque no duo, civibus democritum mei an, nec at ubique democritum temporibus. Ea erant bonorum sea, at eam libris moderatius, tantas molestie sensibus ea sed. Cu mucius epicurei sea, veniam similique posidonium te quo, falli ludus scribentur ex eam.<\/p>\r\n\r\n<p>Sale etiam et eos. Id congue tractatos pri, et elit postea voluptatibus pri, an deleniti oporteat mel. Et cibo quando hendrerit vis, eu pri laoreet ancillae mentitum. In sea alia lobortis disputationi, nam aliquip admodum constituam et. Id ius dicant debitis.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_member_type
+    - node.type.key_staff_member
+    - taxonomy.vocabulary.staff_type
+id: node.key_staff_member.field_member_type
+field_name: field_member_type
+entity_type: node
+bundle: key_staff_member
+label: 'Member Type'
+description: 'Start typing to get a list of the type of members you can choose from and select the appropriate one.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      staff_type: staff_type
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

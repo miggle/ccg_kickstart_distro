@@ -1,0 +1,12 @@
+nhs_choices:
+  js:
+    js/nhs.fs.widget.js: {}
+  dependencies:
+    - core/jquery
+nhs_choices_global:
+  js:
+    js/nhs_global_widget.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - ccg_choice_widget/nhs_choices

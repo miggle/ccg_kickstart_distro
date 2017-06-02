@@ -1,0 +1,9 @@
+name: CCG third level menu links
+description: Provides default third level menu links for CCG sites.
+core: 8.x
+type: module
+package: CCG Kickstart
+dependencies:
+ - default_content
+ - ccg_default_content
+ - ccg_second_level_menu_links

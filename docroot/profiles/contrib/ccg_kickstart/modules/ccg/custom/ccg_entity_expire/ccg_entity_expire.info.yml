@@ -1,0 +1,8 @@
+name: CCG entity expire
+description: Provides functionality for entity expiration, notifications and reports
+core: 8.x
+type: module
+package: CCG Kickstart
+dependencies:
+  - views
+  - entity

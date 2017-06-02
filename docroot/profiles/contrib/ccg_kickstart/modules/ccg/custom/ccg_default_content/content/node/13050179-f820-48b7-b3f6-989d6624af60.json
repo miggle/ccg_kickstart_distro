@@ -1,0 +1,197 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/documents\/keeping-healthy-your-town?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/document"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/field_document": [
+            {
+                "href": "http:\/\/default\/file\/40?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/field_related_content": [
+            {
+                "href": "http:\/\/default\/your-health?_format=hal_json"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "25"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "13050179-f820-48b7-b3f6-989d6624af60"
+        }
+    ],
+    "vid": [
+        {
+            "value": "81"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "document"
+        }
+    ],
+    "title": [
+        {
+            "value": "Keeping healthy in your town",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/field_document": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/40?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/document"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "fc0b5206-64d7-402c-93a6-668a98922294"
+                    }
+                ],
+                "display": null,
+                "description": "",
+                "key": ""
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/document\/field_related_content": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/your-health?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/node\/page"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "b4344fa2-ad6f-49d1-9068-fbb73640714d"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1479396226",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1479396311",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1479396311"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/documents\/keeping-healthy-your-town",
+            "pid": "25",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ]
+}

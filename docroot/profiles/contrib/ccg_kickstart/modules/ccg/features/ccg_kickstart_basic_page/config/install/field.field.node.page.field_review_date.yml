@@ -1,0 +1,24 @@
+uuid: 899e4f81-49fe-4dd4-a19b-feea3d483f0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_review_date
+    - node.type.page
+  module:
+    - datetime
+id: node.page.field_review_date
+field_name: field_review_date
+entity_type: node
+bundle: page
+label: 'Review date'
+description: 'The date on which this content will need to be next reviewed.'
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: relative
+    default_date: '+90 days'
+default_value_callback: ''
+settings: {  }
+field_type: datetime

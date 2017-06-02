@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.large
+    - image.style.medium
+  theme:
+    - ccg
+id: key_staff_list
+label: 'Key Staff List'
+image_style_mappings:
+  -
+    breakpoint_id: ccg.wide
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: medium
+  -
+    breakpoint_id: ccg.mobile
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: large
+breakpoint_group: ccg
+fallback_image_style: medium

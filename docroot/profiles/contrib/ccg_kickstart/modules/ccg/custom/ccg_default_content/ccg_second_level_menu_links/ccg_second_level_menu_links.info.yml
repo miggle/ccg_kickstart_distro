@@ -1,0 +1,8 @@
+name: CCG second level menu links default content
+description: Provides default second level menu links for CCG sites.
+core: 8.x
+type: module
+package: CCG Kickstart
+dependencies:
+ - default_content
+ - ccg_default_content

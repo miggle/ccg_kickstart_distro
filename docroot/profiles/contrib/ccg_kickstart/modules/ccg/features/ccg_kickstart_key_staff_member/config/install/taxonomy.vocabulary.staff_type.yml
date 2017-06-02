@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Staff Type'
+vid: staff_type
+description: 'Provide different types of staff members for your site.'
+hierarchy: 0
+weight: 0

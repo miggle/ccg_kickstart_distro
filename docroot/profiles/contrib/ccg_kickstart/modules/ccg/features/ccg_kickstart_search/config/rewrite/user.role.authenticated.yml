@@ -1,0 +1,16 @@
+uuid: 064b360b-dd8c-4c30-ad66-f98972fd8375
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'view media'
+  - 'view files'
+  - 'download any document files'
+  - 'view search api pages'

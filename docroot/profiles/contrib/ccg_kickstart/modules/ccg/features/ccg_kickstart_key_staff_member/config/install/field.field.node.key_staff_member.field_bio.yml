@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bio
+    - node.type.key_staff_member
+  module:
+    - text
+id: node.key_staff_member.field_bio
+field_name: field_bio
+entity_type: node
+bundle: key_staff_member
+label: Bio
+description: 'Let the world know about your key staff member; their achievements, their story and the role they play in your CCG.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

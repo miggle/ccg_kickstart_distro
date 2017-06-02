@@ -1,0 +1,35 @@
+.view-key-staff {
+  .field--name-field-image {
+    img {
+      padding: 10px;
+      border: 1px solid darken($pale-blue, 10%);
+      @media (max-width: $medium-max) {
+        &.responsive {
+          width: 80%;
+        }
+      }
+    }
+  }
+  .field--name-field-qualifications {
+    padding-left: 5px;
+  }
+  .views-row {
+    margin-bottom: 20px;
+  }
+  h4 {
+    .field {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Ensure the first link in the links section (Read more etc.) is aligned with rest of content. */
+  ul.inline li:first-child {
+    padding-left: 0;
+  }
+}
+
+.view-related-documents {
+  .views-row {
+    margin-bottom: 5px;
+  }
+}

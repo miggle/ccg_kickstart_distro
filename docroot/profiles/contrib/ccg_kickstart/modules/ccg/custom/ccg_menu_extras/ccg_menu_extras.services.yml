@@ -1,0 +1,3 @@
+services:
+  ccg_menu_extras.helper:
+    class: Drupal\ccg_menu_extras\Helper

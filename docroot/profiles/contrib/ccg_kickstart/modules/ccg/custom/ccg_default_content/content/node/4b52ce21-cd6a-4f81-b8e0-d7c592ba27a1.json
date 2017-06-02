@@ -1,0 +1,186 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/news\/recruiting?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/news"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/33?_format=hal_json",
+                "lang": "en"
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": "10"
+        }
+    ],
+    "uuid": [
+        {
+            "value": "4b52ce21-cd6a-4f81-b8e0-d7c592ba27a1"
+        }
+    ],
+    "vid": [
+        {
+            "value": "65"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "news"
+        }
+    ],
+    "title": [
+        {
+            "value": "Recruiting",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "83407fc3-82aa-4ec3-8740-671c48ec8a39"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/news\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/33?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "90e453b5-bf5d-4ca3-aa43-8dfc95b77fbb"
+                    }
+                ],
+                "lang": "en",
+                "alt": "Recruiting",
+                "title": "",
+                "width": "700",
+                "height": "430"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1476717837",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1478871156",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1478871156"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": "\/news\/recruiting",
+            "pid": "9",
+            "lang": "en"
+        }
+    ],
+    "moderation_state": [
+        {
+            "target_id": "published",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<p><strong>We would like you to know about the latest CCG vacancies.<\/strong>&nbsp;<\/p>\r\n\r\n<p>Nec ei justo convenire definitionem, virtute nusquam eos et. Per et dicta moderatius, civibus perfecto in vel. No duo etiam liberavisse. Dicunt impedit recusabo per ea.<\/p>\r\n\r\n<p>Ad usu partem labore, eam numquam aliquam aliquando te, cu eam magna percipit partiendo. Splendide intellegat quo at. Facete dolorem vis ei, dicta percipit nec et, ceteros vivendum perpetua usu ne. Mediocrem erroribus liberavisse id ius, vix purto simul ad. Purto cibo qui ad.<\/p>\r\n\r\n<p>Eos te tollit aliquam perpetua, <em>ne quo paulo maiorum signiferumque<\/em>. Sit ad lobortis accommodare. Cu eum sint facete utroque, minim philosophia vim no. No nec facete epicuri gubergren. Cum alienum appetere imperdiet ne, eu pri quot nemore vocent. Ut sea dolore virtute <a href=\"http:\/\/ccgdemohavg7qivyb.devcloud.acquia-sites.com\/who-we-are\/our-board-and-management-committee\">inermis<\/a>.<\/p>\r\n\r\n<p>Mucius maiorum insolens ut mea, soluta gubergren mnesarchum vis ad.<\/p>\r\n\r\n<ul>\r\n\t<li>Et mea odio corpora neglegentur.<\/li>\r\n\t<li>Latine patrioque no duo, civibus democritum mei an, nec at ubique democritum temporibus.<\/li>\r\n\t<li>Ea erant bonorum sea, at eam libris moderatius, tantas molestie sensibus ea sed. Cu mucius epicurei sea, veniam similique posidonium te quo, falli ludus scribentur ex eam.<\/li>\r\n<\/ul>\r\n\r\n<p>Sale etiam et eos. Id congue tractatos pri, et elit postea voluptatibus pri, an deleniti oporteat mel. Et cibo quando hendrerit vis, eu pri laoreet ancillae mentitum. In sea alia lobortis disputationi, nam aliquip admodum constituam et. Id ius dicant debitis.<\/p>\r\n",
+            "format": "rich_text",
+            "summary": "",
+            "lang": "en"
+        }
+    ]
+}

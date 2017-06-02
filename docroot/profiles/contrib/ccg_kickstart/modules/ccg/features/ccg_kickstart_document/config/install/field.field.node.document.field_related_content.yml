@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_content
+    - node.type.document
+id: node.document.field_related_content
+field_name: field_related_content
+entity_type: node
+bundle: document
+label: 'Related content'
+description: "Enter the content you want this document to be related to. When you navigate to the content that is added here this document will appear in the sidebar in a related documents section.\r\nStart entering titles of pieces of content in the site and an auto-complete list will allow you to select available content."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+      document: document
+      key_staff_member: key_staff_member
+      landing_page: landing_page
+      news: news
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: page
+field_type: entity_reference

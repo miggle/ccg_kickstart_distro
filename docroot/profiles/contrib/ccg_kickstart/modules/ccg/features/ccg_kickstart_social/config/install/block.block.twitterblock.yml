@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - twitter_block
+  theme:
+    - ccg
+id: twitterblock
+theme: ccg
+region: sidebar_second
+weight: -7
+provider: null
+plugin: twitter_block
+settings:
+  id: twitter_block
+  label: 'Discussions on Twitter'
+  provider: twitter_block
+  label_display: visible
+  widget_id: '699583235978891264'
+  theme: ''
+  link_color: ''
+  width: ''
+  height: ''
+  chrome:
+    noheader: noheader
+    nofooter: nofooter
+    noborders: noborders
+    noscrollbar: noscrollbar
+    transparent: transparent
+  border_color: ''
+  language: ''
+  tweet_limit: '1'
+  related: ''
+  polite: polite
+visibility: {  }

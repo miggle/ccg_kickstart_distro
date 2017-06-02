@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ccg_choice_widget
+  theme:
+    - ccg
+id: nhschoiceswidget
+theme: ccg
+region: sidebar_second
+weight: -10
+provider: null
+plugin: ccg_choice_widget_block
+settings:
+  id: ccg_choice_widget_block
+  label: 'NHS choices widget'
+  provider: ccg_choice_widget
+  label_display: '0'
+visibility: {  }

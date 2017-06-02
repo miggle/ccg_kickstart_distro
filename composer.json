@@ -18,7 +18,7 @@
     "composer/installers": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.0",
     "cweagans/composer-patches": "1.5.0",
-    "miggle/ccg_kickstart": "~1"
+    "miggle/ccg_kickstart": "~2"
   },
   "repositories": [
     {
@@ -33,19 +33,13 @@
   "scripts": {
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-      "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-      "miggle\\CCGKickstart\\ScriptHandler::makeLightningConfigOptional",
       "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
-      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore",
-      "miggle\\CCGKickstart\\ScriptHandler::removeDistros"
+      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
     ],
     "post-update-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-      "miggle\\CCGKickstart\\ScriptHandler::moveModules",
-      "miggle\\CCGKickstart\\ScriptHandler::makeLightningConfigOptional",
       "miggle\\CCGKickstart\\ScriptHandler::moveLibraries",
-      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore",
-      "miggle\\CCGKickstart\\ScriptHandler::removeDistros"
+      "miggle\\CCGKickstart\\ScriptHandler::replaceGitIgnore"
     ]
   },
   "config": {
@@ -80,8 +74,6 @@
         "patches/core/core_system_branding_block_default_theme_issue.patch"
       }
     },
-    "lightning-modules-path": "docroot/profiles/contrib/lightning/modules",
-    "demo-modules-path": "docroot/profiles/contrib/ccg_kickstart/modules",
     "lib-source": "docroot/profiles/contrib/ccg_kickstart/libraries",
     "lib-target": "docroot/libraries",
     "gitignore-template": "gitignore.default",

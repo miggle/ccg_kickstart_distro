@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.ccg_content
+id: site_search
+label: Search
+path: search/site
+clean_url: true
+show_all_when_no_keys: false
+index: ccg_content
+limit: 10
+searched_fields:
+  body: body
+  field_landing_page_have_your_say: field_landing_page_have_your_say
+  title: title
+  field_bio: field_bio
+  filename: filename
+  field_description: field_description
+style: view_modes
+view_mode_configuration:
+  'entity:node_document': search_index
+  'entity:node_key_staff_member': search_index
+  'entity:node_landing_page': search_index
+  'entity:node_news': search_index
+  'entity:node_page': search_index
+show_search_form: true
