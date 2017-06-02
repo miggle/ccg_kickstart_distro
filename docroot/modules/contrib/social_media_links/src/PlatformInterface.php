@@ -46,6 +46,14 @@ interface PlatformInterface extends PluginInspectionInterface {
   public function getName();
 
   /**
+   * Returns the description for the value field.
+   *
+   * @return string
+   *   The description of the value field.
+   */
+  public function getFieldDescription();
+
+  /**
    * Return the url prefix of the platform.
    *
    * @return string

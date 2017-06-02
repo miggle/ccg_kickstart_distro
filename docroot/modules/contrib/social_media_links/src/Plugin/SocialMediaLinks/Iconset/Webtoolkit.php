@@ -22,12 +22,12 @@ class Webtoolkit extends IconsetBase implements IconsetInterface {
    * {@inheritdoc}
    */
   public function getStyle() {
-    return array(
+    return [
       '24' => '24x24',
       '32' => '32x32',
       '48' => '48x48',
       '62' => '62x62',
-    );
+    ];
   }
 
   /**

@@ -46,6 +46,13 @@ class PlatformBase extends PluginBase implements PlatformInterface {
   /**
    * {@inheritdoc}
    */
+  public function getFieldDescription() {
+    return isset($this->pluginDefinition['fieldDescription']) ? $this->pluginDefinition['fieldDescription'] : '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getUrlPrefix() {
     return isset($this->pluginDefinition['urlPrefix']) ? $this->pluginDefinition['urlPrefix'] : '';
   }

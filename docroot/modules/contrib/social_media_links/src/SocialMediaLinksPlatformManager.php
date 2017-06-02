@@ -51,18 +51,43 @@ class SocialMediaLinksPlatformManager extends DefaultPluginManager {
   }
 
   /**
+   * Get all platform plugins and sort it by weight from
+   * platform settings (e.g. block configuration, field settings).
+   *
+   * @param array $settings
+   *   The configuration with the 'weight'.
+   *
+   * @return array
+   *   The platform plugins sorted by weight setting.
+   */
+  public function getPlatformsSortedByWeight($settings) {
+    $default_weight = -10;
+
+    $platforms = $this->getPlatforms();
+    foreach ($platforms as $platform_id => $platform) {
+      $platforms[$platform_id]['weight'] = isset($settings['platforms'][$platform_id]['weight']) ? $settings['platforms'][$platform_id]['weight'] : $default_weight++;
+    }
+
+    uasort($platforms, ['Drupal\Component\Utility\SortArray', 'sortByWeightElement']);
+    return $platforms;
+  }
+
+  /**
    * The the platform plugins that have values.
    *
    * @return array
    *   The platform plugins that have values.
    */
   public function getPlatformsWithValue(array $platforms, $sort = TRUE) {
-    $usedPlatforms = array();
+    $usedPlatforms = [];
 
     foreach ($this->getPlatforms() as $platform_id => $platform) {
       if (!empty($platforms[$platform_id]['value'])) {
         $platform['instance']->setValue($platforms[$platform_id]['value']);
-        $platform['instance']->setDescription($platforms[$platform_id]['description']);
+
+          if (!empty($platforms[$platform_id]['description'])) {
+              $platform['instance']->setDescription($platforms[$platform_id]['description']);
+          }
 
         $usedPlatforms[$platform_id] = $platform;
 
@@ -72,7 +97,7 @@ class SocialMediaLinksPlatformManager extends DefaultPluginManager {
     }
 
     if ($sort) {
-      uasort($usedPlatforms, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
+      uasort($usedPlatforms, ['Drupal\Component\Utility\SortArray', 'sortByWeightElement']);
     }
 
     return $usedPlatforms;

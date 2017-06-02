@@ -70,33 +70,38 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
     $config = $this->getConfiguration();
 
     // Platforms.
-    $form['platforms'] = array(
+    $form['platforms'] = [
       '#type' => 'table',
-      '#header' => array(
+      '#header' => [
         $this->t('Platform'),
         $this->t('Platform URL'),
         $this->t('Description'),
         $this->t('Weight'),
-      ),
-      '#tabledrag' => array(
-        array(
+      ],
+      '#tabledrag' => [
+        [
           'action' => 'order',
-          'relationship' => 'silbing',
+          'relationship' => 'sibling',
           'group' => 'platform-order-weight',
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
-    $i = -11;
-    foreach ($this->platformManager->getPlatforms() as $platform_id => $platform) {
+    // Keep a note of the highest weight.
+    $max_weight = 10;
+    $platforms = $this->platformManager->getPlatformsSortedByWeight($this->getConfiguration());
+    foreach ($platforms as $platform_id => $platform) {
       $form['platforms'][$platform_id]['#attributes']['class'][] = 'draggable';
-      $form['platforms'][$platform_id]['#weight'] = isset($config['platforms'][$platform_id]['weight']) ? $config['platforms'][$platform_id]['weight'] : $i + 1;
+      $form['platforms'][$platform_id]['#weight'] = $platform['weight'];
+      if ($platform['weight'] > $max_weight) {
+        $max_weight = $platform['weight'];
+      }
 
-      $form['platforms'][$platform_id]['label'] = array(
+      $form['platforms'][$platform_id]['label'] = [
         '#markup' => '<strong>' . $platform['name']->render() . '</strong>',
-      );
+      ];
 
-      $form['platforms'][$platform_id]['value'] = array(
+      $form['platforms'][$platform_id]['value'] = [
         '#type' => 'textfield',
         '#title' => $platform['name']->render(),
         '#title_display' => 'invisible',
@@ -104,9 +109,12 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
         '#default_value' => isset($config['platforms'][$platform_id]['value']) ? $config['platforms'][$platform_id]['value'] : '',
         '#field_prefix' => $platform['instance']->getUrlPrefix(),
         '#field_suffix' => $platform['instance']->getUrlSuffix(),
-        '#element_validate' => array(array(get_class($platform['instance']), 'validateValue')),
-      );
-      $form['platforms'][$platform_id]['description'] = array(
+        '#element_validate' => [[get_class($platform['instance']), 'validateValue']],
+      ];
+      if (!empty($platform['instance']->getFieldDescription())) {
+        $form['platforms'][$platform_id]['value']['#description'] = $platform['instance']->getFieldDescription();
+      }
+      $form['platforms'][$platform_id]['description'] = [
         '#type' => 'textfield',
         '#title' => $platform['name']->render(),
         '#title_display' => 'invisible',
@@ -114,89 +122,91 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
         '#size' => 40,
         '#placeholder' => $this->t('Find / Follow us on %platform', ['%platform' => $platform['name']->render()]),
         '#default_value' => isset($config['platforms'][$platform_id]['description']) ? $config['platforms'][$platform_id]['description'] : '',
-      );
+      ];
 
-      $form['platforms'][$platform_id]['weight'] = array(
+      $form['platforms'][$platform_id]['weight'] = [
         '#type' => 'weight',
-        '#title' => $this->t('Weight for @title', array('@title' => $platform['name']->render())),
+        '#title' => $this->t('Weight for @title', ['@title' => $platform['name']->render()]),
         '#title_display' => 'invisible',
-        '#default_value' => isset($config['platforms'][$platform_id]['weight']) ? $config['platforms'][$platform_id]['weight'] : $i + 1,
-        '#attributes' => array('class' => array('platform-order-weight')),
-      );
-
-      $i++;
+        '#default_value' => $platform['weight'],
+        '#attributes' => ['class' => ['platform-order-weight']],
+        // Delta: We need to use the max weight + number of platforms,
+        // because if they get re-ordered it could start the count again from
+        // the max weight, when the last item is dragged to be the first item.
+        '#delta' => $max_weight + count($platforms),
+      ];
     }
 
     // Appearance.
-    $form['appearance'] = array(
+    $form['appearance'] = [
       '#type' => 'details',
       '#title' => $this->t('Appearance'),
       '#tree' => TRUE,
-    );
-    $form['appearance']['orientation'] = array(
+    ];
+    $form['appearance']['orientation'] = [
       '#type' => 'select',
       '#title' => $this->t('Orientation'),
-      '#options' => array(
+      '#options' => [
         'v' => $this->t('vertical'),
         'h' => $this->t('horizontal'),
-      ),
+      ],
       '#default_value' => isset($config['appearance']['orientation']) ? $config['appearance']['orientation'] : 'h',
-    );
-    $form['appearance']['show_name'] = array(
+    ];
+    $form['appearance']['show_name'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show name'),
       '#description' => $this->t('Show the platform name next to the icon.'),
       '#default_value' => isset($config['appearance']['show_name']) ? $config['appearance']['show_name'] : 0,
-    );
+    ];
 
     // Link Attributes.
-    $form['link_attributes'] = array(
+    $form['link_attributes'] = [
       '#type' => 'details',
       '#title' => $this->t('Link attributes'),
       '#tree' => TRUE,
-    );
-    $form['link_attributes']['target'] = array(
+    ];
+    $form['link_attributes']['target'] = [
       '#type' => 'select',
       '#title' => $this->t('Default target'),
       '#default_value' => isset($config['link_attributes']['target']) ? $config['link_attributes']['target'] : '<none>',
-      '#options' => array(
+      '#options' => [
         '<none>' => $this->t('Remove target attribute'),
         '_blank' => $this->t('Open in a new browser window or tab (_blank)'),
         '_self' => $this->t('Open in the current window (_self)'),
         '_parent' => $this->t('Open in the frame that is superior to the frame the link is in (_parent)'),
         '_top' => $this->t('Cancel all frames and open in full browser window (_top)'),
-      ),
-    );
-    $form['link_attributes']['rel'] = array(
+      ],
+    ];
+    $form['link_attributes']['rel'] = [
       '#type' => 'select',
       '#title' => $this->t('Default rel'),
       '#default_value' => isset($config['link_attributes']['rel']) ? $config['link_attributes']['rel'] : '<none>',
-      '#options' => array(
+      '#options' => [
         '<none>' => $this->t('Remove rel attribute'),
         'nofollow' => $this->t('Set nofollow'),
-      ),
-    );
+      ],
+    ];
 
     // Icon Sets.
     $iconsetStyles = $this->iconsetManager->getStyles();
 
-    $form['iconset'] = array(
+    $form['iconset'] = [
       '#type' => 'details',
       '#title' => $this->t('Icon Sets'),
       '#open' => TRUE,
-    );
-    $form['iconset']['style'] = array(
+    ];
+    $form['iconset']['style'] = [
       '#type' => 'select',
       '#title' => $this->t('Icon Style'),
       '#default_value' => isset($config['iconset']['style']) ? $config['iconset']['style'] : '',
       '#options' => $iconsetStyles,
-    );
+    ];
 
     // Get the possible libarary install locations.
     // We use it maybe later in the form process, if a iconset is not installed.
     $installDirs = $this->iconsetFinderService->getInstallDirs();
 
-    $installedIconsets = array();
+    $installedIconsets = [];
     foreach ($this->iconsetManager->getIconsets() as $iconset_id => $iconset) {
       if (isset($iconset['downloadUrl'])) {
         $name = Link::fromTextAndUrl($iconset['name'], Url::fromUri($iconset['downloadUrl']))->toString();
@@ -217,18 +227,18 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
         }
       }
 
-      $installedIconsets[$iconset_id]['name'] = array(
+      $installedIconsets[$iconset_id]['name'] = [
         '#markup' => '<strong>' . $name . '</strong><br />' . $publisher,
-      );
+      ];
 
-      $installedIconsets[$iconset_id]['styles'] = array(
+      $installedIconsets[$iconset_id]['styles'] = [
         '#markup' => implode('<br />', $iconsetStyles[$iconset_id]),
-      );
+      ];
 
       if ($iconset['instance']->getPath()) {
-        $installedIconsets[$iconset_id]['examples'] = array(
+        $installedIconsets[$iconset_id]['examples'] = [
           '#type' => 'table',
-        );
+        ];
 
         // Use the first iconset style for the sample table.
         $style = key($iconsetStyles[$iconset_id]);
@@ -243,29 +253,29 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
           $installedIconsets[$iconset_id]['examples']['#header'][] = $platform['name']->render();
 
           $iconElement = $iconset['instance']->getIconElement($platform['instance'], $style);
-          $installedIconsets[$iconset_id]['examples'][1][$platform_id] = array(
+          $installedIconsets[$iconset_id]['examples'][1][$platform_id] = [
             '#type' => 'markup',
             '#markup' => $this->renderer->render($iconElement),
-          );
+          ];
         }
       }
       else {
         $examples = '<strong>' . $this->t('Not installed.') . '</strong><br />';
         $examples .= $this->t('To install: @download and copy it to one of these directories:',
-          array(
+          [
             '@download' => Link::fromTextAndUrl($this->t('Download'), Url::fromUri($iconset['downloadUrl']))->toString(),
-          )
+          ]
         );
 
-        $installDirsIconset = array();
+        $installDirsIconset = [];
         foreach ($installDirs as $dir) {
           $installDirsIconset[] = $dir . '/' . $iconset_id;
         }
         $examples .= '<br /><code>' . preg_replace('/,([^,]+) ?$/', " " . $this->t('or') . " $1", implode(',<br />', $installDirsIconset), 1) . '</code>';
 
-        $installedIconsets[$iconset_id]['examples'] = array(
+        $installedIconsets[$iconset_id]['examples'] = [
           '#markup' => $examples,
-        );
+        ];
       }
 
       // Add a weigth to the iconset for sorting.
@@ -273,16 +283,16 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
     }
 
     // Sort the array so that installed iconsets shown first.
-    uasort($installedIconsets, array('Drupal\Component\Utility\SortArray', 'sortByWeightProperty'));
+    uasort($installedIconsets, ['Drupal\Component\Utility\SortArray', 'sortByWeightProperty']);
 
-    $form['iconset']['installed_iconsets'] = array(
+    $form['iconset']['installed_iconsets'] = [
       '#type' => 'table',
-      '#header' => array(
+      '#header' => [
         $this->t('Name'),
         $this->t('Sizes'),
         $this->t('Icon examples and download instructions'),
-      ),
-    ) + $installedIconsets;
+      ],
+    ] + $installedIconsets;
 
     return $form;
   }
@@ -308,7 +318,7 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
     $platforms = $this->platformManager->getPlatformsWithValue($config['platforms']);
 
     if (count($platforms) < 1) {
-      return array();
+      return [];
     }
 
     $iconset = IconsetBase::explodeStyle($config['iconset']['style']);
@@ -317,8 +327,8 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
       $iconsetInstance = $this->iconsetManager->createInstance($iconset['iconset']);
     }
     catch (PluginException $exception) {
-      $this->logger->error('The selected "@iconset" iconset plugin does not exist.', array('@iconset' => $iconset['iconset']));
-      return array();
+      $this->logger->error('The selected "@iconset" iconset plugin does not exist.', ['@iconset' => $iconset['iconset']]);
+      return [];
     }
 
     foreach ($config['link_attributes'] as $key => $value) {
@@ -344,20 +354,20 @@ class SocialMediaLinksBlock extends BlockBase implements ContainerFactoryPluginI
       }
     }
 
-    $output = array(
+    $output = [
       '#theme' => 'social_media_links_platforms',
       '#platforms' => $platforms,
       '#appearance' => $config['appearance'],
-      '#attached' => array(
-        'library' => array('social_media_links/social_media_links.theme'),
-      ),
-    );
+      '#attached' => [
+        'library' => ['social_media_links/social_media_links.theme'],
+      ],
+    ];
 
     if ($iconsetInstance->getPath() === 'library' && (array) $library = $iconsetInstance->getLibrary()) {
       $output['#attached']['library'] = array_merge_recursive($output['#attached']['library'], $library);
     }
 
-    return array($output);
+    return [$output];
   }
 
 }

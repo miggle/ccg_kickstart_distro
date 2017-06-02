@@ -22,11 +22,11 @@ class Nouveller extends IconsetBase implements IconsetInterface {
    * {@inheritdoc}
    */
   public function getStyle() {
-    return array(
+    return [
       '16' => '16x16',
       '32' => '32x32',
       'buttons' => '122x42',
-    );
+    ];
   }
 
   /**

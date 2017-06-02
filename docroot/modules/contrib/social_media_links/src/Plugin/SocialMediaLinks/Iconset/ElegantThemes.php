@@ -22,9 +22,9 @@ class ElegantThemes extends IconsetBase implements IconsetInterface {
    * {@inheritdoc}
    */
   public function getStyle() {
-    return array(
+    return [
       '32' => '32x32',
-    );
+    ];
   }
 
   /**

@@ -43,6 +43,15 @@ class Platform extends Plugin {
   public $name;
 
   /**
+   * The description for the platform value field.
+   *
+   * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
+   */
+  public $fieldDescription;
+
+  /**
    * The url prefix of the platform.
    *
    * @var string

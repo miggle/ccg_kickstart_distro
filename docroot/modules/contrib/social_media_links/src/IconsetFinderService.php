@@ -9,9 +9,9 @@ use Drupal\Core\DrupalKernelInterface;
  */
 class IconsetFinderService {
 
-  protected $installDirs = array();
-  protected $searchDirs = array();
-  protected $iconsets = array();
+  protected $installDirs = [];
+  protected $searchDirs = [];
+  protected $iconsets = [];
   protected $kernel;
 
   /**
@@ -138,8 +138,8 @@ class IconsetFinderService {
    */
   protected function setIconsets() {
     // Retrieve a list of directories.
-    $directories = array();
-    $nomask = array('CVS');
+    $directories = [];
+    $nomask = ['CVS'];
 
     foreach ($this->searchDirs as $dir) {
       if (is_dir($dir) && $handle = opendir($dir)) {
