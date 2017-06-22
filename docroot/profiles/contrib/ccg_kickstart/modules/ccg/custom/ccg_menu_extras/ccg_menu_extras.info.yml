@@ -1,5 +1,5 @@
 name: CCG Menu extras
-description: Provides extra options for menu links such as configurable access keys.
+description: Provides accessibility options to menu items such as keyboard shortcuts.
 core: 8.x
 type: module
 package: CCG Kickstart

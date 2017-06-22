@@ -5,3 +5,7 @@ Branding block theme issue with context patch
 Source: patches/core/core_system_branding_block_default_theme_issue.patch
 
 
+2635712 - Quickedit delete files
+Source: https://www.drupal.org/files/issues/2635712-20.patch
+
+
