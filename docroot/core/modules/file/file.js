@@ -88,12 +88,19 @@
   Drupal.behaviors.fileButtons = {
     attach: function (context) {
       var $context = $(context);
-      $context.find('.js-form-submit').on('mousedown', Drupal.file.disableFields);
+
+      $context.find('.js-form-submit').on('mousedown', function() {
+        Drupal.file.disableFields();
+        $(this).trigger('formUpdated');
+      });
       $context.find('.js-form-managed-file .js-form-submit').on('mousedown', Drupal.file.progressBar);
     },
     detach: function (context) {
       var $context = $(context);
-      $context.find('.js-form-submit').off('mousedown', Drupal.file.disableFields);
+      $context.find('.js-form-submit').off('mousedown', function() {
+        Drupal.file.disableFields();
+        $(this).trigger('formUpdated');
+      });
       $context.find('.js-form-managed-file .js-form-submit').off('mousedown', Drupal.file.progressBar);
     }
   };
