@@ -17,7 +17,7 @@
   "require": {
     "composer/installers": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.0",
-    "cweagans/composer-patches": "1.5.0",
+    "cweagans/composer-patches": "~1.6",
     "miggle/ccg_kickstart": "~2"
   },
   "repositories": [

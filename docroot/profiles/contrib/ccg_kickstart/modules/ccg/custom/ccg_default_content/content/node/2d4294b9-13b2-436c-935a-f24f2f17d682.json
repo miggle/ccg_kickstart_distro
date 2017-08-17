@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>We collect the following personal data on this website<\/strong><\/p>\r\n\r\n<p><br \/>\r\n<strong>Navigation data<\/strong><\/p>\r\n\r\n<p>Your Internet connection's&nbsp;IP address<\/p>\r\n\r\n<p><strong>Analytics<\/strong><\/p>\r\n\r\n<p>We use Google Analytics to aggregate information anonymously on site visits.&nbsp;The site uses navigation data in services provided by NHS Choices and third parties. For more information see our cookies policy. &nbsp;<\/p>\r\n\r\n<p><strong>Advertising<\/strong><\/p>\r\n\r\n<p>Some health campaigns are supplied with advertising data.<\/p>\r\n\r\n<p><strong>Personalisation<\/strong><\/p>\r\n\r\n<p>Uses navigation data and personal information to enable us&nbsp;and third parties to tailor the services provided to you.<\/p>\r\n\r\n<p><strong>Data sharing<\/strong><\/p>\r\n\r\n<p>We will never share personal information with any third parties without your consent. Navigation data is shared with trusted third parties providing analytics or advertising.<\/p>\r\n",

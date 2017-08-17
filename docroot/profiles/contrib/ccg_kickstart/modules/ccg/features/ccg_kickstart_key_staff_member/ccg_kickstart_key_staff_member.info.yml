@@ -20,6 +20,5 @@ dependencies:
   - text
   - user
   - views
-  - workbench_moderation
 version: 8.x-1.0
 package: 'CCG Kickstart'

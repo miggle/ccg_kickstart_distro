@@ -167,12 +167,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p>This page will display short articles that have been written by GP's and nurses.<\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit.&nbsp;<\/p>\r\n",

@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>The homepage is an opportunity to introduce Your Town CCG and explain the group's specifics and its character.<\/strong><\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<p>Cras a orci non dui volutpat consequat. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit.<\/p>\r\n\r\n<ul>\r\n\t<li>Etiam gravida in sapien non rhoncus.<\/li>\r\n\t<li>Nam suscipit ante a ipsum euismod convallis.<\/li>\r\n\t<li>Vivamus tempus nec mi ac tristique.&nbsp;<\/li>\r\n\t<li>&nbsp;<\/li>\r\n<\/ul>\r\n\r\n<p><a href=\"\/node\/101\">Ut mollis tincidunt elementum.<\/a> Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n",

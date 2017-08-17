@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>A page that has the members of the board shown, and also their information about what their expertise is to their hobbies.&nbsp;<\/strong><\/p>\r\n\r\n<p>&nbsp;<\/p>\r\n\r\n<p>Our Board meets in public every two months \u2013 <a href=\"\/get-involved\/public-board-meetings\">click here for the dates<\/a>.&nbsp;<\/p>\r\n",

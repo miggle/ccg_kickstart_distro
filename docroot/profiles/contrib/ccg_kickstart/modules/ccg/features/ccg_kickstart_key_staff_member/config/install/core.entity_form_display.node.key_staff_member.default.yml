@@ -18,7 +18,6 @@ dependencies:
     - inline_entity_form
     - path
     - text
-    - workbench_moderation
 _core:
   default_config_hash: Rk-qAGOnQfgduG_Om5Cx9DBk4p0dMFFQRy_1NMlVIwc
 id: node.key_staff_member.default

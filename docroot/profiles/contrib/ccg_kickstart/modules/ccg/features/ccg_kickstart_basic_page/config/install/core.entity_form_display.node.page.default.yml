@@ -16,7 +16,6 @@ dependencies:
     - metatag
     - path
     - text
-    - workbench_moderation
 _core:
   default_config_hash: gaYkalT6KEGWIO8-8Bw7pSWvtbxGZCAJery2i6K_WEg
 id: node.page.default

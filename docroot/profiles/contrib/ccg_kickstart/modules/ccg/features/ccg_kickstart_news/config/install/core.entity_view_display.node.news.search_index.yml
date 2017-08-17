@@ -42,4 +42,3 @@ hidden:
   field_news_tags: true
   field_review_date: true
   links: true
-  workbench_moderation_control: true

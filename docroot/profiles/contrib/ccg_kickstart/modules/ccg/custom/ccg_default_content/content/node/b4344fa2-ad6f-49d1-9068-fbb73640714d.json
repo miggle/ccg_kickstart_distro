@@ -167,12 +167,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>This page can be used to describe how the patient's health is important and how the CCG provides support to their wellbeing.<\/strong><\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<p>Cras a orci non dui volutpat consequat. Sed a vestibulum velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique.<\/p>\r\n\r\n<ol>\r\n\t<li>Nam quis mattis odio.<\/li>\r\n\t<li>Phasellus laoreet pulvinar tristique.<\/li>\r\n\t<li>Proin pretium aliquet laoreet.<\/li>\r\n\t<li>Aenean placerat velit vel justo malesuada egestas.<\/li>\r\n\t<li>This is an extra bullet point!<\/li>\r\n<\/ol>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. <a href=\"\/node\/99\">Nam elit justo<\/a>, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n",

@@ -167,12 +167,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>Patients have an opportunity to <a href=\"http:\/\/ccgdemohavg7qivyb.devcloud.acquia-sites.com\/contact-us\">be involved<\/a> in the&nbsp;CCG's planning. This section can describe various engagement services for members of the public, to actively shape their healthcare.<\/strong><\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat. Sed a vestibulum velit.<\/p>\r\n\r\n<ul>\r\n\t<li>Interdum et malesuada fames ac ante ipsum primis in faucibus.<\/li>\r\n\t<li>Pellentesque eu sem condimentum, sollicitudin purus ut, tempus elit.<\/li>\r\n\t<li>Etiam gravida in sapien non rhoncus.<\/li>\r\n\t<li>Nam suscipit ante a ipsum euismod convallis.<\/li>\r\n<\/ul>\r\n\r\n<p>Ut mollis <em>tincidunt<\/em> elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, <strong>dictum<\/strong> non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi. Phasellus feugiat risus accumsan metus lobortis consectetur. Nam semper diam ornare nibh faucibus, a varius odio tristique. Donec<a href=\"\/node\/368\"> <\/a>eget sodales elit. Ut scelerisque rhoncus nisl, vel malesuada mauris ultricies vel.<\/p>\r\n\r\n<p>Suspendisse sit amet quam vel enim luctus pulvinar sit amet quis nulla. Donec feugiat lacus egestas aliquet ultricies. Ut aliquam ultricies neque, vel varius sapien varius a. Praesent sit amet ornare lorem. Suspendisse commodo pellentesque ultrices.&nbsp;<\/p>\r\n",
