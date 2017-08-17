@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p>We aim to make this site as accessible as possible to as many people as possible and have followed the guidelines produced by the Web Accessibility Initiative.<\/p>\r\n\r\n<p>There are changes which you can make yourself to make the website easier to view.<\/p>\r\n\r\n<p><strong>Text resizing<\/strong><\/p>\r\n\r\n<p>Most browsers allow you to make the text on a page bigger or smaller.<\/p>\r\n\r\n<p>In Internet Explorer 6 and Firefox click on \"View\" then hover over \"Text size\" and then select the size you would like.<\/p>\r\n\r\n<p>In Internet Explorer 7 or 8 click \"Page\" then hover over \"Text size\" and then select the size you would like.<\/p>\r\n\r\n<p>In Internet Explorer 9 click \"Tools\" and select \"Zoom\" to select the size option you want. Or, to quickly zoom using the keyboard press \"Ctrl\" and \"+\" to zoom in, or Ctrl and \"-\" to zoom out.<\/p>\r\n\r\n<p>In Opera you simply click the \"+\" or \"-\" keys to make the page bigger or smaller.<\/p>\r\n\r\n<p>In Chrome click \"Chrome\" menu on the browser toolbar then select \"Settings\" and click \"Show advanced settings\" and then in the \"Web Content\" section, use the \"Font size\" drop-down menu to make adjustments.&nbsp;<\/p>\r\n\r\n<p>In Safari go to \"View\" then choose \"Zoom In\" or \"Zoom Out\" options or just press CMD button with the \"+\" or \"-\" to make the page bigger or smaller.<\/p>\r\n\r\n<p><strong>Access keys and shortcuts for NHS Choices<\/strong><\/p>\r\n\r\n<p>Your City CCG uses the UK government access keys standard for websites. Access keys are keyboard shortcuts that allow you to go directly to specific parts of this site. They are very useful for anyone who does not use a pointing device, such as a mouse. The access keys are:-<\/p>\r\n\r\n<p>Alt + N (skip to main navigation)<br \/>\r\nAlt + S (skip navigation)<br \/>\r\nAlt + 0 (access keys information)<br \/>\r\nAlt + 1 (homepage)<br \/>\r\nAlt + 3 (site map)<br \/>\r\nAlt + 4 (search)&nbsp;<br \/>\r\nAlt + 8 (terms and conditions)<br \/>\r\nAlt + 9 (contact us)<br \/>\r\nNote: access keys work slightly differently depending on the browser and computer that is used.<\/p>\r\n",

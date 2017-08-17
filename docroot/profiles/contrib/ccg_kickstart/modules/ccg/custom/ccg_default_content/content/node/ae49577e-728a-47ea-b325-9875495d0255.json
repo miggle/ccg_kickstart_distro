@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p>If you would like to make a Freedom of Information request, please email&nbsp;@nhs.net, or write to:<\/p>\r\n\r\n<p>FOI Coordinator<br \/>\r\n[address]<\/p>\r\n\r\n<p>Requests must include the applicant's name, a return email or postal address and clearly describe the information requested. Responses should be received within 20 working days.<\/p>\r\n",

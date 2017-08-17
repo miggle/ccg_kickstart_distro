@@ -9,7 +9,7 @@ update_entity_type: node
 update_types_supported:
   - embedded
 field_map:
-  field_moderation_state: moderation_state
+  field_status: status
 update_runner:
   id: latest_revision
   after_run: DELETE

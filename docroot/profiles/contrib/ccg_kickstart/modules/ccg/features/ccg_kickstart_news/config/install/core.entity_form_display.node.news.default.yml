@@ -13,7 +13,6 @@ dependencies:
     - entity_browser
     - path
     - text
-    - workbench_moderation
 _core:
   default_config_hash: 3W3mwKFpUjuKRJfTyXK_K4--L7qL7cJAe3Ki1pA-8ao
 id: node.news.default

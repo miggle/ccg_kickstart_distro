@@ -13,7 +13,6 @@ dependencies:
     - entity_browser
     - path
     - text
-    - workbench_moderation
 _core:
   default_config_hash: wzPI0cw6BsuEnS4-Kx-BKuHiikMc952nElNfWRhSOqw
 id: node.document.default

@@ -167,12 +167,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>Here is h<strong>o<\/strong>w to contact us<\/strong><\/p>\r\n\r\n<p>Telephone: 01122 334 556<br \/>\r\nTwitter: @testtwitter<br \/>\r\nEmail: tester@nhs.test<\/p>\r\n\r\n<p><strong>Post: Your Town<\/strong><\/p>\r\n\r\n<p><strong>Fax: <\/strong>01122 334 558<\/p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a orci non dui volutpat consequat. <strong>Sed a vestibulum<\/strong> velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eu sem condimentum, <em>sollicitudin purus ut, tempus elit<\/em>. Etiam gravida in sapien non rhoncus. Nam suscipit ante a ipsum euismod convallis. Vivamus tempus nec mi ac tristique. Nam quis mattis odio. Phasellus laoreet pulvinar tristique. Proin pretium aliquet laoreet. Aenean placerat velit vel justo malesuada egestas.<\/p>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor.<\/p>\r\n",

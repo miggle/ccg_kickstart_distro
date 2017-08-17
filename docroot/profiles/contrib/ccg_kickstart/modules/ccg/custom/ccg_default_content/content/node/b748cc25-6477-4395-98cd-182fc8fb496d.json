@@ -141,12 +141,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "body": [
         {
             "value": "<p><strong>What are cookies?<\/strong><\/p>\r\n\r\n<p>\"Cookies\"&nbsp;are small text files that are placed on your computer or phone by your web browser at the request of the websites that you visit. Cookies are used to make websites work more efficiently or more conveniently, as well as provide information to the site's operators.<\/p>\r\n\r\n<p><strong>What cookies does this site set?<\/strong><\/p>\r\n\r\n<p>This site sets the following cookies:<\/p>\r\n\r\n<p>Google Analytics: Cookies named \"__utma\",\"__utmb\",\"__utmc\" and \"__utmz\" are used by Google Analytics. Google Analytics is software provided by Google to website operators to help them measure the visitor traffic to the site. The information they track is anonymous and is not used to identify individuals. You can find out more about Google's usage of information <a href=\"\/node\/75\">here<\/a>.&nbsp;<\/p>\r\n\r\n<p>has_js. &nbsp;The has_js cookie records whether your browser has JavaScript enabled. &nbsp;This website functions better with JavaScript enabled.<\/p>\r\n\r\n<p><strong>Other cookies<\/strong><\/p>\r\n\r\n<p>Occasionally, specific functionality may set a cookie to retain your settings between visits to this site. These will only be used to remember a choice you have made, for example a large type view of the page.<\/p>\r\n\r\n<p><strong>How do I remove cookies?<\/strong><\/p>\r\n\r\n<p>If you do not wish to have cookies on your computer or phone you can choose to remove them, and\/or to block them altogether. You can read more about cookies and how to manage them <a href=\"\/node\/76\">here<\/a>.<\/p>\r\n",

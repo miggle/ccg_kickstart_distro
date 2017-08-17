@@ -55,7 +55,6 @@ dependencies:
   - responsive_image
   - views_infinite_scroll
   - scheduled_updates
-  - workbench_moderation
   - panelizer
   - sitemap
   - default_content

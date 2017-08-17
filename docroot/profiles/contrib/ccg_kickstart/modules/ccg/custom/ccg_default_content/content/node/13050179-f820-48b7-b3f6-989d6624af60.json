@@ -187,11 +187,5 @@
             "pid": "25",
             "lang": "en"
         }
-    ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
     ]
 }

@@ -20,7 +20,6 @@ return array(
     'Drupal\\Driver' => array($vendorDir . '/drupal/drupal-driver/src'),
     'Drupal\\Component' => array($vendorDir . '/drupal/drupal-driver/src'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Behat\\Transliterator' => array($vendorDir . '/behat/transliterator/src'),

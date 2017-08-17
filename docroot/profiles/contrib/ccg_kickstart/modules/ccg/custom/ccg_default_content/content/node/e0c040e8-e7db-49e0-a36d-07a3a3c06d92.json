@@ -191,12 +191,6 @@
             "lang": "en"
         }
     ],
-    "moderation_state": [
-        {
-            "target_id": "published",
-            "lang": "en"
-        }
-    ],
     "field_bio": [
         {
             "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>\r\n\r\n<ol>\r\n\t<li>Cras a orci non dui volutpat consequat.<\/li>\r\n\t<li>Sed a <strong>vestibulum<\/strong> velit.<\/li>\r\n\t<li>Interdum et malesuada fames ac ante<em> ipsum primis in faucibus<\/em>.&nbsp;<\/li>\r\n<\/ol>\r\n\r\n<p>Ut mollis tincidunt elementum. Integer eget quam odio. Nam elit justo, dignissim id venenatis at, dictum non nunc. Donec a massa id enim dignissim egestas non eu dolor. Nulla dapibus, ipsum at viverra tempor, urna felis ultricies lacus, sit amet vestibulum libero tortor et mi.<\/p>\r\n",
