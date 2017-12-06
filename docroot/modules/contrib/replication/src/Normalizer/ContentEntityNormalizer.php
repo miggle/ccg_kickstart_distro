@@ -3,31 +3,35 @@
 namespace Drupal\replication\Normalizer;
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\multiversion\Entity\Index\MultiversionIndexFactory;
 use Drupal\multiversion\Entity\WorkspaceInterface;
-use Drupal\replication\ProcessFileAttachment;
-use Drupal\file\FileInterface;
+use Drupal\replication\Event\ReplicationContentDataAlterEvent;
+use Drupal\replication\Event\ReplicationDataEvents;
 use Drupal\replication\UsersMapping;
+use Drupal\serialization\Normalizer\FieldableEntityNormalizerTrait;
 use Drupal\serialization\Normalizer\NormalizerBase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInterface {
 
+  use FieldableEntityNormalizerTrait;
+
   /**
    * @var string[]
    */
-  protected $supportedInterfaceOrClass = array('Drupal\Core\Entity\ContentEntityInterface');
-
-  /**
-   * @var \Drupal\Core\Entity\EntityManagerInterface
-   */
-  protected $entityManager;
+  protected $supportedInterfaceOrClass = ['Drupal\Core\Entity\ContentEntityInterface'];
 
   /**
    * @var \Drupal\multiversion\Entity\Index\MultiversionIndexFactory
@@ -40,11 +44,6 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
   protected $languageManager;
 
   /**
-   * @var \Drupal\replication\ProcessFileAttachment
-   */
-  protected $processFileAttachment;
-
-  /**
    * @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface
    */
   protected $selectionManager;
@@ -55,31 +54,43 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
   protected $usersMapping;
 
   /**
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $dispatcher;
+
+  /**
    * @var string[]
    */
-  protected $format = array('json');
+  protected $format = ['json'];
+
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  private $moduleHandler;
 
   /**
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    * @param \Drupal\multiversion\Entity\Index\MultiversionIndexFactory $index_factory
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
-   * @param \Drupal\replication\ProcessFileAttachment $process_file_attachment
    * @param \Drupal\replication\UsersMapping $users_mapping
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    * @param \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selection_manager
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    */
-  public function __construct(EntityManagerInterface $entity_manager, MultiversionIndexFactory $index_factory, LanguageManagerInterface $language_manager, ProcessFileAttachment $process_file_attachment, UsersMapping $users_mapping, SelectionPluginManagerInterface $selection_manager = NULL) {
+  public function __construct(EntityManagerInterface $entity_manager, MultiversionIndexFactory $index_factory, LanguageManagerInterface $language_manager, UsersMapping $users_mapping, ModuleHandlerInterface $module_handler, SelectionPluginManagerInterface $selection_manager = NULL, EventDispatcherInterface $event_dispatcher = NULL) {
     $this->entityManager = $entity_manager;
     $this->indexFactory = $index_factory;
     $this->languageManager = $language_manager;
-    $this->processFileAttachment = $process_file_attachment;
     $this->usersMapping = $users_mapping;
+    $this->moduleHandler = $module_handler;
     $this->selectionManager = $selection_manager;
+    $this->dispatcher = $event_dispatcher;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($entity, $format = NULL, array $context = array()) {
+  public function normalize($entity, $format = NULL, array $context = []) {
     $workspace = isset($entity->workspace->entity) ? $entity->workspace->entity : null;
     $rev_tree_index = $this->indexFactory->get('multiversion.entity_index.rev.tree', $workspace);
 
@@ -95,14 +106,14 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
     $entity_languages = $entity->getTranslationLanguages();
 
     // Create the basic data array with JSON-LD data.
-    $data = array(
-      '@context' => array(
+    $data = [
+      '@context' => [
         '_id' => '@id',
         '@language' => $entity_default_language->getId(),
-      ),
+      ],
       '@type' => $entity_type_id,
       '_id' => $entity_uuid,
-    );
+    ];
 
     // New or mocked entities might not have a rev yet.
     if (!empty($entity->_rev->value)) {
@@ -124,25 +135,10 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
         // Add data for each field (through the field's normalizer.
         $field_type = $field_definitions[$name]->getType();
         $items = $this->serializer->normalize($field, $format, $context);
-        // Add file and image field types into _attachments key.
-        if ($field_type == 'file' || $field_type == 'image') {
-          if ($items !== NULL) {
-            if (!isset($data['_attachments']) && !empty($items)) {
-              $data['_attachments'] = array();
-            }
-            foreach ($items as $item) {
-              $data['_attachments'] = array_merge($data['_attachments'], $item);
-            }
-          }
-          continue;
-        }
         if ($field_type == 'password') {
           continue;
         }
-
-        if ($items !== NULL) {
-          $data[$entity_language->getId()][$name] = $items;
-        }
+        $data[$entity_language->getId()][$name] = $items;
       }
       // Override the normalization for the _deleted special field, just so that we
       // follow the API spec.
@@ -155,25 +151,11 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
       }
     }
 
-    // @todo: {@link https://www.drupal.org/node/2599938 Needs test.}
-    if (!empty($context['query']['revs']) || !empty($context['query']['revs_info'])) {
-      $default_branch = $rev_tree_index->getDefaultBranch($entity_uuid);
-
-      $i = 0;
-      foreach (array_reverse($default_branch) as $rev => $status) {
-        // Build data for _revs_info.
-        if (!empty($context['query']['revs_info'])) {
-          $data['_revs_info'][] = array('rev' => $rev, 'status' => $status);
-        }
-        if (!empty($context['query']['revs'])) {
-          list($start, $hash) = explode('-', $rev);
-          $data['_revisions']['ids'][] = $hash;
-          if ($i == 0) {
-            $data['_revisions']['start'] = (int) $start;
-          }
-        }
-        $i++;
-      }
+    // @todo: Needs test.}
+    // Normalize the $entity->_rev->revisions value.
+    if (!empty($entity->_rev->revisions)) {
+      $data['_revisions']['ids'] = $entity->_rev->revisions;
+      $data['_revisions']['start'] = count($data['_revisions']['ids']);
     }
 
     if (!empty($context['query']['conflicts'])) {
@@ -190,13 +172,16 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
       unset($data[$langcode]['workspace'], $data[$langcode][$id_key], $data[$langcode][$revision_key], $data[$langcode][$uuid_key]);
     }
 
-    return $data;
+    $event = new ReplicationContentDataAlterEvent($entity, $data, $format, $context);
+    $this->dispatcher->dispatch(ReplicationDataEvents::ALTER_CONTENT_DATA, $event);
+
+    return $event->getData();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function denormalize($data, $class, $format = NULL, array $context = array()) {
+  public function denormalize($data, $class, $format = NULL, array $context = []) {
     // Make sure these values start as NULL
     $entity_type_id = NULL;
     $entity_uuid = NULL;
@@ -257,25 +242,6 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
     $revision_key = $entity_type->getKey('revision');
     $bundle_key = $entity_type->getKey('bundle');
 
-    // Denormalize File and Image field types.
-    $files = [];
-    if (isset($data['_attachments'])) {
-      foreach ($data['_attachments'] as $key => $value) {
-        /** @var FileInterface $file */
-        if (isset($context['workspace'])) {
-          $file = $this->processFileAttachment->process($value['data'], $key, 'base64_stream', $context['workspace']);
-        }
-        else {
-          $file = $this->processFileAttachment->process($value['data'], $key, 'base64_stream');
-        }
-        list($field_name, $delta, , , ) = explode('/', $key, 5);
-        $files[$field_name][$delta] = [
-          'target_id' => $file->id(),
-          'entity' => $file,
-        ];
-      }
-    }
-
     $translations = [];
     foreach ($data as $key => $translation) {
       // Skip any keys that start with '_' or '@'.
@@ -287,73 +253,47 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
       elseif (isset($site_languages[$key])
         || $key === LanguageInterface::LANGCODE_NOT_SPECIFIED
         || $key === LanguageInterface::LANGCODE_NOT_APPLICABLE) {
-        $translations[$key] = $this->denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, $files, $rev, $revisions);
+        $translations[$key] = $this->denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, $rev, $revisions);
       }
       // Configure the language, then do denormalization.
-      elseif (is_array($translation)) {
+      elseif (is_array($translation) && $this->moduleHandler->moduleExists('language')) {
         $language = ConfigurableLanguage::createFromLangcode($key);
         $language->save();
-        $translations[$key] = $this->denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, $files, $rev, $revisions);
+        $translations[$key] = $this->denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, $rev, $revisions);
       }
     }
 
-    // @todo {@link https://www.drupal.org/node/2599946 Move the below update
-    // logic to the resource plugin instead.}
-    $storage = $this->entityManager->getStorage($entity_type_id);
-
-
     // @todo {@link https://www.drupal.org/node/2599926 Use the passed $class to instantiate the entity.}
 
-    if ($entity_id) {
-      if ($entity = $storage->load($entity_id) ?: $storage->loadDeleted($entity_id)) {
-        if (!empty($translations[$entity->language()->getId()])) {
-          foreach ($translations[$entity->language()->getId()] as $name => $value) {
-            if ($name == 'default_langcode') {
-              continue;
-            }
-            $entity->{$name} = $value;
-          }
-        }
-      }
-      elseif (isset($translations[$default_langcode][$id_key])) {
-        unset($translations[$default_langcode][$id_key], $translations[$default_langcode][$revision_key]);
-        $entity_id = NULL;
-        $entity = $storage->create($translations[$default_langcode]);
-      }
+    $entity = NULL;
+    if ($entity_type_id === 'file' && !empty($translations[$default_langcode])) {
+      unset($translations[$default_langcode][$id_key], $translations[$default_langcode][$revision_key]);
+      $translations[$default_langcode]['status'][0]['value'] = FILE_STATUS_PERMANENT;
+      $translations[$default_langcode]['uid'][0]['target_id'] = $this->usersMapping->getUidFromConfig();
 
+      $entity = $this->createEntityInstance($translations[$default_langcode], $entity_type, $format, $context);
+    }
+    elseif (!empty($translations[$default_langcode])) {
+      unset($translations[$default_langcode][$id_key], $translations[$default_langcode][$revision_key]);
+      $entity = $this->createEntityInstance($translations[$default_langcode], $entity_type, $format, $context);
+    }
+
+    if ($entity instanceof ContentEntityInterface) {
       foreach ($site_languages as $site_language) {
         $langcode = $site_language->getId();
-        if ($entity->language()->getId() != $langcode && isset($translations[$langcode])) {
+        if ($entity->language()->getId() != $langcode && isset($translations[$langcode]) && !$entity->hasTranslation($langcode)) {
           $entity->addTranslation($langcode, $translations[$langcode]);
         }
       }
     }
-    else {
-      $entity = NULL;
-      if (!empty($bundle_key) && !empty($translations[$default_langcode][$bundle_key])) {
-        unset($translations[$default_langcode][$id_key], $translations[$default_langcode][$revision_key]);
-        $entity = $storage->create($translations[$default_langcode]);
-      }
-      elseif ($entity_type_id === 'file' && !empty($translations[$default_langcode])) {
-        if (isset($translations[$default_langcode][$id_key])) {
-          unset($translations[$default_langcode][$id_key]);
-        }
-        if (isset($translations[$default_langcode][$revision_key])) {
-          unset($translations[$default_langcode][$revision_key]);
-        }
-        $translations[$default_langcode]['status'][0]['value'] = FILE_STATUS_PERMANENT;
-        $translations[$default_langcode]['uid'][0]['target_id'] = $this->usersMapping->getUidFromConfig();
-        $entity = $storage->create($translations[$default_langcode]);
-      }
-    }
 
-    if ($entity_id) {
+    if ($entity_id && $entity) {
       $entity->enforceIsNew(FALSE);
       $entity->setNewRevision(FALSE);
       $entity->_rev->is_stub = FALSE;
     }
 
-    Cache::invalidateTags(array($entity_type_id . '_list'));
+    Cache::invalidateTags([$entity_type_id . '_list']);
 
     return $entity;
   }
@@ -366,16 +306,15 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
    * @param $bundle_key
    * @param $entity_type
    * @param $id_key
-   * @param array $files
+   * @param $context
    * @param $rev
    * @param array $revisions
-   * @param array $existing_users_names
    * @return mixed
    */
-  private function denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, array $files = [], $rev = null, array $revisions = [], array $existing_users_names = []) {
+  private function denormalizeTranslation($translation, $entity_id, $entity_uuid, $entity_type_id, $bundle_key, $entity_type, $id_key, $context, $rev = null, array $revisions = []) {
     // Add the _rev field to the $translation array.
     if (isset($rev)) {
-      $translation['_rev'] = array(array('value' => $rev));
+      $translation['_rev'] = [['value' => $rev]];
     }
     if (isset($revisions['start']) && isset($revisions['ids'])) {
       $translation['_rev'][0]['revisions'] = $revisions['ids'];
@@ -388,11 +327,11 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
     // structure since it's un-nested to follow the API spec when normalized.
     // @todo {@link https://www.drupal.org/node/2599938 Needs test for situation when a replication overwrites delete.}
     $deleted = isset($translation['_deleted']) ? $translation['_deleted'] : FALSE;
-    $translation['_deleted'] = array(array('value' => $deleted));
+    $translation['_deleted'] = [['value' => $deleted]];
 
     if ($entity_id) {
       // @todo {@link https://www.drupal.org/node/2599938 Needs test.}
-      $translation[$id_key] = $entity_id;
+      $translation[$id_key] = ['value' => $entity_id];
     }
 
     $bundle_id = $entity_type_id;
@@ -409,10 +348,6 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
       }
     }
 
-    if (!empty($files)) {
-      $translation = array_merge($translation, $files);
-    }
-
     // Denormalize entity reference fields.
     foreach ($translation as $field_name => $field_info) {
       if (!is_array($field_info)) {
@@ -420,6 +355,7 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
       }
       foreach ($field_info as $delta => $item) {
         if (isset($item['target_uuid'])) {
+          $translation[$field_name][$delta] = $item;
           $fields = $this->entityManager->getFieldDefinitions($entity_type_id, $bundle_id);
           // Figure out what bundle we should use when creating the stub.
           $settings = $fields[$field_name]->getSettings();
@@ -461,23 +397,27 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
               ->load($target_entity_info['entity_id']);
           }
 
+          // Try to get real bundle.
+          if (!empty($item['entity_type_id'])) {
+            $bundle_key = $this->entityManager->getStorage($item['entity_type_id'])->getEntityType()->getKey('bundle');
+            if (!empty($item[$bundle_key])) {
+              $target_bundle_id = $item[$bundle_key];
+            }
+          }
+
           // This set the correct uri for link field if the target entity
           // already exists.
           if ($type == 'link' && $target_entity) {
-            unset($item['entity_type_id']);
-            unset($item['target_uuid']);
-            $translation[$field_name][$delta] = $item;
             $id = $target_entity->id();
             $translation[$field_name][$delta]['uri'] = "entity:$target_entity_type_id/$id";
           }
           elseif ($target_entity) {
-            $translation[$field_name][$delta] = array(
-              'target_id' => $target_entity->id(),
-            );
+            $translation[$field_name][$delta]['target_id'] = $target_entity->id();
             // Special handling for Entity Reference Revisions, it needs the
             // revision ID in addition to the primary entity ID.
             if ($type === 'entity_reference_revisions') {
-              $translation[$field_name][$delta]['target_revision_id'] = $target_entity->revision_id->value;
+              $revision_key = $target_entity->getEntityType()->getKey('revision');
+              $translation[$field_name][$delta]['target_revision_id'] = $target_entity->{$revision_key}->value;
             }
           }
           // If the target entity doesn't exist we need to create a stub entity
@@ -508,24 +448,36 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
             // Indicate that this revision is a stub.
             $target_entity->_rev->is_stub = TRUE;
 
-            // Set for the uri value the target entity. This entity will be
-            // replaced with the uri in \Drupal\multiversion\LinkItem::preSve().
-            if ($type == 'link') {
-              $link = $translation[$field_name][$delta];
-              $link['uri'] = $target_entity;
-              unset($link['entity_type_id']);
-              unset($link['target_uuid']);
-              $translation[$field_name][$delta] = \Drupal::service('replication.normalizer.link_item')
-                ->denormalize($link, 'Drupal\link\Plugin\Field\FieldType\LinkItem', NULL, $context);
+            // This will ensure that stub poll_choice entities will not be saved
+            // in Drupal\poll\Entity\Poll:preSave()
+            if ($target_entity_type_id === 'poll_choice') {
+              $target_entity->needsSaving(FALSE);
             }
-            else {
-              // Populate the data field.
-              $translation[$field_name][$delta] = array(
-                'target_id' => NULL,
-                'entity' => $target_entity,
-              );
-            }
+
+            // Populate the data field.
+            $translation[$field_name][$delta]['target_id'] = NULL;
+            $translation[$field_name][$delta]['entity'] = $target_entity;
           }
+          if (isset($translation[$field_name][$delta]['entity_type_id'])) {
+            unset($translation[$field_name][$delta]['entity_type_id']);
+          }
+          if (isset($translation[$field_name][$delta]['target_uuid'])) {
+            unset($translation[$field_name][$delta]['target_uuid']);
+          }
+        }
+      }
+    }
+
+    // Denormalize parent field for menu_link_content entity type.
+    if ($entity_type_id == 'menu_link_content' && !empty($translation['parent'][0]['value'])) {
+      $translation['parent'][0]['value'] = $this->denormalizeMenuLinkParent($translation['parent'][0]['value'], $context);
+    }
+
+    // Unset the comment field item if CID is NULL.
+    if (!empty($translation['comment']) && is_array($translation['comment'])) {
+      foreach ($translation['comment'] as $delta => $item) {
+        if (empty($item['cid'])) {
+          unset($translation['comment'][$delta]);
         }
       }
     }
@@ -540,13 +492,90 @@ class ContentEntityNormalizer extends NormalizerBase implements DenormalizerInte
     // Remove changed info, otherwise we can get validation errors when the
     // 'changed' value for existing entity is higher than for the new entity (revision).
     // @see \Drupal\Core\Entity\Plugin\Validation\Constraint\EntityChangedConstraintValidator::validate().
-    foreach (array('@context', '@type', '_id', '_attachments', '_revisions', 'changed') as $key) {
+    foreach (['@context', '@type', '_id', '_revisions', 'changed'] as $key) {
       if (isset($translation[$key])) {
         unset($translation[$key]);
       }
     }
 
     return $translation;
+  }
+
+  /**
+   * Handles entity creation for fieldable and non-fieldable entities.
+   *
+   * This makes sure denormalization runs on field items.
+   *
+   * @param array $data
+   * @param EntityTypeInterface $entity_type
+   * @param $format
+   * @param array $context
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *
+   * @see \Drupal\serialization\Normalizer\FieldableEntityNormalizerTrait
+   */
+  private function createEntityInstance(array $data, EntityTypeInterface $entity_type, $format, array $context = []) {
+    // The bundle property will be required to denormalize a bundleable
+    // fieldable entity.
+    if ($entity_type->entityClassImplements(FieldableEntityInterface::class)) {
+      // Extract bundle data to pass into entity creation if the entity type uses
+      // bundles.
+      if ($entity_type->hasKey('bundle')) {
+        // Get an array containing the bundle only. This also remove the bundle
+        // key from the $data array.
+        $create_params = $this->extractBundleData($data, $entity_type);
+      }
+      else {
+        $create_params = [];
+      }
+
+      // Create the entity from bundle data only, then apply field values after.
+      $entity = $this->entityManager->getStorage($entity_type->id())->create($create_params);
+      $this->denormalizeFieldData($data, $entity, $format, $context);
+    }
+    else {
+      // Create the entity from all data.
+      $entity = $this->entityManager->getStorage($entity_type->id())->create($data);
+    }
+
+    return $entity;
+  }
+
+  /**
+   * @param $data
+   * @param $context
+   * @return string
+   */
+  protected function denormalizeMenuLinkParent($data, $context) {
+    if (strpos($data, 'menu_link_content') === 0) {
+      list($type, $uuid, $id) = explode(':', $data);
+      if ($type === 'menu_link_content' && $uuid && is_numeric($id)) {
+        $storage = $this->entityManager->getStorage('menu_link_content');
+        $parent = $storage->loadByProperties(['uuid' => $uuid]);
+        $parent = reset($parent);
+        if ($parent instanceof MenuLinkContentInterface && $parent->id() && $parent->id() != $id) {
+          return $type . ':' . $uuid . ':' . $parent->id();
+        }
+        elseif (!$parent) {
+          // Create a new menu link as stub.
+          $parent = $storage->create([
+            'uuid' => $uuid,
+            'link' => 'internal:/',
+          ]);
+          // Set the target workspace if we have it in context.
+          if (isset($context['workspace'])
+            && ($context['workspace'] instanceof WorkspaceInterface)) {
+            $parent->workspace->target_id = $context['workspace']->id();
+          }
+          // Indicate that this revision is a stub.
+          $parent->_rev->is_stub = TRUE;
+          $parent->save();
+          return $type . ':' . $uuid . ':' . $parent->id();
+        }
+      }
+    }
+    return $data;
   }
 
 }

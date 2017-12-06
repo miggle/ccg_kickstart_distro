@@ -68,12 +68,18 @@ class Patches implements PluginInterface, EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return array(
-      ScriptEvents::PRE_INSTALL_CMD => "checkPatches",
-      ScriptEvents::PRE_UPDATE_CMD => "checkPatches",
-      PackageEvents::PRE_PACKAGE_INSTALL => "gatherPatches",
-      PackageEvents::PRE_PACKAGE_UPDATE => "gatherPatches",
-      PackageEvents::POST_PACKAGE_INSTALL => "postInstall",
-      PackageEvents::POST_PACKAGE_UPDATE => "postInstall",
+      ScriptEvents::PRE_INSTALL_CMD => array('checkPatches'),
+      ScriptEvents::PRE_UPDATE_CMD => array('checkPatches'),
+      PackageEvents::PRE_PACKAGE_INSTALL => array('gatherPatches'),
+      PackageEvents::PRE_PACKAGE_UPDATE => array('gatherPatches'),
+      // The following is a higher weight for compatibility with
+      // https://github.com/AydinHassan/magento-core-composer-installer and more generally for compatibility with
+      // every Composer plugin which deploys downloaded packages to other locations.
+      // In such cases you want that those plugins deploy patched files so they have to run after
+      // the "composer-patches" plugin.
+      // @see: https://github.com/cweagans/composer-patches/pull/153
+      PackageEvents::POST_PACKAGE_INSTALL => array('postInstall', 10),
+      PackageEvents::POST_PACKAGE_UPDATE => array('postInstall', 10),
     );
   }
 
@@ -93,11 +99,6 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       $packages = $localRepository->getPackages();
 
       $tmp_patches = $this->grabPatches();
-      if ($tmp_patches == FALSE) {
-        $this->io->write('<info>No patches supplied.</info>');
-        return;
-      }
-
       foreach ($packages as $package) {
         $extra = $package->getExtra();
         if (isset($extra['patches'])) {
@@ -105,6 +106,11 @@ class Patches implements PluginInterface, EventSubscriberInterface {
         }
         $patches = isset($extra['patches']) ? $extra['patches'] : array();
         $tmp_patches = array_merge_recursive($tmp_patches, $patches);
+      }
+
+      if ($tmp_patches == FALSE) {
+        $this->io->write('<info>No patches supplied.</info>');
+        return;
       }
 
       // Remove packages for which the patch set has changed.
@@ -258,6 +264,11 @@ class Patches implements PluginInterface, EventSubscriberInterface {
    * @throws \Exception
    */
   public function postInstall(PackageEvent $event) {
+
+    // Check if we should exit in failure.
+    $extra = $this->composer->getPackage()->getExtra();
+    $exitOnFailure = getenv('COMPOSER_EXIT_ON_PATCH_FAILURE') || !empty($extra['composer-exit-on-patch-failure']);
+
     // Get the package object for the current operation.
     $operation = $event->getOperation();
     /** @var PackageInterface $package */
@@ -295,8 +306,7 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       }
       catch (\Exception $e) {
         $this->io->write('   <error>Could not apply patch! Skipping. The error was: ' . $e->getMessage() . '</error>');
-        $extra = $this->composer->getPackage()->getExtra();
-        if (getenv('COMPOSER_EXIT_ON_PATCH_FAILURE') || !empty($extra['composer-exit-on-patch-failure'])) {
+        if ($exitOnFailure) {
           throw new \Exception("Cannot apply patch $description ($url)!");
         }
       }
@@ -355,13 +365,25 @@ class Patches implements PluginInterface, EventSubscriberInterface {
     $patched = FALSE;
     // The order here is intentional. p1 is most likely to apply with git apply.
     // p0 is next likely. p2 is extremely unlikely, but for some special cases,
-    // it might be useful.
-    $patch_levels = array('-p1', '-p0', '-p2');
+    // it might be useful. p4 is useful for Magento 2 patches
+    $patch_levels = array('-p1', '-p0', '-p2', '-p4');
     foreach ($patch_levels as $patch_level) {
-      $checked = $this->executeCommand('cd %s && git --git-dir=. apply --check %s %s', $install_path, $patch_level, $filename);
+      if ($this->io->isVerbose()) {
+        $comment = 'Testing ability to patch with git apply.';
+        $comment .= ' This command may produce errors that can be safely ignored.';
+        $this->io->write('<comment>' . $comment . '</comment>');
+      }
+      $checked = $this->executeCommand('git -C %s apply --check -v %s %s', $install_path, $patch_level, $filename);
+      $output = $this->executor->getErrorOutput();
+      if (substr($output, 0, 7) == 'Skipped') {
+        // Git will indicate success but silently skip patches in some scenarios.
+        //
+        // @see https://github.com/cweagans/composer-patches/pull/165
+        $checked = false;
+      }
       if ($checked) {
         // Apply the first successful style.
-        $patched = $this->executeCommand('cd %s && git --git-dir=. apply %s %s', $install_path, $patch_level, $filename);
+        $patched = $this->executeCommand('git -C %s apply %s %s', $install_path, $patch_level, $filename);
         break;
       }
     }

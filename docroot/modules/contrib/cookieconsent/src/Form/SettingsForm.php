@@ -63,7 +63,7 @@ class SettingsForm extends ConfigFormBase {
     $form['theme_path'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Path to custom CSS file'),
-      '#description' => $this->t('Specify the path to the custom CSS file to use (e.g. <em>themes/[your-theme]/css/cookie-consent.css</em>). If you haven\'t selected a theme above, this custom CSS file is the only one loaded.'),
+      '#description' => $this->t('Specify the path to the custom CSS file to use (e.g. <em>themes/[your-theme]/css/cookie-consent.css</em>). This custom CSS file will load only if NO theme is specified above.'),
       '#maxlength' => 255,
       '#size' => 64,
       '#default_value' => $config->get('theme_path'),
@@ -117,12 +117,13 @@ class SettingsForm extends ConfigFormBase {
       ],
     ];
     $form['cookie_policy'] = [
-      '#type' => 'url',
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'node',
       '#title' => $this->t('Your cookie policy'),
       '#description' => $this->t('If you already have a cookie policy, link to it here.'),
       '#maxlength' => 255,
       '#size' => 64,
-      '#default_value' => $config->get('cookie_policy'),
+      '#default_value' => entity_load('node', $config->get('cookie_policy')),
     ];
     $form['container'] = [
       '#type' => 'textfield',

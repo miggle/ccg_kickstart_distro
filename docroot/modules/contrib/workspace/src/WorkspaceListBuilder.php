@@ -77,16 +77,16 @@ class WorkspaceListBuilder extends EntityListBuilder {
     /** @var \Drupal\multiversion\Entity\WorkspaceInterface $entity */
     $operations = parent::getDefaultOperations($entity);
     if (isset($operations['edit'])) {
-      $operations['edit']['query']['destination'] = $entity->toUrl('collection');
+      $operations['edit']['query']['destination'] = $entity->toUrl('collection')->toString();
     }
 
     $active_workspace = $this->workspaceManager->getActiveWorkspace()->id();
     if ($entity->id() != $active_workspace) {
-      $operations['activate'] = array(
+      $operations['activate'] = [
         'title' => $this->t('Set Active'),
         'weight' => 20,
-        'url' => $entity->toUrl('activate-form', ['query' => ['destination' => $entity->toUrl('collection')]]),
-      );
+        'url' => $entity->toUrl('activate-form', ['query' => ['destination' => $entity->toUrl('collection')->toString()]]),
+      ];
     }
 
     $operations['conflicts'] = [

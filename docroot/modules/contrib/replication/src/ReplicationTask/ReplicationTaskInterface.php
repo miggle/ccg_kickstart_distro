@@ -59,12 +59,46 @@ interface ReplicationTaskInterface {
   public function setParameter($name, $value);
 
   /**
+   * Set the limit of returned number of items.
+   *
+   * @param int $limit
+   *   The limit of returned items.
+   *
+   * @return \Drupal\replication\Changes\ChangesInterface
+   *   Returns $this.
+   */
+  public function setLimit($limit);
+
+  /**
+   * Set the limit of docs for BulkDocs per POST request.
+   *
+   * @param int $bulkDocsLimit
+   *   The limit of the items to send per request.
+   *
+   * @return \Drupal\replication\Changes\ChangesInterface
+   *   Returns $this.
+   */
+  public function setBulkDocsLimit($bulkDocsLimit);
+
+  /**
    * Get the parameters for the filter plugin.
    *
    * @return array
    *   The parameters passed to the filter plugin.
    */
   public function getParameters();
+
+  /**
+   * Set the update sequence to start with.
+   *
+   * @param int $sinceSeq
+   */
+  public function setSinceSeq($sinceSeq);
+
+  /**
+   * @param mixed $style
+   */
+  public function setStyle($style);
 
   /**
    * Converts the parameter bag to an associative array and returns the array.
@@ -87,5 +121,69 @@ interface ReplicationTaskInterface {
    *   If the parameter is not defined.
    */
   public function getParameter($name);
+
+  /**
+   * Returns the limit.
+   *
+   * @return int
+   */
+  public function getLimit();
+
+  /**
+   * Returns the BulkDocs limit.
+   *
+   * @return int
+   */
+  public function getBulkDocsLimit();
+
+  /**
+   * @return int
+   */
+  public function getSinceSeq();
+
+  /**
+   * @return mixed
+   */
+  public function getStyle();
+
+  /**
+   * @return array
+   */
+  public function getDocIds();
+
+  /**
+   * @param array $docIds
+   */
+  public function setDocIds($docIds);
+
+  /**
+   * @return int
+   */
+  public function getHeartbeat();
+
+  /**
+   * @param int $heartbeat
+   */
+  public function setHeartbeat($heartbeat);
+
+  /**
+   * @return boolean
+   */
+  public function getCreateTarget();
+
+  /**
+   * @param boolean $createTarget
+   */
+  public function setCreateTarget($createTarget);
+
+  /**
+   * @return bool
+   */
+  public function getContinuous();
+
+  /**
+   * @param bool $continuous
+   */
+  public function setContinuous($continuous);
 
 }

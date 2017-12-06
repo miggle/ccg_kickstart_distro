@@ -3,10 +3,9 @@
 namespace Drupal\replication\Normalizer;
 
 use Drupal\Core\Entity\FieldableEntityStorageInterface;
-use Drupal\serialization\Normalizer\NormalizerBase;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Drupal\serialization\Normalizer\FieldItemNormalizer;
 
-class EntityReferenceItemNormalizer extends NormalizerBase implements DenormalizerInterface {
+class EntityReferenceItemNormalizer extends FieldItemNormalizer {
 
   /**
    * The interface or class that this Normalizer supports.
@@ -18,12 +17,12 @@ class EntityReferenceItemNormalizer extends NormalizerBase implements Denormaliz
   /**
    * @var string[]
    */
-  protected $format = array('json');
+  protected $format = ['json'];
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($field, $format = NULL, array $context = array()) {
+  public function normalize($field, $format = NULL, array $context = []) {
     $value = $field->getValue();
     $target_type = $field->getFieldDefinition()->getSetting('target_type');
     $storage = \Drupal::entityTypeManager()->getStorage($target_type);
@@ -37,7 +36,7 @@ class EntityReferenceItemNormalizer extends NormalizerBase implements Denormaliz
     if ($target_type === 'user') {
       $taget_id = \Drupal::service('replication.users_mapping')->getUidFromConfig();
     }
-    if (!$taget_id) {
+    if ($taget_id === NULL) {
       return $value;
     }
 
@@ -53,7 +52,13 @@ class EntityReferenceItemNormalizer extends NormalizerBase implements Denormaliz
 
     // Add username to the field info for user entity type.
     if ($target_type === 'user' && $username = $referenced_entity->getUsername()) {
-      $field_info = ['username' => $username];
+      $field_info['username'] = $username;
+    }
+
+    if ($target_type === 'file') {
+      $file_info = $value;
+      unset($file_info['target_id']);
+      $field_info += $file_info;
     }
 
     $bundle_key = $referenced_entity->getEntityType()->getKey('bundle');
@@ -63,13 +68,6 @@ class EntityReferenceItemNormalizer extends NormalizerBase implements Denormaliz
     }
 
     return $field_info;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function denormalize($data, $class, $format = NULL, array $context = array()) {
-    return $data;
   }
 
 }

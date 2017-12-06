@@ -8,9 +8,13 @@ dependencies:
   - serialization
   - conflict
   - system (>=8.1.0)
+test_dependencies:
+  - paragraphs
+  - entity_reference_revisions
+  - poll
 
-# Information added by Drupal.org packaging script on 2016-10-26
-version: '8.x-1.0-alpha12'
+# Information added by Drupal.org packaging script on 2017-11-16
+version: '8.x-1.0-beta6'
 core: '8.x'
 project: 'multiversion'
-datestamp: 1477470562
+datestamp: 1510828109

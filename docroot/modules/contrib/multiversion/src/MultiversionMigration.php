@@ -91,8 +91,14 @@ class MultiversionMigration implements MultiversionMigrationInterface {
       'id' => $id,
       'label' => '',
       'process' => $this->getFieldMap($entity_type),
-      'source' => ['plugin' => 'multiversion'],
-      'destination' => ['plugin' => 'tempstore'],
+      'source' => [
+        'plugin' => 'multiversion',
+        'translations' => TRUE,
+      ],
+      'destination' => [
+        'plugin' => 'tempstore',
+        'translations' => TRUE,
+        ],
     ];
     $migration = \Drupal::service('plugin.manager.migration')
       ->createStubMigration($values);
@@ -164,8 +170,14 @@ class MultiversionMigration implements MultiversionMigrationInterface {
       'id' => $id,
       'label' => '',
       'process' => $this->getFieldMap($entity_type, TRUE),
-      'source' => ['plugin' => 'tempstore'],
-      'destination' => ['plugin' => 'multiversion'],
+      'source' => [
+        'plugin' => 'tempstore',
+        'translations' => TRUE,
+        ],
+      'destination' => [
+        'plugin' => 'multiversion',
+        'translations' => TRUE,
+      ],
     ];
     $migration = \Drupal::service('plugin.manager.migration')
       ->createStubMigration($values);
@@ -199,7 +211,7 @@ class MultiversionMigration implements MultiversionMigrationInterface {
    * @return array
    */
   public function getFieldMap(EntityTypeInterface $entity_type, $migration_from_tmp = FALSE) {
-    $map = array();
+    $map = [];
     // For some reasons it sometimes doesn't work if injecting the service.
     $entity_type_bundle_info = \Drupal::service('entity_type.bundle.info');
     $entity_type_bundle_info->clearCachedBundles();
@@ -211,21 +223,10 @@ class MultiversionMigration implements MultiversionMigrationInterface {
       $definitions = $entity_field_manager->getFieldDefinitions($entity_type->id(), $bundle_id);
       foreach ($definitions as $definition) {
         $name = $definition->getName();
-        $type = $definition->getType();
-        $text_types = ['text', 'text_long', 'text_with_summary'];
-        if ($migration_from_tmp && in_array($type, $text_types)) {
-          // Add a custom process plugin for text fields.
-          $map[$name] = [
-            'plugin' => 'text_field_process',
-            'source' => $name,
-          ];
-        }
-        else {
-          // We don't want our own fields to be part of the migration mapping or
-          // they would get assigned NULL instead of default values.
-          if (!in_array($name, ['workspace', '_deleted', '_rev'])) {
-            $map[$name] = $name;
-          }
+        // We don't want our own fields to be part of the migration mapping or
+        // they would get assigned NULL instead of default values.
+        if (!in_array($name, ['workspace', '_deleted', '_rev'])) {
+          $map[$name] = $name;
         }
       }
     }
@@ -243,9 +244,9 @@ class MultiversionMigration implements MultiversionMigrationInterface {
     // a migration like this.
     $connection_info = Database::getConnectionInfo('default');
     foreach ($connection_info as $target => $value) {
-      $connection_info[$target]['prefix'] = array(
+      $connection_info[$target]['prefix'] = [
         'default' => $value['prefix']['default'],
-      );
+      ];
     }
     Database::addConnectionInfo('migrate', 'default', $connection_info['default']);
 

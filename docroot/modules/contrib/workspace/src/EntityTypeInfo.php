@@ -7,6 +7,7 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\multiversion\MultiversionManagerInterface;
 use Drupal\workspace\Entity\Form\WorkspaceForm;
+use Drupal\workspace\Entity\Form\WorkspaceDeleteForm;
 use Drupal\workspace\Entity\Form\WorkspaceTypeDeleteForm;
 use Drupal\workspace\Entity\Form\WorkspaceTypeForm;
 
@@ -63,8 +64,8 @@ class EntityTypeInfo {
    *   Just the entities that we care about.
    */
   protected function selectMultiversionedUiEntityTypes(array $entity_types) {
-    return array_filter($entity_types, function (EntityTypeInterface $type) use ($entity_types) {
-      return $this->multiversionManager->isSupportedEntityType($type)
+    return array_filter($entity_types, function (EntityTypeInterface $type) {
+      return $this->multiversionManager->isEnabledEntityType($type)
       && $type->hasViewBuilderClass()
       && $type->hasLinkTemplate('canonical');
     });
@@ -104,9 +105,11 @@ class EntityTypeInfo {
     $workspace->setFormClass('default', WorkspaceForm::class);
     $workspace->setFormClass('add', WorkspaceForm::class);
     $workspace->setFormClass('edit', WorkspaceForm::class);
+    $workspace->setFormClass('delete', WorkspaceDeleteForm::class);
     $workspace->setLinkTemplate('collection', '/admin/structure/workspace');
     $workspace->setLinkTemplate('canonical', '/admin/structure/workspace/{workspace}');
     $workspace->setLinkTemplate('edit-form', '/admin/structure/workspace/{workspace}/edit');
+    $workspace->setLinkTemplate('delete-form', '/admin/structure/workspace/{workspace}/delete');
     $workspace->setLinkTemplate('activate-form', '/admin/structure/workspace/{workspace}/activate');
     $workspace->setLinkTemplate('conflicts', '/admin/structure/workspace/{workspace}/conflicts');
     $workspace->set('field_ui_base_route', 'entity.workspace_type.edit_form');
@@ -132,7 +135,7 @@ class EntityTypeInfo {
       }
 
       if (!$entity_type->hasLinkTemplate('revision')) {
-        $entity_type->setLinkTemplate('revision', $entity_type->getLinkTemplate('canonical') . '/revisions/{' . $entity_type->id() . '_revision}/view');
+        $entity_type->setLinkTemplate('revision', $entity_type->getLinkTemplate('canonical') . '/revisions/{entity_revision}/view');
       }
     }
 
@@ -161,10 +164,9 @@ class EntityTypeInfo {
       ->setSetting('target_type', 'workspace_pointer')
       ->setDefaultValueCallback('workspace_active_id')
       ->setDisplayOptions('form', [
-        'type' => 'options_buttons',
-        'weight' => 0
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+        'type' => 'options_upstream_buttons',
+        'weight' => 5
+      ]);
 
     $fields['pull_replication_settings'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Replication settings on update'))
@@ -173,7 +175,7 @@ class EntityTypeInfo {
       ->setSetting('target_type', 'replication_settings')
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 1
+        'weight' => 6
       ]);
 
     $fields['push_replication_settings'] = BaseFieldDefinition::create('entity_reference')
@@ -183,7 +185,7 @@ class EntityTypeInfo {
       ->setSetting('target_type', 'replication_settings')
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 2
+        'weight' => 7
       ]);
 
     return $fields;

@@ -61,7 +61,11 @@ function cookieconsent_page_attachments(array &$attachments) {
       $attachments['#attached']['drupalSettings']['cookieconsent']['dismiss'] = $config->get('accept_button_text');
       $attachments['#attached']['drupalSettings']['cookieconsent']['learnMore'] = $config->get('read_more_button_text');
     }
-    $attachments['#attached']['drupalSettings']['cookieconsent']['link'] = $config->get('cookie_policy');
+
+    $node_id = $config->get('cookie_policy');
+    $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/'.$node_id);
+    $attachments['#attached']['drupalSettings']['cookieconsent']['link'] = $alias;
+
     $attachments['#attached']['drupalSettings']['cookieconsent']['path'] = $config->get('path');
     $attachments['#attached']['drupalSettings']['cookieconsent']['expiry'] = $config->get('expiry');
     $attachments['#attached']['drupalSettings']['cookieconsent']['target'] = $config->get('target');
@@ -81,7 +85,7 @@ function cookieconsent_page_attachments(array &$attachments) {
       '#dismiss' => $config->get('accept_button_text'),
       '#message' => $config->get('headline_text'),
       '#target' => $config->get('target'),
-      '#link' => $config->get('cookie_policy'),
+      '#link' => $alias,
       '#learn_more' => $config->get('read_more_button_text'),
     ];
     /** @var Drupal\Core\Render\Markup $markup */
