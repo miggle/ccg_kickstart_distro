@@ -10,7 +10,7 @@ class RevisionDiff implements RevisionDiffInterface {
   /**
    * @var \Drupal\multiversion\Entity\Index\RevisionIndexInterface
    */
-  protected $revIndex = [];
+  protected $revIndex = array();
 
   /**
    * @var string[]
@@ -48,7 +48,7 @@ class RevisionDiff implements RevisionDiffInterface {
    *   possible_ancestors key.}
    */
   public function getMissing() {
-    $missing = [];
+    $missing = array();
     foreach ($this->getRevisionIds() as $uuid => $revs) {
       $keys = [];
       foreach ($revs as $rev) {

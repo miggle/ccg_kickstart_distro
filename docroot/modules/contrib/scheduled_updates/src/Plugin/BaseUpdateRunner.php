@@ -385,6 +385,11 @@ abstract class BaseUpdateRunner extends PluginBase implements UpdateRunnerInterf
       '#type' => 'value',
       '#value' => $this->getPluginId(),
     ];
+    $form['description'] = [
+      '#type' => 'markup',
+      '#markup' => $this->getDescription(),
+      '#weight' => '-20',
+    ];
 
     $form['runner_advanced'] = [
       '#type' => 'details',

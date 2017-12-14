@@ -3,9 +3,10 @@
 namespace Drupal\replication\Normalizer;
 
 use Drupal\Core\Entity\FieldableEntityStorageInterface;
-use Drupal\serialization\Normalizer\FieldItemNormalizer;
+use Drupal\serialization\Normalizer\NormalizerBase;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class EntityReferenceItemNormalizer extends FieldItemNormalizer {
+class EntityReferenceItemNormalizer extends NormalizerBase implements DenormalizerInterface {
 
   /**
    * The interface or class that this Normalizer supports.
@@ -17,12 +18,12 @@ class EntityReferenceItemNormalizer extends FieldItemNormalizer {
   /**
    * @var string[]
    */
-  protected $format = ['json'];
+  protected $format = array('json');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($field, $format = NULL, array $context = []) {
+  public function normalize($field, $format = NULL, array $context = array()) {
     $value = $field->getValue();
     $target_type = $field->getFieldDefinition()->getSetting('target_type');
     $storage = \Drupal::entityTypeManager()->getStorage($target_type);
@@ -36,7 +37,7 @@ class EntityReferenceItemNormalizer extends FieldItemNormalizer {
     if ($target_type === 'user') {
       $taget_id = \Drupal::service('replication.users_mapping')->getUidFromConfig();
     }
-    if ($taget_id === NULL) {
+    if (!$taget_id) {
       return $value;
     }
 
@@ -52,13 +53,7 @@ class EntityReferenceItemNormalizer extends FieldItemNormalizer {
 
     // Add username to the field info for user entity type.
     if ($target_type === 'user' && $username = $referenced_entity->getUsername()) {
-      $field_info['username'] = $username;
-    }
-
-    if ($target_type === 'file') {
-      $file_info = $value;
-      unset($file_info['target_id']);
-      $field_info += $file_info;
+      $field_info = ['username' => $username];
     }
 
     $bundle_key = $referenced_entity->getEntityType()->getKey('bundle');
@@ -68,6 +63,13 @@ class EntityReferenceItemNormalizer extends FieldItemNormalizer {
     }
 
     return $field_info;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = array()) {
+    return $data;
   }
 
 }

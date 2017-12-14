@@ -54,7 +54,7 @@ class BulkDocs implements BulkDocsInterface {
   /**
    * @var \Drupal\Core\Entity\ContentEntityInterface[]
    */
-  protected $entities = [];
+  protected $entities = array();
 
   /**
    * @var bool
@@ -64,7 +64,7 @@ class BulkDocs implements BulkDocsInterface {
   /**
    * @var array
    */
-  protected $result = [];
+  protected $result = array();
 
   /**
    * The state service.
@@ -134,7 +134,7 @@ class BulkDocs implements BulkDocsInterface {
         }
       }
       $this->logger->critical('Lock exists on bulk operation. Waiting.');
-    } while ($this->lock->wait('bulk_docs', 3000));
+    } while ($this->lock->wait('bulk_docs'));
 
     $inital_workspace = $this->workspaceManager->getActiveWorkspace();
     $this->workspaceManager->setActiveWorkspace($this->workspace);
@@ -154,12 +154,12 @@ class BulkDocs implements BulkDocsInterface {
 
         if ($record) {
           if (!$this->newEdits && !$record['is_stub']) {
-            $this->result[] = [
+            $this->result[] = array(
               'error' => 'conflict',
               'reason' => 'Document update conflict',
               'id' => $uuid,
               'rev' => $rev,
-            ];
+            );
             continue;
           }
         }
@@ -179,27 +179,32 @@ class BulkDocs implements BulkDocsInterface {
           $entity->{$id_key}->value = NULL;
         }
 
+        // @todo: This is a temporary hack for the internal replicator to ensure
+        // that the revisions are calculated based on the initial workspace,
+        // i.e. before switching the workspace.
+        $revisions = $entity->_rev->revisions;
+
         $entity->workspace->target_id = $this->workspace->id();
         $entity->_rev->new_edit = $this->newEdits;
         $entity->save();
 
         $id = ($entity_type->id() === 'replication_log') ? "_local/$uuid" : $uuid;
-        $this->result[] = [
+        $this->result[] = array(
           'ok' => TRUE,
           'id' => $id,
           'rev' => $entity->_rev->value,
-        ];
+        );
       }
       catch (\Exception $e) {
         $message = $e->getMessage();
         $entity_type_id = $entity->getEntityTypeId();
         $id = ($entity_type_id === 'replication_log') ? "_local/$uuid" : $uuid;
-        $this->result[] = [
+        $this->result[] = array(
           'error' => $message,
           'reason' => 'exception',
           'id' => $id,
           'rev' => $entity->_rev->value,
-        ];
+        );
         $this->logger->critical($message);
       }
     }

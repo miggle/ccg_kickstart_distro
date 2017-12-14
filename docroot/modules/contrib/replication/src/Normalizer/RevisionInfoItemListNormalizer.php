@@ -9,17 +9,17 @@ class RevisionInfoItemListNormalizer extends ListNormalizer {
   /**
    * @var string[]
    */
-  protected $supportedInterfaceOrClass = ['Drupal\multiversion\Plugin\Field\FieldType\RevisionInfoItemList'];
+  protected $supportedInterfaceOrClass = array('Drupal\multiversion\Plugin\Field\FieldType\RevisionInfoItemList');
 
   /**
    * @var string[]
    */
-  protected $format = ['json'];
+  protected $format = array('json');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($field, $format = NULL, array $context = []) {
+  public function normalize($field, $format = NULL, array $context = array()) {
     if (!empty($context['query']['revs_info'])) {
       return parent::normalize($field, $format, $context);
     }

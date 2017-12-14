@@ -14,18 +14,18 @@ services:
     arguments: ['@multiversion.manager']
   workspace.entity_operations:
     class: Drupal\workspace\EntityOperations
-    arguments: ['@multiversion.manager', '@entity_type.manager', '@queue']
+    arguments: ['@multiversion.manager', '@entity_type.manager']
   workspace.toolbar:
     class: Drupal\workspace\Toolbar
     arguments: ['@entity_type.manager', '@workspace.manager', '@form_builder', '@current_user']
   workspace.route_subscriber:
     class: Drupal\workspace\Routing\RouteSubscriber
-    arguments: ['@multiversion.manager']
+    arguments: ['@entity.manager']
     tags:
       - { name: event_subscriber }
   workspace.paramconverter.entity_revision:
     class: Drupal\workspace\ParamConverter\EntityRevisionConverter
-    arguments: ['@entity_type.manager', '@entity.repository']
+    arguments: ['@entity.manager']
     tags:
       - { name: paramconverter, priority: 30 }
   workspace.workbench_moderation_subscriber:

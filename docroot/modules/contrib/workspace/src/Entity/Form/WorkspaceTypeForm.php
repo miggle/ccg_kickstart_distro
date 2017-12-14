@@ -18,23 +18,23 @@ class WorkspaceTypeForm extends BundleEntityFormBase {
     $form = parent::form($form, $form_state);
 
     $workspace_type = $this->entity;
-    $form['label'] = [
+    $form['label'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
       '#default_value' => $workspace_type->label(),
       '#description' => $this->t("Label for the Workspace type."),
       '#required' => TRUE,
-    ];
+    );
 
-    $form['id'] = [
+    $form['id'] = array(
       '#type' => 'machine_name',
       '#default_value' => $workspace_type->id(),
-      '#machine_name' => [
+      '#machine_name' => array(
         'exists' => '\Drupal\multiversion\Entity\WorkspaceType::load',
-      ],
+      ),
       '#disabled' => !$workspace_type->isNew(),
-    ];
+    );
 
     return $this->protectBundleIdElement($form);
   }
@@ -58,7 +58,7 @@ class WorkspaceTypeForm extends BundleEntityFormBase {
           '%label' => $workspace_type->label(),
         ]));
     }
-    $form_state->setRedirectUrl($workspace_type->toUrl('collection'));
+    $form_state->setRedirectUrl($workspace_type->urlInfo('collection'));
   }
 
 }

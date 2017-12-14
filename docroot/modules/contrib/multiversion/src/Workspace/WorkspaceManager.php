@@ -2,7 +2,7 @@
 
 namespace Drupal\multiversion\Workspace;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\multiversion\Entity\WorkspaceInterface;
@@ -19,9 +19,9 @@ class WorkspaceManager implements WorkspaceManagerInterface {
   protected $requestStack;
 
   /**
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityManagerInterface
    */
-  protected $entityTypeManager;
+  protected $entityManager;
 
   /**
    * @var \Drupal\Core\Session\AccountProxyInterface
@@ -31,7 +31,7 @@ class WorkspaceManager implements WorkspaceManagerInterface {
   /**
    * @var array
    */
-  protected $negotiators = [];
+  protected $negotiators = array();
 
   /**
    * @var array
@@ -46,13 +46,13 @@ class WorkspaceManager implements WorkspaceManagerInterface {
   /**
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The request stack.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    * @param \Psr\Log\LoggerInterface $logger
    */
-  public function __construct(RequestStack $request_stack, EntityTypeManagerInterface $entity_type_manager, AccountProxyInterface $current_user, LoggerInterface $logger = NULL) {
+  public function __construct(RequestStack $request_stack, EntityManagerInterface $entity_manager, AccountProxyInterface $current_user, LoggerInterface $logger = NULL) {
     $this->requestStack = $request_stack;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->entityManager = $entity_manager;
     $this->currentUser = $current_user;
     $this->logger = $logger ?: new NullLogger();
   }
@@ -69,21 +69,21 @@ class WorkspaceManager implements WorkspaceManagerInterface {
    * {@inheritdoc}
    */
   public function load($workspace_id) {
-    return $this->entityTypeManager->getStorage('workspace')->load($workspace_id);
+    return $this->entityManager->getStorage('workspace')->load($workspace_id);
   }
 
   /**
    * {@inheritdoc}
    */
   public function loadMultiple(array $workspace_ids = NULL) {
-    return $this->entityTypeManager->getStorage('workspace')->loadMultiple($workspace_ids);
+    return $this->entityManager->getStorage('workspace')->loadMultiple($workspace_ids);
   }
 
   /**
    * {@inheritdoc}
    */
   public function loadByMachineName($machine_name) {
-    $workspaces = $this->entityTypeManager->getStorage('workspace')->loadByProperties(['machine_name' => $machine_name]);
+    $workspaces = $this->entityManager->getStorage('workspace')->loadByProperties(['machine_name' => $machine_name]);
     return current($workspaces);
   }
 
@@ -127,9 +127,6 @@ class WorkspaceManager implements WorkspaceManagerInterface {
       }
     }
 
-    // Clear cached entity storage handlers
-    $this->entityTypeManager->clearCachedDefinitions();
-
     return $this;
   }
 
@@ -142,7 +139,7 @@ class WorkspaceManager implements WorkspaceManagerInterface {
       krsort($this->negotiators);
       // Merge nested negotiators from $this->negotiators into
       // $this->sortedNegotiators.
-      $this->sortedNegotiators = [];
+      $this->sortedNegotiators = array();
       foreach ($this->negotiators as $builders) {
         $this->sortedNegotiators = array_merge($this->sortedNegotiators, $builders);
       }

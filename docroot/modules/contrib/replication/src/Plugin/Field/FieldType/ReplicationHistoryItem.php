@@ -43,14 +43,14 @@ class ReplicationHistoryItem extends FieldItemBase {
       ->setDescription(t('Number of documents written.'))
       ->setRequired(FALSE);
 
-    $properties['start_last_seq'] = DataDefinition::create('string')
-      ->setLabel(t('Start sequence'))
-      ->setDescription(t('Sequence ID where the replication started.'))
-      ->setRequired(FALSE);
-
-    $properties['end_last_seq'] = DataDefinition::create('string')
+    $properties['end_last_seq'] = DataDefinition::create('integer')
       ->setLabel(t('End sequence'))
       ->setDescription(t('Sequence ID where the replication ended.'))
+      ->setRequired(FALSE);
+
+    $properties['end_time'] = DataDefinition::create('datetime_iso8601')
+      ->setLabel(t('End time'))
+      ->setDescription(t('Date and time when replication ended.'))
       ->setRequired(FALSE);
 
     $properties['missing_checked'] = DataDefinition::create('integer')
@@ -63,7 +63,7 @@ class ReplicationHistoryItem extends FieldItemBase {
       ->setDescription(t('Number of missing documents found.'))
       ->setRequired(FALSE);
 
-    $properties['recorded_seq'] = DataDefinition::create('string')
+    $properties['recorded_seq'] = DataDefinition::create('integer')
       ->setLabel(t('Recorded sequence'))
       ->setDescription(t('Recorded intermediate sequence.'))
       ->setRequired(FALSE);
@@ -73,14 +73,14 @@ class ReplicationHistoryItem extends FieldItemBase {
       ->setDescription(t('Unique session ID for the replication.'))
       ->setRequired(TRUE);
 
+    $properties['start_last_seq'] = DataDefinition::create('integer')
+      ->setLabel(t('Start sequence'))
+      ->setDescription(t('Sequence ID where the replication started.'))
+      ->setRequired(FALSE);
+
     $properties['start_time'] = DataDefinition::create('datetime_iso8601')
       ->setLabel(t('Start time'))
       ->setDescription(t('Date and time when replication started.'))
-      ->setRequired(FALSE);
-
-    $properties['end_time'] = DataDefinition::create('datetime_iso8601')
-      ->setLabel(t('End time'))
-      ->setDescription(t('Date and time when replication ended.'))
       ->setRequired(FALSE);
 
     return $properties;
@@ -90,65 +90,66 @@ class ReplicationHistoryItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return [
-      'columns' => [
-        'doc_write_failures' => [
+    return array(
+      'columns' => array(
+        'doc_write_failures' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
-        ],
-        'docs_read' => [
+        ),
+        'docs_read' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
-        ],
-        'docs_written' => [
+        ),
+        'docs_written' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
-        ],
-        'missing_checked' => [
+        ),
+        'end_last_seq' => array(
+          'type' => 'int',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'end_time' => array(
+          'type' => 'varchar',
+          'length' => 50,
+          'not null' => FALSE,
+        ),
+        'missing_checked' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
-        ],
-        'missing_found' => [
+        ),
+        'missing_found' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
-        ],
-        'session_id' => [
+        ),
+        'recorded_seq' => array(
+          'type' => 'int',
+          'size' => 'big',
+          'not null' => FALSE,
+          'default' => 0,
+        ),
+        'session_id' => array(
           'type' => 'varchar',
           'length' => 128,
           'not null' => TRUE,
-        ],
-        'recorded_seq' => [
-          'type' => 'varchar',
-          'length' => 512,
-          'not null' => TRUE,
-        ],
-        'start_last_seq' => [
-          'type' => 'varchar',
-          'length' => 512,
+        ),
+        'start_last_seq' => array(
+          'type' => 'int',
+          'size' => 'big',
           'not null' => FALSE,
-        ],
-        'end_last_seq' => [
-          'type' => 'varchar',
-          'length' => 512,
-          'not null' => FALSE,
-        ],
-        'start_time' => [
+        ),
+        'start_time' => array(
           'type' => 'varchar',
           'length' => 50,
           'not null' => FALSE,
-        ],
-        'end_time' => [
-          'type' => 'varchar',
-          'length' => 50,
-          'not null' => FALSE,
-        ],
-      ],
-    ];
+        ),
+      ),
+    );
   }
 
 }

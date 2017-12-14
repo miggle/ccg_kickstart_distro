@@ -37,12 +37,6 @@ abstract class FieldTestBase extends MultiversionWebTestBase {
       'bundle' => 'menu_link_content',
       'link' => [['uri' => 'user-path:/']],
     ],
-    'shortcut' => [
-      'shortcut_set' => 'default',
-      'title' => 'Llama',
-      'weight' => 0,
-      'link' => [['uri' => 'internal:/admin']],
-    ],
     'file' => [
       'uid' => 1,
       'filename' => 'druplicon.txt',
@@ -89,7 +83,7 @@ abstract class FieldTestBase extends MultiversionWebTestBase {
 
   public function testFieldBasics() {
     foreach ($this->entityTypes as $entity_type_id => $info) {
-      $storage = $this->entityTypeManager->getStorage($entity_type_id);
+      $storage = $this->entityManager->getStorage($entity_type_id);
       $entity = $storage->create($info);
       $this->assertTrue(is_a($entity->{$this->fieldName}, $this->itemListClass), "Field item list implements correct interface on created $entity_type_id.");
       $count = $entity->{$this->fieldName}->count();

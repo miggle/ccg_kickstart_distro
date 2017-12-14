@@ -54,10 +54,7 @@ class ScheduledUpdateForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    if ($entity->access('edit')) {
-      $form_state->setRedirect('entity.scheduled_update.edit_form', ['scheduled_update' => $entity->id()]);
-    }
-    // @todo where to redirect if no entity access.
+    $form_state->setRedirect('entity.scheduled_update.edit_form', ['scheduled_update' => $entity->id()]);
   }
 
 }

@@ -2,9 +2,10 @@
 
 namespace Drupal\replication\Normalizer;
 
-use \Drupal\serialization\Normalizer\FieldItemNormalizer;
+use Drupal\serialization\Normalizer\NormalizerBase;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class CommentItemNormalizer extends FieldItemNormalizer  {
+class CommentItemNormalizer extends NormalizerBase implements DenormalizerInterface {
 
   /**
    * The interface or class that this Normalizer supports.
@@ -16,12 +17,12 @@ class CommentItemNormalizer extends FieldItemNormalizer  {
   /**
    * @var string[]
    */
-  protected $format = ['json'];
+  protected $format = array('json');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($field, $format = NULL, array $context = []) {
+  public function normalize($field, $format = NULL, array $context = array()) {
     $value = $field->getValue();
     $field_info = [];
     $reference_fields = ['cid', 'last_comment_uid'];
@@ -35,6 +36,13 @@ class CommentItemNormalizer extends FieldItemNormalizer  {
     }
 
     return $field_info;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = array()) {
+    return $data;
   }
 
 }

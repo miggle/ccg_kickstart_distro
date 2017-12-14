@@ -134,10 +134,6 @@ class PanelsIPEBlockPluginForm extends FormBase {
       $region = reset($regions);
     }
 
-    // Some Block Plugins rely on the block_theme value to load theme settings.
-    // @see \Drupal\system\Plugin\Block\SystemBrandingBlock::blockForm().
-    $form_state->set('block_theme', $this->config('system.theme')->get('default'));
-
     // Wrap the form so that our AJAX submit can replace its contents.
     $form['#prefix'] = '<div id="panels-ipe-block-plugin-form-wrapper">';
     $form['#suffix'] = '</div>';
@@ -182,7 +178,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
       '#type' => 'select',
       '#options' => $regions,
       '#required' => TRUE,
-      '#default_value' => $region,
+      '#default_value' => $region
     ];
 
     // Add an add button, which is only used by our App.
@@ -261,7 +257,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
     }
 
     // If a temporary configuration for this variant exists, use it.
-    $temp_store_key = $this->panelsDisplay->getTempStoreId();
+    $temp_store_key = $this->panelsDisplay->id();
     if ($variant_config = $this->tempStore->get($temp_store_key)) {
       $this->panelsDisplay->setConfiguration($variant_config);
     }
@@ -284,7 +280,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
     }
 
     // Set the tempstore value.
-    $this->tempStore->set($this->panelsDisplay->getTempStoreId(), $this->panelsDisplay->getConfiguration());
+    $this->tempStore->set($this->panelsDisplay->id(), $this->panelsDisplay->getConfiguration());
 
     // Assemble data required for our App.
     $build = $this->buildBlockInstance($block_instance, $this->panelsDisplay);
@@ -342,12 +338,8 @@ class PanelsIPEBlockPluginForm extends FormBase {
     // Gather a render array for the block.
     $build = $this->buildBlockInstance($block_instance, $this->panelsDisplay);
 
-    // Replace any nested form tags from the render array.
-    $build['content']['#post_render'][] = function ($html, array $elements) {
-      $search = ['<form', '</form>'];
-      $replace = ['<div', '</div>'];
-      return str_replace($search, $replace, $html);
-    };
+    // Disable any nested forms from the render array.
+    $build['content'] = $this->removeFormWrapperRecursive($build['content']);
 
     // Add the preview to the backside of the card and inform JS that we need to
     // be flipped.
@@ -356,7 +348,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
     // Add a cleafix element to the end of the preview. This prevents overlaps
     // with nested float elements.
     $build['clearfix'] = [
-      '#markup' => '<div class="clearfix"></div>',
+      '#markup' => '<div class="clearfix"></div>'
     ];
 
     $form['#attached']['drupalSettings']['panels_ipe']['toggle_preview'] = TRUE;
@@ -377,7 +369,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
     // If a UUID is provided, the Block should already exist.
     if ($uuid = $form_state->getValue('uuid')) {
       // If a temporary configuration for this variant exists, use it.
-      $temp_store_key = $this->panelsDisplay->getTempStoreId();
+      $temp_store_key = $this->panelsDisplay->id();
       if ($variant_config = $this->tempStore->get($temp_store_key)) {
         $this->panelsDisplay->setConfiguration($variant_config);
       }
@@ -392,6 +384,34 @@ class PanelsIPEBlockPluginForm extends FormBase {
     }
 
     return $block_instance;
+  }
+
+  /**
+   * Removes the "form" theme wrapper from all nested elements of the given
+   * render array.
+   *
+   * @param array $content
+   *   A render array that could potentially contain a nested form.
+   *
+   * @return array
+   *   The potentially modified render array.
+   */
+  protected function removeFormWrapperRecursive(array $content) {
+    if (is_array($content)) {
+      // If this block is rendered as a form, we'll need to disable its wrapping
+      // element.
+      if (isset($content['#theme_wrappers'])
+        && ($key = array_search('form', $content['#theme_wrappers'])) !== FALSE) {
+        unset($content['#theme_wrappers'][$key]);
+      }
+
+      // Perform the same operation on child elements.
+      foreach (Element::getVisibleChildren($content) as $key) {
+        $content[$key] = $this->removeFormWrapperRecursive($content[$key]);
+      }
+    }
+
+    return $content;
   }
 
 }

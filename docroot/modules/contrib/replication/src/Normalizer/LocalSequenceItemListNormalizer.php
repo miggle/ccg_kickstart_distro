@@ -10,24 +10,24 @@ class LocalSequenceItemListNormalizer extends NormalizerBase implements Denormal
   /**
    * @var string[]
    */
-  protected $supportedInterfaceOrClass = ['Drupal\multiversion\Plugin\Field\FieldType\LocalSequenceItemList'];
+  protected $supportedInterfaceOrClass = array('Drupal\multiversion\Plugin\Field\FieldType\LocalSequenceItemList');
 
   /**
    * @var string[]
    */
-  protected $format = ['json'];
+  protected $format = array('json');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($field, $format = NULL, array $context = []) {
+  public function normalize($field, $format = NULL, array $context = array()) {
     return $field->id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function denormalize($data, $class, $format = NULL, array $context = []) {
-    return [['id' => $data]];
+  public function denormalize($data, $class, $format = NULL, array $context = array()) {
+    return array(array('id' => $data));
   }
 }

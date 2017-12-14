@@ -137,8 +137,7 @@ class EntityAccess {
         AccessResult::allowedIf($workspace->getOwnerId() == $account->id())
           ->andIf(AccessResult::allowedIfHasPermission($account, $operations[$operation]['own']))
       )
-      ->orIf(AccessResult::allowedIfHasPermission($account, $operation . '_workspace_' . $workspace->id()))
-      ->orIf(AccessResult::forbiddenIf($operation == 'delete' && (in_array($workspace->id(), [$this->workspaceManager->getActiveWorkspace()->id(), $this->defaultWorkspaceId]))));
+      ->orIf(AccessResult::allowedIfHasPermission($account, $operation . '_workspace_' . $workspace->id()));
 
     return $result;
   }

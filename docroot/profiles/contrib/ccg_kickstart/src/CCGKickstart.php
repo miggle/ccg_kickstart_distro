@@ -31,7 +31,7 @@ class CCGKickstart {
       $features_with_names = [];
       foreach ($features as $feature) {
         // Load the info file to retrieve the human friendly name and description for the feature.
-        $info = Yaml::parse($features_dir . '/' . $feature . '/' . $feature . '.info.yml');
+        $info = Yaml::parse(file_get_contents($features_dir . '/' . $feature . '/' . $feature . '.info.yml'));
         $features_with_names[$feature] = ['name' => t($info['name']), 'description' => t($info['description'])];
       }
       self::$featureList = $features_with_names;

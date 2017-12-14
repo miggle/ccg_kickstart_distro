@@ -21,11 +21,6 @@ trait ContentEntityStorageTrait {
   protected $workspaceId = NULL;
 
   /**
-   * @var  \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $originalStorage;
-
-  /**
    * {@inheritdoc}
    */
   public function getQueryServiceName() {
@@ -33,30 +28,13 @@ trait ContentEntityStorageTrait {
   }
 
   /**
-   * Get original entity type storage handler (not the multiversion one).
-   *
-   * @param string $type
-   *   Entity type.
-   *
-   * @return \Drupal\Core\Entity\EntityStorageInterface
-   *   Original entity type storage handler.
-   */
-  protected function getOriginalStorage($type) {
-    if ($this->originalStorage == NULL) {
-      $this->originalStorage = $this->entityManager->getHandler($type, 'original_storage');
-    }
-    return $this->originalStorage;
-  }
-
-  /**
    * {@inheritdoc}
    */
   protected function buildQuery($ids, $revision_id = FALSE) {
     $query = parent::buildQuery($ids, $revision_id);
-    $enabled = \Drupal::state()->get('multiversion.migration_done.' . $this->getEntityTypeId(), FALSE);
 
     // Prevent to modify the query before entity type updates.
-    if (!is_subclass_of($this->entityType->getStorageClass(), 'Drupal\multiversion\Entity\Storage\ContentEntityStorageInterface') || !$enabled) {
+    if ($ids === NULL) {
       return $query;
     }
 
@@ -72,7 +50,7 @@ trait ContentEntityStorageTrait {
       $revision_data_table = $this->getRevisionDataTable();
       $revision_data_alias = 'revision_data';
       if ($revision_id) {
-        $query->join($revision_data_table, $revision_data_alias, "$revision_data_alias.{$this->revisionKey} = revision.{$this->revisionKey} AND $revision_data_alias.{$this->revisionKey} = :revisionId", [':revisionId' => $revision_id]);
+        $query->join($revision_data_table, $revision_data_alias, "$revision_data_alias.{$this->revisionKey} = revision.{$this->revisionKey} AND $revision_data_alias.{$this->revisionKey} = :revisionId", array(':revisionId' => $revision_id));
       }
       else {
         $query->join($revision_data_table, $revision_data_alias, "$revision_data_alias.{$this->revisionKey} = revision.{$this->revisionKey}");
@@ -128,7 +106,7 @@ trait ContentEntityStorageTrait {
    * {@inheritdoc}
    */
   public function loadDeleted($id) {
-    $entities = $this->loadMultipleDeleted([$id]);
+    $entities = $this->loadMultipleDeleted(array($id));
     return isset($entities[$id]) ? $entities[$id] : NULL;
   }
 
@@ -143,23 +121,14 @@ trait ContentEntityStorageTrait {
   /**
    * {@inheritdoc}
    */
-  public function saveWithoutForcingNewRevision(EntityInterface $entity) {
-    $this->getOriginalStorage($entity->getEntityTypeId())->save($entity);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function save(EntityInterface $entity) {
     // Every update is a new revision with this storage model.
     $entity->setNewRevision();
 
     // Index the revision.
     $branch = $this->buildRevisionBranch($entity);
-    if ($this->entityType->get('local') !== TRUE) {
-      $this->indexEntityRevision($entity);
-      $this->indexEntityRevisionTree($entity, $branch);
-    }
+    $this->indexEntityRevision($entity);
+    $this->indexEntityRevisionTree($entity, $branch);
 
     // Prepare the file directory.
     if ($entity instanceof FileInterface) {
@@ -171,10 +140,8 @@ trait ContentEntityStorageTrait {
 
       // Update indexes.
       $this->indexEntity($entity);
-      if ($this->entityType->get('local') !== TRUE) {
-        $this->indexEntityRevision($entity);
-        $this->trackConflicts($entity);
-      }
+      $this->indexEntityRevision($entity);
+      $this->trackConflicts($entity);
 
       return $save_result;
     }
@@ -190,38 +157,12 @@ trait ContentEntityStorageTrait {
    * {@inheritdoc}
    */
   protected function doPreSave(EntityInterface $entity) {
-    if (!$entity->isNew() && !isset($entity->original)) {
-      $entity->original = $this->loadUnchanged($entity->originalId ?: $entity->id());
+    if (!$entity->isNew() && !isset($entity->original) && $entity->originalId) {
+      $entity->original = $this->loadUnchanged($entity->originalId);
     }
-
-    // This is a workaround for the cases when referenced poll choices are stub
-    // entities (during replication). It will avoid deleting poll choice
-    // entities on target workspace in Drupal\poll\Entity\Poll::preSave() when
-    // not necessary.
-    // @todo Find a better way to handle this.
-    if (!$entity->isNew() && $this->entityTypeId === 'poll' && isset($entity->original) && $entity->_deleted->value == FALSE) {
-      $original_choices = [];
-      foreach ($entity->original->choice as $choice_item) {
-        $original_choices[] = $choice_item->target_id;
-      }
-
-      $current_choices = [];
-      $current_choices_entities = [];
-      foreach ($entity->choice as $key => $choice_item) {
-        $current_choices[$key] = $choice_item->target_id;
-        $current_choices_entities[$key] = $choice_item->entity;
-      }
-
-      foreach ($current_choices as $key => $id) {
-        if ($id === NULL
-          && isset($current_choices_entities[$key]->_rev->is_stub)
-          && $current_choices_entities[$key]->_rev->is_stub == TRUE
-          && isset($entity->original->choice)) {
-          unset($entity->original->choice);
-        }
-      }
+    elseif (!$entity->isNew() && !isset($entity->original)) {
+      $entity->original = $entity;
     }
-
     parent::doPreSave($entity);
   }
 
@@ -257,6 +198,7 @@ trait ContentEntityStorageTrait {
    * Indexes information about the revision.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param array $branch
    */
   protected function indexEntityRevision(EntityInterface $entity) {
     $workspace = isset($entity->workspace) ? $entity->workspace->entity : null;
@@ -293,12 +235,7 @@ trait ContentEntityStorageTrait {
     // accurately build revision trees of all universally known revisions.
     $branch = [];
     $rev = $entity->_rev->value;
-    $revisions = $entity->_rev->revisions;
     list($i) = explode('-', $rev);
-    $count_revisions = count($revisions);
-    if ($count_revisions > $i && $entity->isNew()) {
-      $i = $count_revisions + 1;
-    }
 
     // This is a regular local save operation and a new revision token should be
     // generated. The new_edit property will be set to FALSE during replication
@@ -331,6 +268,7 @@ trait ContentEntityStorageTrait {
     // know about the revision history, for conflict handling etc. A list of
     // revisions are always passed in during replication.
     else {
+      $revisions = $entity->_rev->revisions;
       for ($c = 0; $c < count($revisions); ++$c) {
         $p = $c + 1;
         $rev = $i-- . '-' . $revisions[$c];
@@ -347,7 +285,7 @@ trait ContentEntityStorageTrait {
    * @todo Revisit this logic with forward revisions in mind.
    */
   protected function doSave($id, EntityInterface $entity) {
-    if ($entity->_rev->is_stub || $this->entityType->get('local')) {
+    if ($entity->_rev->is_stub) {
       $entity->isDefaultRevision(TRUE);
     }
     else {

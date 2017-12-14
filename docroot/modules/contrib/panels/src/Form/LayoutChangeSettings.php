@@ -6,9 +6,10 @@ use Drupal\Component\Plugin\ConfigurablePluginInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Layout\LayoutInterface;
-use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\layout_plugin\Layout;
+use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
+use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,7 +22,7 @@ class LayoutChangeSettings extends FormBase {
   /**
    * The layout plugin manager.
    *
-   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface
    */
   protected $manager;
 
@@ -37,7 +38,7 @@ class LayoutChangeSettings extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.core.layout'),
+      $container->get('plugin.manager.layout_plugin'),
       $container->get('user.shared_tempstore')
     );
   }
@@ -45,7 +46,7 @@ class LayoutChangeSettings extends FormBase {
   /**
    * LayoutChangeSettings constructor.
    *
-   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $manager
+   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface $manager
    *   The layout plugin manager.
    * @param \Drupal\user\SharedTempStoreFactory $tempstore
    *   The tempstore factory.
@@ -74,7 +75,7 @@ class LayoutChangeSettings extends FormBase {
     $form['old_layout'] = [
       '#title' => $this->t('Old Layout'),
       '#type' => 'select',
-      '#options' => $this->manager->getLayoutOptions(),
+      '#options' => Layout::getLayoutOptions(['group_by_category' => TRUE]),
       '#default_value' => !empty($cached_values['layout_change']['old_layout']) ? $cached_values['layout_change']['old_layout'] : '',
       '#disabled' => TRUE,
       '#access' => !empty($cached_values['layout_change']),
@@ -83,7 +84,7 @@ class LayoutChangeSettings extends FormBase {
     $form['new_layout'] = [
       '#title' => $this->t('New Layout'),
       '#type' => 'select',
-      '#options' => $this->manager->getLayoutOptions(),
+      '#options' => Layout::getLayoutOptions(['group_by_category' => TRUE]),
       '#default_value' => !empty($cached_values['layout_change']['new_layout']) ? $cached_values['layout_change']['new_layout'] : '',
       '#disabled' => TRUE,
       '#access' => !empty($cached_values['layout_change']),
@@ -101,10 +102,8 @@ class LayoutChangeSettings extends FormBase {
       $layout_settings = $variant_plugin->getLayout()->getConfiguration();
     }
     $layout_id = !empty($cached_values['layout_change']['new_layout']) ? $cached_values['layout_change']['new_layout'] : $variant_plugin->getConfiguration()['layout'];
-    $layout = $this->manager->createInstance($layout_id, $layout_settings);
-    if ($layout instanceof PluginFormInterface) {
-      $form['layout_settings_wrapper']['layout_settings'] = $layout->buildConfigurationForm([], $form_state);
-    }
+    $layout = Layout::layoutPluginManager()->createInstance($layout_id, $layout_settings);
+    $form['layout_settings_wrapper']['layout_settings'] = $layout->buildConfigurationForm([], $form_state);
 
     return $form;
   }
@@ -120,8 +119,8 @@ class LayoutChangeSettings extends FormBase {
     /* @var $plugin \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant */
     $plugin = $cached_values['plugin'];
     $layout_id = !empty($cached_values['layout_change']['new_layout']) ? $cached_values['layout_change']['new_layout'] : $plugin->getConfiguration()['layout'];
-    /** @var \Drupal\Core\Layout\LayoutInterface $layout */
-    $layout = $this->manager->createInstance($layout_id, []);
+    /** @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout */
+    $layout = Layout::layoutPluginManager()->createInstance($layout_id, []);
     // If we're dealing with a form, submit it.
     if ($layout instanceof PluginFormInterface) {
       $sub_form_state = new FormState();
@@ -163,7 +162,7 @@ class LayoutChangeSettings extends FormBase {
    *   The next step of the wizard.
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $plugin
    *   The plugin to update.
-   * @param \Drupal\Core\Layout\LayoutInterface $layout
+   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout
    *   The layout for which we are upating settings.
    * @param array $cached_values
    *   The current cached values from the wizard.
@@ -194,7 +193,7 @@ class LayoutChangeSettings extends FormBase {
     /* @var $plugin \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant */
     $plugin = $cached_values['plugin'];
     $layout_id = !empty($cached_values['layout_change']['new_layout']) ? $cached_values['layout_change']['new_layout'] : $plugin->getConfiguration()['layout'];
-    $layout = $this->manager->createInstance($layout_id, []);
+    $layout = Layout::layoutPluginManager()->createInstance($layout_id, []);
     if ($layout instanceof PluginFormInterface) {
       $sub_form_state = new FormState();
       $plugin_values = $form_state->getValue(['layout_settings_wrapper', 'layout_settings']);

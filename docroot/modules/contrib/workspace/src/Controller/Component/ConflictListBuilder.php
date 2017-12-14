@@ -95,22 +95,22 @@ class ConflictListBuilder {
    *   The header array used by table render arrays.
    */
   public function buildHeader() {
-    $header = [
+    $header = array(
       'title' => $this->t('Title'),
-      'type' => [
+      'type' => array(
         'data' => $this->t('Content type'),
-        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
-      ],
-      'author' => [
+        'class' => array(RESPONSIVE_PRIORITY_MEDIUM),
+      ),
+      'author' => array(
         'data' => $this->t('Author'),
-        'class' => [RESPONSIVE_PRIORITY_LOW],
-      ],
+        'class' => array(RESPONSIVE_PRIORITY_LOW),
+      ),
       'status' => $this->t('Status'),
-      'changed' => [
+      'changed' => array(
         'data' => $this->t('Updated'),
-        'class' => [RESPONSIVE_PRIORITY_LOW],
-      ],
-    ];
+        'class' => array(RESPONSIVE_PRIORITY_LOW),
+      ),
+    );
     return $header;
   }
 
@@ -155,9 +155,7 @@ class ConflictListBuilder {
     }
 
     // @todo Is there an entity key for changed time?
-    if (method_exists($entity, 'getChangedTime')) {
-      $row['changed'] = $this->dateFormatter->format($entity->getChangedTime(), 'short');
-    }
+    $row['changed'] = $this->dateFormatter->format($entity->getChangedTime(), 'short');
 
     return $row;
   }
@@ -222,13 +220,13 @@ class ConflictListBuilder {
    *   A table render array to show on the page.
    */
   public function buildList($workspace_id) {
-    $build['table'] = [
+    $build['table'] = array(
       '#type' => 'table',
       '#header' => $this->buildHeader(),
       '#title' => $this->getTitle(),
-      '#rows' => [],
+      '#rows' => array(),
       '#empty' => 'There are no conflicts.',
-    ];
+    );
 
     $entities = $this->load($workspace_id);
     foreach ($entities as $entity) {
@@ -239,9 +237,9 @@ class ConflictListBuilder {
 
     // Only add the pager if a limit is specified.
     if (!empty($this->limit)) {
-      $build['pager'] = [
+      $build['pager'] = array(
         '#type' => 'pager',
-      ];
+      );
     }
 
     return $build;

@@ -25,7 +25,7 @@ interface RevisionTreeIndexInterface extends IndexInterface {
    * @param array $branch
    * @return RevisionTreeIndexInterface
    */
-  public function updateTree(ContentEntityInterface $entity, array $branch = []);
+  public function updateTree(ContentEntityInterface $entity, array $branch = array());
 
   /**
    * @param string $uuid

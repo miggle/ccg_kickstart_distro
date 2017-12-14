@@ -72,37 +72,18 @@ class ReplicationSettingsTest extends BrowserTestBase {
 
     // Create a published node.
     $this->drupalGet('/node/add/test');
-    // For Drupal 8.4.x
-    if ($this->xpath('//input[@id="edit-status-value"]')) {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Published node',
-      ], t('Save'));
-    }
-    // For Drupal 8.3.x
-    else {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Published node',
-      ], t('Save and publish'));
-    }
+    $this->drupalPostForm(NULL, [
+      'title[0][value]' => 'Published node',
+    ], t('Save and publish'));
     $page = $session->getPage();
     $page->hasContent('Published node has been created');
     $this->assertTrue($this->isLabelInContentOverview('Published node'));
 
     // Create an unpublished node.
     $this->drupalGet('/node/add/test');
-    // For Drupal 8.4.x
-    if ($this->xpath('//input[@id="edit-status-value"]')) {
-      $this->drupalPostForm(NULL, [
-        'status[value]' => FALSE,
-        'title[0][value]' => 'Unpublished node',
-      ], t('Save'));
-    }
-    // For Drupal 8.3.x
-    else {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Unpublished node',
-      ], t('Save as unpublished'));
-    }
+    $this->drupalPostForm(NULL, [
+      'title[0][value]' => 'Unpublished node',
+    ], t('Save as unpublished'));
     $page = $session->getPage();
     $page->hasContent('Unpublished node has been created');
     $this->assertTrue($this->isLabelInContentOverview('Unpublished node'));
@@ -180,37 +161,18 @@ class ReplicationSettingsTest extends BrowserTestBase {
 
     // Create a published node.
     $this->drupalGet('/node/add/test');
-    // For Drupal 8.4.x
-    if ($this->xpath('//input[@id="edit-status-value"]')) {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Published node',
-      ], t('Save'));
-    }
-    // For Drupal 8.3.x
-    else {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Published node',
-      ], t('Save and publish'));
-    }
+    $this->drupalPostForm(NULL, [
+      'title[0][value]' => 'Published node',
+    ], t('Save and publish'));
     $page = $session->getPage();
     $page->hasContent('Published node has been created');
     $this->assertTrue($this->isLabelInContentOverview('Published node'));
 
     // Create an unpublished node.
     $this->drupalGet('/node/add/test');
-    // For Drupal 8.4.x
-    if ($this->xpath('//input[@id="edit-status-value"]')) {
-      $this->drupalPostForm(NULL, [
-        'status[value]' => FALSE,
-        'title[0][value]' => 'Unpublished node',
-      ], t('Save'));
-    }
-    // For Drupal 8.3.x
-    else {
-      $this->drupalPostForm(NULL, [
-        'title[0][value]' => 'Unpublished node',
-      ], t('Save as unpublished'));
-    }
+    $this->drupalPostForm(NULL, [
+      'title[0][value]' => 'Unpublished node',
+    ], t('Save as unpublished'));
     $page = $session->getPage();
     $page->hasContent('Unpublished node has been created');
     $this->assertTrue($this->isLabelInContentOverview('Unpublished node'));

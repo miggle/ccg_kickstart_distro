@@ -25,10 +25,6 @@ class ScheduledUpdateAccessControlHandler extends EntityAccessControlHandler {
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var ScheduledUpdate $entity */
 
-    if ($account->hasPermission('administer scheduled updates')) {
-      return AccessResult::allowed();
-    }
-
     if ($operation == 'view') {
       return AccessResult::allowedIfHasPermission($account, 'view scheduled update entities');
     }
@@ -53,11 +49,7 @@ class ScheduledUpdateAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    $permissions = [
-      'administer scheduled updates',
-      "create $entity_bundle scheduled updates",
-    ];
-    return AccessResult::allowedIfHasPermissions($account, $permissions, 'OR');
+    return AccessResult::allowedIfHasPermission($account, "create $entity_bundle scheduled updates");
   }
 
 

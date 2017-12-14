@@ -4,14 +4,13 @@ namespace Drupal\Tests\replication\Unit\Plugin\ReplicationFilter;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\replication\Plugin\ReplicationFilter\UuidFilter;
-use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests that the uuid filter parses parameters correctly.
  *
  * @group replication
  */
-class UuidFilterTest extends UnitTestCase {
+class UuidFilterTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * Test filtering UUIDs.

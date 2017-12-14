@@ -16,23 +16,23 @@ class Rev extends RenderElement {
    */
   public function getInfo() {
     $class = get_class($this);
-    return [
-      '#pre_render' => [
-        [$class, 'preRenderRev'],
-      ],
-    ];
+    return array(
+      '#pre_render' => array(
+        array($class, 'preRenderRev'),
+      ),
+    );
   }
 
   /**
    * Pre-render callback.
    */
   public static function preRenderRev($element) {
-    $info = [
+    $info = array(
       '#uuid' => $element['#uuid'],
       '#rev' => $element['#rev'],
       '#rev_info' => $element['#rev_info'],
       '#theme' => 'workspace_rev',
-    ];
+    );
 
     /** @var \Drupal\Core\Render\Renderer $renderer */
     $renderer = \Drupal::service('renderer');

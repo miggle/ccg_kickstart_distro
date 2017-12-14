@@ -2,6 +2,7 @@
 
 namespace Drupal\replication;
 
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\file\FileInterface;
@@ -30,16 +31,17 @@ class ProcessFileAttachment {
    *
    * Returns the file object or NULL if it can't be created.
    *
-   * @param array $data
+   * @param string $data
+   * @param string $key
    * @param string $format
    * @param \Drupal\multiversion\Entity\WorkspaceInterface $workspace
    *
    * @return \Drupal\file\FileInterface|NULL
    */
-  public function process($data, $format, WorkspaceInterface $workspace = null) {
+  public function process($data, $key, $format, WorkspaceInterface $workspace = null) {
     $current_user_id = $this->current_user->id();
-    $uri = $data['uri'];
-    $file_uuid = $data['uuid'];
+    list(, , $file_uuid, $scheme, $target) = explode('/', $key, 5);
+    $uri = "$scheme://$target";
     multiversion_prepare_file_destination($uri);
     // Check if exists a file entity with this uuid.
     $uuid_index = $this->index_factory->get('multiversion.entity_index.uuid', $workspace);
@@ -48,19 +50,16 @@ class ProcessFileAttachment {
       /** @var FileInterface $file */
       $file = $this->entity_type_manager->getStorage($entity_info['entity_type_id'])
         ->load($entity_info['entity_id']);
-      if (!$file || !is_file($file->getFileUri())) {
+      if ($file && !is_file($file->getFileUri())) {
         $file_context = [
           'uri' => $uri,
           'uuid' => $file_uuid,
           'status' => FILE_STATUS_PERMANENT,
           'uid' => $current_user_id,
         ];
-        if ($workspace) {
-          $file_context['workspace'] = $workspace;
-        }
         $file = \Drupal::getContainer()
           ->get('serializer')
-          ->deserialize($data['data'], '\Drupal\file\FileInterface', $format, $file_context);
+          ->deserialize($data, '\Drupal\file\FileInterface', $format, $file_context);
       }
       return $file;
     }
@@ -82,7 +81,7 @@ class ProcessFileAttachment {
     ];
     $file = \Drupal::getContainer()
       ->get('serializer')
-      ->deserialize($data['data'], '\Drupal\file\FileInterface', $format, $file_context);
+      ->deserialize($data, '\Drupal\file\FileInterface', $format, $file_context);
 
     return $file;
   }

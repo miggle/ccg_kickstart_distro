@@ -8,16 +8,15 @@ use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Condition\ConditionManager;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Layout\LayoutInterface;
-use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
-use Drupal\ctools\Context\AutomaticContext;
 use Drupal\ctools\Plugin\DisplayVariant\BlockDisplayVariant;
 use Drupal\ctools\Plugin\PluginWizardInterface;
+use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
+use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 use Drupal\panels\Form\LayoutChangeRegions;
 use Drupal\panels\Form\LayoutChangeSettings;
 use Drupal\panels\Form\LayoutPluginSelector;
@@ -60,14 +59,14 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
   /**
    * The layout plugin manager.
    *
-   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
    */
   protected $layoutManager;
 
   /**
    * The layout plugin.
    *
-   * @var \Drupal\Core\Layout\LayoutInterface
+   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface
    */
   protected $layout;
 
@@ -96,7 +95,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
    *   The module handler.
    * @param \Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderManagerInterface $builder_manager
    *   The display builder plugin manager.
-   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $layout_manager
+   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface $layout_manager
    *   The layout plugin manager.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ContextHandlerInterface $context_handler, AccountInterface $account, UuidInterface $uuid_generator, Token $token, BlockManager $block_manager, ConditionManager $condition_manager, ModuleHandlerInterface $module_handler, DisplayBuilderManagerInterface $builder_manager, LayoutPluginManagerInterface $layout_manager) {
@@ -123,7 +122,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
       $container->get('plugin.manager.condition'),
       $container->get('module_handler'),
       $container->get('plugin.manager.panels.display_builder'),
-      $container->get('plugin.manager.core.layout')
+      $container->get('plugin.manager.layout_plugin')
     );
   }
 
@@ -175,7 +174,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
   /**
    * Returns instance of the layout plugin used by this page variant.
    *
-   * @return \Drupal\Core\Layout\LayoutInterface
+   * @return \Drupal\layout_plugin\Plugin\Layout\LayoutInterface
    *   A layout plugin instance.
    */
   public function getLayout() {
@@ -188,7 +187,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
   /**
    * Assigns the layout plugin to this variant.
    *
-   * @param string|\Drupal\Core\Layout\LayoutInterface $layout
+   * @param string|\Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout
    *   The layout plugin object or plugin id.
    * @param array $layout_settings
    *   The layout configuration.
@@ -297,7 +296,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
    * {@inheritdoc}
    */
   public function getRegionNames() {
-    return $this->getLayout()->getPluginDefinition()->getRegionLabels();
+    return $this->getLayout()->getPluginDefinition()['region_names'];
   }
 
   /**
@@ -342,7 +341,8 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
     // Don't call VariantBase::buildConfigurationForm() on purpose, because it
     // adds a 'Label' field that we don't actually want to use - we store the
     // label on the page variant entity.
-    // $form = parent::buildConfigurationForm($form, $form_state);.
+    //$form = parent::buildConfigurationForm($form, $form_state);
+
     $plugins = $this->builderManager->getDefinitions();
     $options = array();
     foreach ($plugins as $id => $plugin) {
@@ -407,22 +407,23 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
     $operations = [];
     $operations['layout'] = [
       'title' => $this->t('Layout'),
-      'form' => LayoutPluginSelector::class,
+      'form' => LayoutPluginSelector::class
     ];
     if (!empty($this->getConfiguration()['layout']) && $cached_values['plugin']->getLayout() instanceof PluginFormInterface) {
-      /** @var \Drupal\Core\Layout\LayoutInterface $layout */
+      /** @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout */
       if (empty($cached_values['layout_change']['new_layout'])) {
         $layout = $cached_values['plugin']->getLayout();
-        $class = get_class($layout);
+        $r = new \ReflectionClass(get_class($layout));
       }
       else {
-        $layout_definition = \Drupal::service('plugin.manager.core.layout')->getDefinition($cached_values['layout_change']['new_layout']);
-        $class = $layout_definition->getClass();
+        $layout_definition = \Drupal::service('plugin.manager.layout_plugin')->getDefinition($cached_values['layout_change']['new_layout']);
+        $r = new \ReflectionClass($layout_definition['class']);
       }
-      // If the layout does not implement
-      // \Drupal\Core\Plugin\PluginFormInterface there's no reason to include
+      // If the layout uses the LayoutBase::buildConfigurationForm() method we
+      // know it is not truly UI configurable, so there's no reason to include
       // the wizard step for displaying that UI.
-      if (is_subclass_of($class, PluginFormInterface::class)) {
+      $method = $r->getMethod('buildConfigurationForm');
+      if ($method->class != 'Drupal\layout_plugin\Plugin\Layout\LayoutBase') {
         $operations['settings'] = [
           'title' => $this->t('Layout Settings'),
           'form' => LayoutChangeSettings::class,
@@ -458,8 +459,8 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
     // @todo Replace after https://www.drupal.org/node/2550879
     if (!empty($configuration['layout']) && !empty($configuration['blocks'])) {
       $layout_definition = $this->layoutManager->getDefinition($configuration['layout']);
-      $valid_regions = $layout_definition->getRegions();
-      $first_region = $layout_definition->getDefaultRegion();
+      $valid_regions = $layout_definition['regions'];
+      $first_region = array_keys($valid_regions)[0];
       foreach ($configuration['blocks'] as &$block) {
         if (!isset($valid_regions[$block['region']])) {
           $block['region'] = $first_region;
@@ -510,21 +511,6 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
       }
     }
     return $data;
-  }
-
-  /**
-   * Returns the ID to be used to store this in the tempstore.
-   *
-   * @return string
-   */
-  public function getTempStoreId() {
-    $id = [$this->id()];
-    foreach ($this->getContexts() as $context) {
-      if ($context instanceof AutomaticContext && $context->isAutomatic()) {
-        $id = array_merge($id, $context->getCacheTags());
-      }
-    }
-    return implode(':', $id);
   }
 
 }

@@ -14,17 +14,17 @@ class WorkspaceNormalizer extends EntityNormalizer {
   /**
    * @var string[]
    */
-  protected $supportedInterfaceOrClass = ['Drupal\multiversion\Entity\WorkspaceInterface'];
+  protected $supportedInterfaceOrClass = array('Drupal\multiversion\Entity\WorkspaceInterface');
 
   /**
    * @var string[]
    */
-  protected $format = ['json'];
+  protected $format = array('json');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($entity, $format = NULL, array $context = []) {
+  public function normalize($entity, $format = NULL, array $context = array()) {
     $context['entity_type'] = 'workspace';
     $data = parent::normalize($entity, $format, $context);
 
@@ -34,10 +34,6 @@ class WorkspaceNormalizer extends EntityNormalizer {
     }
     if ($update_seq = $entity->getUpdateSeq()) {
       $return_data['update_seq'] = (int) $update_seq;
-    }
-    else {
-      // Replicator expects update_seq to be always set.
-      $return_data['update_seq'] = 0;
     }
     if (isset($data['created'])) {
       $return_data['instance_start_time'] = (string) $entity->getStartTime();
@@ -49,7 +45,7 @@ class WorkspaceNormalizer extends EntityNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function denormalize($data, $class, $format = NULL, array $context = []) {
+  public function denormalize($data, $class, $format = NULL, array $context = array()) {
     if (isset($data['db_name'])) {
       $data['machine_name'] = $data['db_name'];
       unset($data['db_name']);

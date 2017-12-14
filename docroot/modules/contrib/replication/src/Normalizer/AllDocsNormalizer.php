@@ -6,26 +6,26 @@ use Drupal\serialization\Normalizer\NormalizerBase;
 
 class AllDocsNormalizer extends NormalizerBase {
 
-  protected $supportedInterfaceOrClass = ['Drupal\replication\AllDocs\AllDocsInterface'];
+  protected $supportedInterfaceOrClass = array('Drupal\replication\AllDocs\AllDocsInterface');
 
   /**
    * {@inheritdoc}
    */
-  public function normalize($all_docs, $format = NULL, array $context = []) {
-    $data = [
+  public function normalize($all_docs, $format = NULL, array $context = array()) {
+    $data = array(
       'offset' => 0,
-      'rows' => [],
-    ];
+      'rows' => array(),
+    );
 
     /** @var \Drupal\replication\AllDocs\AllDocsInterface $all_docs */
     $rows = $all_docs->execute();
 
     foreach ($rows as $key => $value) {
-      $data['rows'][] = [
+      $data['rows'][] = array(
         'id' => $key,
         'key' => $key,
         'value' => $value
-      ];
+      );
     }
 
     $data['total_rows'] = count($rows);

@@ -44,7 +44,7 @@ class PanelsConfigSchemaTest extends WebTestBase {
       'provider' => 'page_manager',
       'label_display' => 'visible',
       'view_mode' => 'default',
-      'region' => 'content',
+      'region' => 'middle',
     ]);
 
     $config = $this->panelsManager->exportDisplay($panels_display);

@@ -7,7 +7,8 @@ example, this allows each node display to be customized individually.
 
 Features
 --------------------------------------------------------------------------------
-* Supports Drupal core's included entities - nodes, taxonomy terms and users.
+* Supports Drupal core's included entities - nodes, taxonomy terms, users
+  and comments. (More may be available in the future)
 
 * Can be easily extended to support additional entities.
 
@@ -15,10 +16,7 @@ Features
 Requirements
 --------------------------------------------------------------------------------
 CTools v8.x-3.x [2]
-Panels v8.x-4.x
-
-This version is only designed to be compatible with Drupal 8.3.x and above, it
-is not compatible with 8.2.x and the Layout Plugin module.
+Panels v8.x-3.x
 
 
 Credits / Contact

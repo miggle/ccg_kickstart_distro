@@ -63,7 +63,6 @@ class IndependentScheduledUpdateTypeTest extends ScheduledUpdatesTestBase {
   protected function createType($label, $id, array $clone_fields, $type_options = []) {
     parent::createType($label, $id, $clone_fields, $type_options);
     $this->assertText('Entities to Update', 'Entities to Update field on Independent Update Type');
-    $this->checkEditType($id);
   }
 
   /**

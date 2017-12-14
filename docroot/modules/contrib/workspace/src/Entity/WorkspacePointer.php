@@ -8,8 +8,6 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\multiversion\Entity\WorkspaceInterface;
-use Drupal\replication\ReplicationTask\ReplicationTask;
-use Drupal\replication\ReplicationTask\ReplicationTaskInterface;
 use Drupal\workspace\WorkspacePointerInterface;
 
 /**
@@ -44,13 +42,11 @@ class WorkspacePointer extends ContentEntityBase implements WorkspacePointerInte
    * @inheritDoc
    */
   public function label() {
-    $label = parent::label();
-
-    if (empty($label) && !empty($this->getWorkspace())) {
-      $label = $this->getWorkspace()->label();
+    if (!empty($this->getWorkspace())) {
+      return $this->getWorkspace()->label();
     }
 
-    return $label;
+    return parent::label();
   }
 
   /**
@@ -117,30 +113,13 @@ class WorkspacePointer extends ContentEntityBase implements WorkspacePointerInte
   /**
    * {@inheritdoc}
    */
-  public function generateReplicationId(WorkspacePointerInterface $target, ReplicationTaskInterface $task = NULL) {
-    $source_name = $this->label();
-    if ($this->getWorkspace() instanceof WorkspaceInterface) {
-      $source_name = $this->getWorkspace()->getMachineName();
-    }
+  public function generateReplicationId(WorkspacePointerInterface $target) {
     $target_name = $target->label();
     if ($target->getWorkspace() instanceof WorkspaceInterface) {
       $target_name = $target->getWorkspace()->getMachineName();
     }
-    if ($task) {
-      return \md5(
-        $source_name .
-        $target_name .
-        var_export($task->getDocIds(), TRUE) .
-        ($task->getCreateTarget() ? '1' : '0') .
-        ($task->getContinuous() ? '1' : '0') .
-        $task->getFilter() .
-        '' .
-        $task->getStyle() .
-        var_export($task->getHeartbeat(), TRUE)
-      );
-    }
     return \md5(
-      $source_name .
+      $this->getWorkspace()->getMachineName() .
       $target_name
     );
   }
@@ -166,10 +145,10 @@ class WorkspacePointer extends ContentEntityBase implements WorkspacePointerInte
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Workspace pointer entity.'))
-      ->setSettings([
+      ->setSettings(array(
         'max_length' => 50,
         'text_processing' => 0,
-      ])
+      ))
       ->setRevisionable(TRUE)
       ->setDefaultValue('')
       ->setDisplayConfigurable('form', FALSE)

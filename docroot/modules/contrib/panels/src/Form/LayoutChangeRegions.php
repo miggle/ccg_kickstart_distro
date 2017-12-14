@@ -4,7 +4,8 @@ namespace Drupal\panels\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Layout\LayoutPluginManagerInterface;
+use Drupal\layout_plugin\Layout;
+use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -16,7 +17,7 @@ class LayoutChangeRegions extends FormBase {
   /**
    * The layout plugin manager.
    *
-   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface
    */
   protected $manager;
 
@@ -32,7 +33,7 @@ class LayoutChangeRegions extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.core.layout'),
+      $container->get('plugin.manager.layout_plugin'),
       $container->get('user.shared_tempstore')
     );
   }
@@ -40,8 +41,8 @@ class LayoutChangeRegions extends FormBase {
   /**
    * LayoutChangeRegions constructor.
    *
-   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $manager
-   *   The layout plugin manager.
+   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface $manager
+   *   The layout plugin manager
    * @param \Drupal\user\SharedTempStoreFactory $tempstore
    *   The tempstore factory.
    */
@@ -71,7 +72,7 @@ class LayoutChangeRegions extends FormBase {
     $form['old_layout'] = [
       '#title' => $this->t('Old Layout'),
       '#type' => 'select',
-      '#options' => $this->manager->getLayoutOptions(),
+      '#options' => Layout::getLayoutOptions(['group_by_category' => TRUE]),
       '#default_value' => $cached_values['layout_change']['old_layout'],
       '#disabled' => TRUE,
     ];
@@ -79,14 +80,14 @@ class LayoutChangeRegions extends FormBase {
     $form['new_layout'] = [
       '#title' => $this->t('New Layout'),
       '#type' => 'select',
-      '#options' => $this->manager->getLayoutOptions(),
+      '#options' => Layout::getLayoutOptions(['group_by_category' => TRUE]),
       '#default_value' => $cached_values['layout_change']['new_layout'],
       '#disabled' => TRUE,
     ];
 
     $layout_settings = !empty($cached_values['layout_change']['layout_settings']) ? $cached_values['layout_change']['layout_settings'] : [];
-    $old_layout = $this->manager->createInstance($cached_values['layout_change']['old_layout'], []);
-    $new_layout = $this->manager->createInstance($cached_values['layout_change']['new_layout'], $layout_settings);
+    $old_layout = Layout::layoutPluginManager()->createInstance($cached_values['layout_change']['old_layout'], []);
+    $new_layout = Layout::layoutPluginManager()->createInstance($cached_values['layout_change']['new_layout'], $layout_settings);
 
     if ($block_assignments = $variant_plugin->getRegionAssignments()) {
       // Build a table of all blocks used by this variant.
@@ -106,49 +107,25 @@ class LayoutChangeRegions extends FormBase {
       ];
 
       // Loop through the blocks per region.
-      $new_regions = $new_layout->getPluginDefinition()->getRegionLabels();
+      $new_regions = $new_layout->getPluginDefinition()['region_names'];
       $new_regions['__unassigned__'] = $this->t('Unassigned');
-
-      $regions = [];
-      foreach ($old_layout->getPluginDefinition()->getRegions() as $region => $region_definition) {
-        if (empty($block_assignments[$region])) {
-          continue;
-        }
-        $label = $region_definition['label'];
-        // Prevent region names clashing with new regions.
-        $region_id = 'old_'.$region;
-        $new_region = isset($new_regions[$region]) ? $region : '__unassigned__';
-        $row['label']['#markup'] = $label;
-        $row['id']['#markup'] = $region;
-        // Allow the region to be changed for each block.
-        $row['region'] = [
-          '#title' => $this->t('Region'),
-          '#title_display' => 'invisible',
-          '#type' => 'select',
-          '#options' => $new_regions,
-          '#default_value' => $new_region,
-          '#attributes' => [
-            'class' => ['block-region-select', 'block-region-' . $new_region],
-          ],
-        ];
-        // Allow the weight to be changed for each region.
-        $row['weight'] = [
-          '#type' => 'weight',
-          '#default_value' => 0,
-          '#title' => $this->t('Weight for @block block', ['@block' => $label]),
-          '#title_display' => 'invisible',
-          '#attributes' => [
-            'class' => ['block-weight', 'block-weight-' . $region],
-          ],
-        ];
-        $form['blocks'][$region_id] = $row;
-        $regions[$new_region][] = $region_id;
-      }
-
       foreach ($new_regions as $region => $label) {
 
         // Add a section for each region and allow blocks to be dragged between
         // them.
+        $form['blocks']['#tabledrag'][] = [
+          'action' => 'match',
+          'relationship' => 'sibling',
+          'group' => 'block-region-select',
+          'subgroup' => 'block-region-' . $region,
+          'hidden' => FALSE,
+        ];
+        $form['blocks']['#tabledrag'][] = [
+          'action' => 'order',
+          'relationship' => 'sibling',
+          'group' => 'block-weight',
+          'subgroup' => 'block-weight-' . $region,
+        ];
         $form['blocks']['region-' . $region] = [
           '#attributes' => [
             'class' => ['region-title', 'region-title-' . $region],
@@ -166,18 +143,54 @@ class LayoutChangeRegions extends FormBase {
             'class' => [
               'region-message',
               'region-' . $region . '-message',
-              empty($regions[$region]) ? 'region-empty' : 'region-populated',
+              empty($blocks) ? 'region-empty' : 'region-populated',
             ],
           ],
         ];
-        if (empty($regions[$region])) {
-          $form['blocks']['region-' . $region . '-message']['message'] = [
-            '#markup' => '<em>' . $this->t('No blocks in this region') . '</em>',
-            '#wrapper_attributes' => [
-              'colspan' => 4,
-            ],
-          ];
+        $form['blocks']['region-' . $region . '-message']['message'] = [
+          '#markup' => '<em>' . $this->t('No blocks in this region') . '</em>',
+          '#wrapper_attributes' => [
+            'colspan' => 4,
+          ],
+        ];
+      }
+
+      foreach ($old_layout->getPluginDefinition()['region_names'] as $region => $label) {
+        if (empty($block_assignments[$region])) {
+          continue;
         }
+        // Prevent region names clashing with new regions.
+        $region_id = 'old_'.$region;
+
+        $row = [
+          '#attributes' => [
+            'class' => ['draggable'],
+          ],
+        ];
+        $row['label']['#markup'] = $label;
+        $row['id']['#markup'] = $region;
+        // Allow the region to be changed for each block.
+        $row['region'] = [
+          '#title' => $this->t('Region'),
+          '#title_display' => 'invisible',
+          '#type' => 'select',
+          '#options' => $new_regions,
+          '#default_value' => isset($new_regions[$region]) ? $region : '__unassigned__',
+          '#attributes' => [
+            'class' => ['block-region-select', 'block-region-' . $region],
+          ],
+        ];
+        // Allow the weight to be changed for each region.
+        $row['weight'] = [
+          '#type' => 'weight',
+          '#default_value' => 0,
+          '#title' => $this->t('Weight for @block block', ['@block' => $label]),
+          '#title_display' => 'invisible',
+          '#attributes' => [
+            'class' => ['block-weight', 'block-weight-' . $region],
+          ],
+        ];
+        $form['blocks'][$region_id] = $row;
       }
     }
     return $form;

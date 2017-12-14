@@ -4,6 +4,7 @@
  */
 
 (function ($, _, Backbone, Drupal) {
+
   'use strict';
 
   Drupal.panelizer.panels_ipe.SaveTabView = Backbone.View.extend(/** @lends Drupal.panelizer.panels_ipe.SaveTabView# */{
@@ -11,9 +12,10 @@
     /**
      * @type {function}
      */
-    template: function() {
-      return '';
-    },
+    template: _.template(
+      '<div class="panelizer-ipe-save-button"><a class="panelizer-ipe-save-custom" href="#">Save as custom</a></div>' +
+      '<div class="panelizer-ipe-save-button"><a class="panelizer-ipe-save-default" href="#">Save as default</a></div>'
+    ),
 
     /**
      * @type {Drupal.panels_ipe.AppModel}
@@ -34,15 +36,23 @@
      * @type {object}
      */
     events: {
+      'click .panelizer-ipe-save-custom': 'saveCustom',
+      'click .panelizer-ipe-save-default': 'saveDefault'
     },
 
     /**
      * @type {function}
      */
     onClick: function () {
+      var entity = drupalSettings.panelizer.entity;
       if (this.model.get('saveTab').get('active')) {
-        // Always save as a custom override.
-        this.saveCustom();
+        // If only one option is available, then just do that directly.
+        if (!entity.panelizer_default_storage_id) {
+          this._save('panelizer_field');
+        }
+        else if (!entity.panelizer_field_storage_id) {
+          this._save('panelizer_default');
+        }
       }
     },
 
@@ -51,6 +61,13 @@
      */
     saveCustom: function () {
       this._save('panelizer_field');
+    },
+
+    /**
+     * @type {function}
+     */
+    saveDefault: function () {
+      this._save('panelizer_default');
     },
 
     /**
@@ -75,7 +92,6 @@
           // Change the storage type and id for the next save.
           drupalSettings.panels_ipe.panels_display.storage_type = storage_type;
           drupalSettings.panels_ipe.panels_display.storage_id = drupalSettings.panelizer.entity[storage_type + '_storage_id'];
-          Drupal.panels_ipe.setUrlRoot(drupalSettings);
 
           // Show/hide the revert to default tab.
           self.revertTab.set({hidden: storage_type === 'panelizer_default'});

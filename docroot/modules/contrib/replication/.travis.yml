@@ -3,17 +3,15 @@ sudo: false
 language: php
 
 php:
+  - 5.5
   - 5.6
   - 7.0
 
 env:
+  - MAKE_FILE=drupal-8.1.x.make.yml
   - MAKE_FILE=drupal-8.2.x.make.yml
-  - MAKE_FILE=drupal-8.3.x.make.yml
-  - MAKE_FILE=drupal-8.4.x.make.yml
 
 matrix:
-  allow_failures:
-    - env: MAKE_FILE=drupal-8.2.x.make.yml
   fast_finish: true
 
 services:
@@ -22,7 +20,7 @@ services:
 addons:
   apt:
     packages:
-      - nginx
+    - nginx
 
 cache:
   directories:
